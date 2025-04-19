@@ -29,9 +29,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.8
-  flutter_localizations:
-    sdk: flutter
+  dots_indicator: ^4.0.1
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.17
 
