@@ -6,10 +6,8 @@ class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({
     super.key,
     required this.pageController,
-    required this.currentPage,
   });
   final PageController pageController;
-  final int currentPage;
 
   @override
   Widget build(BuildContext context) {

@@ -36,12 +36,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: OnBoardingPageView(
-            pageController: pageController,
-            currentPage: currentPage,
-          ),
-        ),
+        Expanded(child: OnBoardingPageView(pageController: pageController)),
         DotsIndicator(
           dotsCount: 2,
           decorator: DotsDecorator(
