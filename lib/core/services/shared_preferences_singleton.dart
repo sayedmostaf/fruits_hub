@@ -10,7 +10,7 @@ class Prefs {
     await _instance.setBool(key, value);
   }
 
-  static Future<bool> getBool(String key) async {
-    return _instance.getBool(key)??false;
+  static getBool(String key) {
+    return _instance.getBool(key) ?? false;
   }
 }
