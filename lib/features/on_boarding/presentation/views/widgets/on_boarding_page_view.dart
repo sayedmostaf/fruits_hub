@@ -3,13 +3,21 @@ import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 
 class OnBoardingPageView extends StatelessWidget {
-  const OnBoardingPageView({super.key});
+  const OnBoardingPageView({
+    super.key,
+    required this.pageController,
+    required this.currentPage,
+  });
+  final PageController pageController;
+  final int currentPage;
 
   @override
   Widget build(BuildContext context) {
     return PageView(
+      controller: pageController,
       children: [
         PageViewItem(
+          isVisible: currentPage == 0,
           image: Assets.imagesPageViewItem1Image,
           subTitle:
               'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
@@ -20,6 +28,7 @@ class OnBoardingPageView extends StatelessWidget {
           ),
         ),
         PageViewItem(
+          isVisible: currentPage != 1,
           image: Assets.imagesPageViewItem2Image,
           subTitle:
               'نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية',

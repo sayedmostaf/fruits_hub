@@ -14,16 +14,16 @@ class OnBoardingViewBody extends StatefulWidget {
 
 class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   late PageController pageController;
-  var currentPage = 0;
+  int currentPage = 0;
   @override
   void initState() {
+    super.initState();
     pageController = PageController();
     pageController.addListener(() {
       setState(() {
-        currentPage = pageController.page!.round();
+        currentPage = pageController.page!.round().toInt();
       });
     });
-    super.initState();
   }
 
   @override
@@ -36,7 +36,12 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Expanded(child: OnBoardingPageView()),
+        Expanded(
+          child: OnBoardingPageView(
+            pageController: pageController,
+            currentPage: currentPage,
+          ),
+        ),
         DotsIndicator(
           dotsCount: 2,
           decorator: DotsDecorator(
