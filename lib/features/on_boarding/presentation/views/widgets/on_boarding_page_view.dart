@@ -14,10 +14,7 @@ class OnBoardingPageView extends StatelessWidget {
       controller: pageController,
       children: [
         PageViewItem(
-          isVisible:
-              (pageController.hasClients
-                  ? pageController.page!.round() == 0
-                  : false),
+          isVisible: true,
           image: Assets.imagesPageViewItem1Image,
           subTitle:
               'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
@@ -42,10 +39,7 @@ class OnBoardingPageView extends StatelessWidget {
           ),
         ),
         PageViewItem(
-          isVisible:
-              (pageController.hasClients
-                  ? pageController.page!.round() != 1
-                  : false),
+          isVisible: false,
           image: Assets.imagesPageViewItem2Image,
           subTitle:
               'نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية',
