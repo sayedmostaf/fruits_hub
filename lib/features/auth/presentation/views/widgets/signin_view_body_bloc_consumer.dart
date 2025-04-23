@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_progress_hud.dart';
 import 'package:fruits_hub/features/auth/presentation/cubits/signin_cubits/signin_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/cubits/signup_cubits/signup_state.dart';
-import 'package:fruits_hub/features/auth/presentation/views/widgets/login_view_body.dart';
+import 'package:fruits_hub/features/auth/presentation/views/widgets/signin_view_body.dart';
 
 class SigninViewBodyBlocConsumer extends StatelessWidget {
   const SigninViewBodyBlocConsumer({super.key});
@@ -17,7 +18,13 @@ class SigninViewBodyBlocConsumer extends StatelessWidget {
           child: SigninViewBody(),
         );
       },
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SigninSuccess) {
+        }
+        if (state is SigninFailure) {
+          buildErrorBar(context, state.message);
+        }
+      },
     );
   }
 }
