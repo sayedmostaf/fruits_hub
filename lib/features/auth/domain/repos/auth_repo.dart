@@ -14,6 +14,8 @@ abstract class AuthRepo {
     String password,
   );
 
+  Future addData({required UserEntity user});
+
   Future<Either<Failure, UserEntity>> signinWithGoogle();
   Future<Either<Failure, UserEntity>> signinWithFacebook();
 }
