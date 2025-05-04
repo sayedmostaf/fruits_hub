@@ -51,6 +51,7 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  @override
   Future<Either<Failure, UserEntity>> signinWithEmailAndPassword(
     String email,
     String password,
@@ -60,7 +61,7 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
-      var userEntity = UserModel.fromFirebaseUser(user);
+      var userEntity = await getUserData(uId: user.uid);
       return right(userEntity);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
@@ -103,5 +104,14 @@ class AuthRepoImpl implements AuthRepo {
       path: BackendEndpoint.addUserData,
       data: user.toMap(),
     );
+  }
+
+  @override
+  Future<UserEntity> getUserData({required String uId}) async {
+    var userData = await databaseService.getData(
+      path: BackendEndpoint.getUserData,
+      documentId: uId,
+    );
+    return UserModel.fromJson(userData);
   }
 }
