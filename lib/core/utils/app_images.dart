@@ -18,6 +18,10 @@ class Assets {
   /// assets/images/facebook_icon.svg
   static const String imagesFacebookIcon = "assets/images/facebook_icon.svg";
 
+  /// Assets for imagesFeaturedItemBackground
+  /// assets/images/featured_item_background.svg
+  static const String imagesFeaturedItemBackground = "assets/images/featured_item_background.svg";
+
   /// Assets for imagesFilter
   /// assets/images/filter.svg
   static const String imagesFilter = "assets/images/filter.svg";
@@ -69,5 +73,9 @@ class Assets {
   /// Assets for imagesVector
   /// assets/images/Vector.svg
   static const String imagesVector = "assets/images/Vector.svg";
+
+  /// Assets for imagesWatermelonTest
+  /// assets/images/watermelon_test.png
+  static const String imagesWatermelonTest = "assets/images/watermelon_test.png";
 }
 
