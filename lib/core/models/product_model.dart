@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/helper_functions/get_avg_rating.dart';
 import 'package:fruits_hub/core/models/review_model.dart';
 
 class ProductModel {
@@ -51,7 +52,7 @@ class ProductModel {
       isOrganic: json['isOrganic'],
       isFeatured: json['isFeatured'],
       imageUrl: json['imageUrl'],
-      avgRating: 0,
+      avgRating: getAvgRating(json['reviews']),
     );
   }
 
