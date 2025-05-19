@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:fruits_hub/core/entities/product_entity.dart';
 
 ProductEntity getDummyProduct() {
@@ -13,7 +11,6 @@ ProductEntity getDummyProduct() {
     numberOfCalories: 100,
     unitAmount: 1,
     isOrganic: true,
-    image: File(''),
     isFeatured: true,
     imageUrl:
         'https://www.freshnessblogger.com/wp-content/uploads/2020/11/Apple-1.jpg',
