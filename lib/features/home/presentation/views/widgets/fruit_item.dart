@@ -28,11 +28,12 @@ class FruitItem extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 20),
-                Image.asset(Assets.imagesWatermelonTest),
+                Flexible(child: Image.network(productEntity.imageUrl!)),
+
                 const SizedBox(height: 24),
                 ListTile(
                   title: Text(
-                    'بطيخ',
+                    productEntity.name,
                     textAlign: TextAlign.right,
                     style: TextStyles.semiBold16,
                   ),
@@ -40,7 +41,7 @@ class FruitItem extends StatelessWidget {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: '30جنية ',
+                          text: '${productEntity.price}جنية ',
                           style: TextStyles.bold13.copyWith(
                             color: AppColors.secondaryColor,
                           ),
@@ -58,7 +59,7 @@ class FruitItem extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: 'الكيلو',
+                          text: 'كيلو',
                           style: TextStyles.semiBold13.copyWith(
                             color: AppColors.lightSecondaryColor,
                           ),
