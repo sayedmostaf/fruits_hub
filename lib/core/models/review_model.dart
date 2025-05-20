@@ -44,12 +44,12 @@ class ReviewModel {
       reviewDescription: reviewDescription,
     );
   }
-  
+
   toJson() {
     return {
       'name': name,
       'image': image,
-      'rating': rating,
+      'ratting': rating,
       'date': date,
       'reviewDescription': reviewDescription,
     };

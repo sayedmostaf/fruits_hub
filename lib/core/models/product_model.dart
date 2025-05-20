@@ -1,6 +1,6 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
-import 'package:fruits_hub/core/helper_functions/get_avg_rating.dart';
-import 'package:fruits_hub/core/models/review_model.dart';
+import '../helper_functions/get_avg_rating.dart';
+import 'review_model.dart';
 
 class ProductModel {
   final String name;
@@ -23,18 +23,19 @@ class ProductModel {
     required this.description,
     required this.expirationsMonths,
     required this.numberOfCalories,
-    required this.sellingCount,
+    required this.avgRating,
     required this.unitAmount,
+    required this.sellingCount,
     required this.reviews,
     required this.price,
     required this.isOrganic,
     required this.isFeatured,
     this.imageUrl,
-    required this.avgRating,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      avgRating: getAvgRating(json['reviews']),
       name: json['name'],
       code: json['code'],
       description: json['description'],
@@ -44,15 +45,14 @@ class ProductModel {
       sellingCount: json['sellingCount'],
       reviews:
           json['reviews'] != null
-              ? List<ReviewModel>.from(
-                json['reviews'].map((e) => ReviewModel.fromJson(e)),
-              )
+              ? (json['reviews'] as List<dynamic>)
+                  .map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+                  .toList()
               : [],
       price: json['price'],
       isOrganic: json['isOrganic'],
       isFeatured: json['isFeatured'],
       imageUrl: json['imageUrl'],
-      avgRating: getAvgRating(json['reviews']),
     );
   }
 
@@ -62,13 +62,13 @@ class ProductModel {
       code: code,
       description: description,
       price: price,
-      isOrganic: isOrganic,
+      reviews: reviews.map((e) => e.toEntity()).toList(),
       expirationsMonths: expirationsMonths,
       numberOfCalories: numberOfCalories,
       unitAmount: unitAmount,
+      isOrganic: isOrganic,
       isFeatured: isFeatured,
       imageUrl: imageUrl,
-      reviews: reviews.map((e) => e.toEntity()).toList(),
     );
   }
 
