@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/widgets/custom_network_image.dart';
 
 class FruitItem extends StatelessWidget {
   const FruitItem({super.key, required this.productEntity});
@@ -27,9 +28,13 @@ class FruitItem extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 20),
-                Flexible(child: Image.network(productEntity.imageUrl!)),
-
-                const SizedBox(height: 24),
+                productEntity.imageUrl != null
+                    ? Flexible(
+                      child: CustomNetworkImage(
+                        imageUrl: productEntity.imageUrl!,
+                      ),
+                    )
+                    : Container(color: Colors.grey, height: 100, width: 100), 
                 ListTile(
                   title: Text(
                     productEntity.name,
