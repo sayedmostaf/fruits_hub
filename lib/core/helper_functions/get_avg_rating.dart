@@ -1,10 +1,9 @@
-num getAvgRating(List<dynamic> reviews) {
-  if (reviews.isEmpty) {
-    return 0.0;
-  }
+import 'package:fruits_hub/core/models/review_model.dart';
+
+num getAvgRating(List<ReviewModel> reviews) {
   var sum = 0.0;
   for (var review in reviews) {
-    sum += (review as Map<String, dynamic>)['ratting'] ?? 0.0;
+    sum += review.rating;
   }
   return sum / reviews.length;
 }
