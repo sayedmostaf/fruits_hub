@@ -10,12 +10,12 @@ class CartItemActionButtons extends StatelessWidget {
     return Row(
       children: [
         CartItemActionButton(
-          icon: Icons.add,
           iconColor: Colors.white,
+          icon: Icons.add,
           color: AppColors.primaryColor,
           onPressed: () {},
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             '3',
@@ -24,9 +24,9 @@ class CartItemActionButtons extends StatelessWidget {
           ),
         ),
         CartItemActionButton(
-          icon: Icons.remove,
           iconColor: Colors.grey,
-          color: Color(0xFFF3F5F7),
+          icon: Icons.remove,
+          color: const Color(0xFFF3F5F7),
           onPressed: () {},
         ),
       ],
@@ -38,24 +38,26 @@ class CartItemActionButton extends StatelessWidget {
   const CartItemActionButton({
     super.key,
     required this.icon,
-    required this.iconColor,
     required this.color,
     required this.onPressed,
+    required this.iconColor,
   });
+
   final IconData icon;
-  final Color iconColor, color;
+  final Color iconColor;
+  final Color color;
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 24,
       height: 24,
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       decoration: ShapeDecoration(
         color: color,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       ),
-      child: Icon(icon, color: iconColor),
+      child: FittedBox(child: Icon(icon, color: iconColor)),
     );
   }
 }

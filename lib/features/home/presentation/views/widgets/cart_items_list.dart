@@ -7,10 +7,10 @@ class CartItemsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList.separated(
-      separatorBuilder: (context, index) => CustomDivider(),
+      separatorBuilder: (context, index) => const CustomDivider(),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return Padding(
+        return const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: CartItem(),
         );
@@ -24,6 +24,6 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(color: Color(0xFFF1F1F5), height: 22);
+    return const Divider(color: Color(0xFFF1F1F5), height: 22);
   }
 }

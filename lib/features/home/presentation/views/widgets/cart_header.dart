@@ -7,9 +7,9 @@ class CartHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(color: Color(0xFFEBF9F1)),
-      child: Center(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      decoration: const BoxDecoration(color: Color(0xFFEBF9F1)),
+      child: const Center(
         child: Text(
           'لديك 3 منتجات في سله التسوق',
           style: TextStyle(
