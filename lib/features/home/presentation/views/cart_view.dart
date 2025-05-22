@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_view_body.dart';
 
 class CartView extends StatelessWidget {

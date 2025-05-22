@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/constants.dart';
 import 'package:fruits_hub/core/cubits/products_cubit/products_cubit.dart';

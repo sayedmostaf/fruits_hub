@@ -1,32 +1,44 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:fruits_hub/constants.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_header.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_item.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/cart_items_list.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                SizedBox(height: kTopPadding),
-                buildAppBar(context, title: 'السلة', showNotification: false),
-                const SizedBox(height: 16),
-                const CartHeader(),
-                const SizedBox(height: 12),
-                const CartItem(),
-              ],
+    return Stack(
+      children: [
+        CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(height: kTopPadding),
+                  buildAppBar(context, title: 'السلة', showNotification: false),
+                  const SizedBox(height: 16),
+                  const CartHeader(),
+                  const SizedBox(height: 12),
+                  const CartItem(),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+            SliverToBoxAdapter(child: CustomDivider()),
+            CartItemsList(),
+            SliverToBoxAdapter(child: CustomDivider()),
+          ],
+        ),
+        Positioned(
+          left: 16,
+          right: 16,
+          bottom: MediaQuery.sizeOf(context).height * .07,
+          child: CustomButton(onPressed: () {}, text: 'الدفع 120جنية'),
+        ),
+      ],
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({super.key, required this.imageUrl});
