@@ -24,6 +24,10 @@ class CartEntity {
     return totalPrice;
   }
 
+  removeCartItem(CartItemEntity cartItem) {
+    cartItems.remove(cartItem);
+  }
+
   CartItemEntity getCartItem(ProductEntity product) {
     for (var cartItem in cartItems) {
       if (cartItem.productEntity == product) return cartItem;
