@@ -11,16 +11,15 @@ class CheckoutSteps extends StatelessWidget {
         return Expanded(
           child: StepItem(
             isActive: false,
-            index: index.toString(),
+            index: (index + 1).toString(),
             text: getSteps()[index],
           ),
         );
       }),
     );
   }
-
-  
 }
+
 List<String> getSteps() {
-    return ['الشحن', 'العنوان', 'الدفع', 'المراجعه'];
-  }
+  return ['الشحن', 'العنوان', 'الدفع', 'المراجعه'];
+}
