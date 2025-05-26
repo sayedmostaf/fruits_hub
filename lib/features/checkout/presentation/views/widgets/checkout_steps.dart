@@ -2,17 +2,31 @@ import 'package:flutter/widgets.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/step_item.dart';
 
 class CheckoutSteps extends StatelessWidget {
-  const CheckoutSteps({super.key, required this.currentPageIndex});
+  const CheckoutSteps({
+    super.key,
+    required this.currentPageIndex,
+    required this.pageController,
+  });
   final int currentPageIndex;
+  final PageController pageController;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(getSteps().length, (index) {
         return Expanded(
-          child: StepItem(
-            isActive: index <= currentPageIndex,
-            index: (index + 1).toString(),
-            text: getSteps()[index],
+          child: GestureDetector(
+            onTap: () {
+              pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              );
+            },
+            child: StepItem(
+              isActive: index <= currentPageIndex,
+              index: (index + 1).toString(),
+              text: getSteps()[index],
+            ),
           ),
         );
       }),
