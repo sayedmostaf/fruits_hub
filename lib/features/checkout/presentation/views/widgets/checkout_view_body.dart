@@ -1,7 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:fruits_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
+import 'package:fruits_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key});
@@ -47,11 +50,15 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           ),
           CustomButton(
             onPressed: () {
-              pageController.animateToPage(
-                currentPageIndex + 1,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.bounceIn,
-              );
+              if (context.read<OrderEntity>().payWithCash != null) {
+                pageController.animateToPage(
+                  currentPageIndex + 1,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.bounceIn,
+                );
+              } else {
+                showErrorBar(context, 'يرجي تحديد طريقه الدفع');
+              }
             },
             text: getNextButtonText(currentPageIndex),
           ),
