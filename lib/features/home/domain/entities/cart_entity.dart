@@ -32,6 +32,6 @@ class CartEntity {
     for (var cartItem in cartItems) {
       if (cartItem.productEntity == product) return cartItem;
     }
-    return CartItemEntity(productEntity: product, count: 1);
+    return CartItemEntity(productEntity: product, quantity: 1);
   }
 }
