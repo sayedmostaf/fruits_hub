@@ -26,7 +26,7 @@ class CheckoutSteps extends StatelessWidget {
                   curve: Curves.easeIn,
                 );
               } else {
-                showErrorBar(context, 'يرجي تحديد طريقه الدفع');
+                showBar(context, 'يرجي تحديد طريقه الدفع');
               }
             },
             child: StepItem(
