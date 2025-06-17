@@ -12,4 +12,22 @@ class OrderEntity {
     required this.shippingAddressEntity,
     required this.uID,
   });
+
+  double calculateShippingCost() {
+    if (payWithCash!) {
+      return 30;
+    } else {
+      return 0;
+    }
+  }
+
+  double calculateShippingDiscount() {
+    return 0;
+  }
+
+  double calculateTotalPriceAfterDiscountAndShipping() {
+    return cartEntity.calculateTotalPrice() +
+        calculateShippingCost() -
+        calculateShippingDiscount();
+  }
 }
