@@ -14,4 +14,9 @@ class Amount {
       details: DetailsEntity.fromEntity(entity),
     );
   }
+   toJson() => {
+        'total': total,
+        'currency': currency,
+        'details': details!.toJson(),
+      };
 }
