@@ -1,8 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:fruits_hub/core/helper_functions/build_error_bar.dart';
-import 'package:fruits_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/step_item.dart';
-import 'package:provider/provider.dart';
 
 class CheckoutSteps extends StatelessWidget {
   const CheckoutSteps({
