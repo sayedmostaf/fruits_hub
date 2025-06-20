@@ -6,6 +6,7 @@ import 'package:fruits_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruits_hub/features/checkout/domain/entities/paypal_payment_entitiy/paypal_payment_entity.dart';
+import 'package:fruits_hub/features/checkout/presentation/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,28 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         children: [
           SizedBox(height: 20),
           CheckoutSteps(
+            onTap: (index) {
+              if (currentPageIndex == 0) {
+                pageController.animateToPage(
+                  index,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                );
+              } else if (index == 1) {
+                var orderEntity = context.read<OrderEntity>();
+                if (orderEntity.payWithCash != null) {
+                  pageController.animateToPage(
+                    index,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                } else {
+                  showBar(context, 'يرجي تحديد طريقه الدفع');
+                }
+              } else {
+                _handleAddressValidation();
+              }
+            },
             pageController: pageController,
             currentPageIndex: currentPageIndex,
           ),
@@ -122,6 +145,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     PaypalPaymentEntity paypalPaymentEntity = PaypalPaymentEntity.fromEntity(
       orderEntity,
     );
+    var addOrderCubit = context.read<AddOrderCubit>();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder:
@@ -133,7 +157,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               note: "Contact us for any questions on your order.",
               onSuccess: (Map params) async {
                 Navigator.pop(context);
-                showBar(context, 'تمت العملية بنجاح');
+                addOrderCubit.addOrder(order: orderEntity);
               },
               onError: (error) {
                 log(error.toString());
