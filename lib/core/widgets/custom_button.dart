@@ -11,18 +11,20 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 54,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: AppColors.primaryColor,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
+          backgroundColor: AppColors.primaryColor,
         ),
-        onPressed: onPressed,
-        child: Text(
+        icon: const Icon(Icons.shopping_cart, color: Colors.white),
+        label: Text(
           text,
           style: TextStyles.bold16.copyWith(color: Colors.white),
         ),
+        onPressed: onPressed,
       ),
     );
   }

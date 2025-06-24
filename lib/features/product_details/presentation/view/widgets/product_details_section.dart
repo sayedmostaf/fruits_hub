@@ -34,39 +34,77 @@ class _ProductDetailsSectionState extends State<ProductDetailsSection> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        widget.name,
-        textAlign: TextAlign.right,
-        style: TextStyles.bold16.copyWith(height: 2),
-      ),
-      subtitle: Text.rich(
-        textAlign: TextAlign.right,
-        TextSpan(
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TextSpan(
-              text: '${widget.price}جنية ',
-              style: TextStyles.bold13.copyWith(color: Color(0xFFF4A91F)),
+            // Product Info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.name,
+                    style: TextStyles.bold19,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${widget.price} جنية',
+                        style: TextStyles.bold16.copyWith(
+                          color: Color(0xFFF4A91F),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '/ الكيلو',
+                        style: TextStyles.semiBold13.copyWith(
+                          color: Color(0xFFF8C76D),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            TextSpan(
-              text: '/ الكيلو ',
-              style: TextStyles.semiBold13.copyWith(color: Color(0xFFF8C76D)),
+            // Quantity Selector
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.07),
+                    blurRadius: 8,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: SizedBox(
+                height: 40,
+                width: 100,
+                child: BlocProvider(
+                  create: (_) => CartItemCubit(),
+                  child: CartItemActionButtons(
+                    cartItemEntity: context
+                        .read<CartCubit>()
+                        .cartEntity
+                        .getCartItem(widget.productModel.toEntity()),
+                  ),
+                ),
+              ),
             ),
           ],
-        ),
-      ),
-      trailing: SizedBox(
-        height: 40,
-        width: 100,
-        child: BlocProvider(
-          create: (_) => CartItemCubit(),
-          child: CartItemActionButtons(
-            
-            cartItemEntity: context.read<CartCubit>().cartEntity.getCartItem(
-              widget.productModel.toEntity(),
-            ),
-          ),
         ),
       ),
     );

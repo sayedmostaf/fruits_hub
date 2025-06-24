@@ -14,14 +14,14 @@ class RoundedBoxWithListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.2, color: Color(0xFF949D9E)),
-          borderRadius: BorderRadius.circular(16),
-        ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F9FA),
+        borderRadius: BorderRadius.circular(16),
+
+        border: Border.all(width: 0.2, color: const Color(0xFF949D9E)),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
         title: Text.rich(
           TextSpan(
             children: [
@@ -31,9 +31,9 @@ class RoundedBoxWithListTile extends StatelessWidget {
               ),
               TextSpan(
                 text: title,
-                style: TextStyles.bold13.copyWith(
+                style: TextStyles.bold16.copyWith(
                   color: Color(0xFF60D290),
-                  height: 2,
+                  height: 1.7,
                 ),
               ),
             ],
@@ -43,7 +43,7 @@ class RoundedBoxWithListTile extends StatelessWidget {
           subTitle,
           style: TextStyles.semiBold13.copyWith(color: Color(0xFF949D9E)),
         ),
-        trailing: SvgPicture.asset(iconImage),
+        trailing: SvgPicture.asset(iconImage, width: 32, height: 32),
       ),
     );
   }

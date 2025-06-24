@@ -86,8 +86,7 @@ class _ProductDetailsDataState extends State<ProductDetailsData> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
-            // CustomCartButton(),
+            SizedBox(height: 32),
             CustomButton(
               onPressed: () {
                 context.read<CartCubit>().addCartItem(
@@ -97,7 +96,7 @@ class _ProductDetailsDataState extends State<ProductDetailsData> {
               },
               text: "اضف إلى السلة",
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 32),
           ],
         ),
       ),
