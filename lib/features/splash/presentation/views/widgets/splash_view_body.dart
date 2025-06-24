@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'package:fruits_hub/constants.dart';
 import 'package:fruits_hub/core/services/firebase_auth_service.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
@@ -25,15 +26,32 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [SvgPicture.asset(Assets.imagesPlant)],
+        WidgetAnimator(
+          incomingEffect: WidgetTransitionEffects.incomingScaleDown(
+            duration: const Duration(milliseconds: 1000),
+          ),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: SvgPicture.asset(Assets.imagesPlant),
+          ),
         ),
-        SvgPicture.asset(Assets.imagesLogo),
-        SvgPicture.asset(Assets.imagesSplashBottom, fit: BoxFit.fill),
+        WidgetAnimator(
+          incomingEffect: WidgetTransitionEffects.incomingScaleUp(
+            duration: const Duration(milliseconds: 1000),
+            delay: const Duration(milliseconds: 500),
+          ),
+          child: SvgPicture.asset(Assets.imagesLogo),
+        ),
+        WidgetAnimator(
+          incomingEffect: WidgetTransitionEffects.incomingScaleUp(
+            duration: const Duration(milliseconds: 1000),
+            delay: const Duration(milliseconds: 1000),
+          ),
+          child: SvgPicture.asset(Assets.imagesSplashBottom, fit: BoxFit.fill),
+        ),
       ],
     );
   }
