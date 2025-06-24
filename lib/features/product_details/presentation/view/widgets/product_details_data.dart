@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/models/product_model.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/custom_cart_button.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/widgets/product_description_text.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/widgets/product_details_section.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/widgets/rate_and_review_text.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/widgets/rounded_box_with_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruits_hub/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class ProductDetailsData extends StatefulWidget {
   const ProductDetailsData({super.key, required this.productModel});
@@ -50,7 +47,10 @@ class _ProductDetailsDataState extends State<ProductDetailsData> {
               children: [
                 Expanded(
                   child: RoundedBoxWithListTile(
-                    title: 'عام',
+                    title:
+                        widget.productModel.expirationsMonths != 1
+                            ? "${widget.productModel.expirationsMonths} أعوام"
+                            : "${widget.productModel.expirationsMonths} عام",
                     subTitle: 'الصلاحية',
                     iconImage: Assets.imagesCalendar,
                   ),
@@ -58,7 +58,7 @@ class _ProductDetailsDataState extends State<ProductDetailsData> {
                 SizedBox(width: 16),
                 Expanded(
                   child: RoundedBoxWithListTile(
-                    title: "100%",
+                    title: widget.productModel.isOrganic ? "100%" : "0%",
                     subTitle: "اورجانيك",
                     iconImage: Assets.imagesOrganic,
                   ),
@@ -78,8 +78,8 @@ class _ProductDetailsDataState extends State<ProductDetailsData> {
                 SizedBox(width: 16),
                 Expanded(
                   child: RoundedBoxWithListTile(
-                    title: "4.5",
-                    ratingCount: "(256) ",
+                    title: widget.productModel.avgRating.toString(),
+                    ratingCount: "(${widget.productModel.ratingCount}) ",
                     subTitle: "Reviews",
                     iconImage: Assets.imagesStar,
                   ),

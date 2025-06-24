@@ -15,7 +15,6 @@ class ProductDetailsView extends StatelessWidget {
       create: (_) => CartCubit(),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: ProductDetailsViewBody(productModel: productModel),
         ),
       ),

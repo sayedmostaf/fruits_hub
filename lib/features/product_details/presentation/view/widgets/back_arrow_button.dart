@@ -21,9 +21,9 @@ class BackArrowButton extends StatelessWidget {
             ),
           ],
         ),
-        child: const Icon(
+        child:  Icon(
           Icons.arrow_back_ios_new,
-          color: Color(0xFF1B5E37),
+          color: Colors.black,
           size: 20,
         ),
       ),

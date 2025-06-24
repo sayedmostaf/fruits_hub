@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/models/product_model.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_item_action_buttons.dart';
-import 'package:fruits_hub/features/product_details/presentation/view/widgets/add_button.dart';
-import 'package:fruits_hub/features/product_details/presentation/view/widgets/remove_button.dart';
+import 'package:fruits_hub/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class ProductDetailsSection extends StatefulWidget {
   const ProductDetailsSection({
@@ -55,34 +56,18 @@ class _ProductDetailsSectionState extends State<ProductDetailsSection> {
           ],
         ),
       ),
-      trailing: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AddButton(
-            productModel: widget.productModel,
-            onPressed: () {
-              setState(() {
-                count++;
-              });
-              widget.onPressed(count);
-            },
-            showMessage: false,
+      trailing: SizedBox(
+        height: 40,
+        width: 100,
+        child: BlocProvider(
+          create: (_) => CartItemCubit(),
+          child: CartItemActionButtons(
+            
+            cartItemEntity: context.read<CartCubit>().cartEntity.getCartItem(
+              widget.productModel.toEntity(),
+            ),
           ),
-          SizedBox(width: 16),
-          Text(count.toString(), style: TextStyles.bold16),
-          SizedBox(width: 16),
-          RemoveButton(
-            onPressed: () {
-              setState(() {
-                if (count > 1) {
-                  count--;
-                }
-              });
-              widget.onPressed(count);
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

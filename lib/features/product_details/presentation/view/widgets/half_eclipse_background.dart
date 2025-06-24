@@ -1,11 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/widgets/custom_network_image.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/widgets/back_arrow_button.dart';
 
 class HalfEclipseBackground extends StatelessWidget {
   const HalfEclipseBackground({super.key, required this.imageUrl});
   final String imageUrl;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -13,8 +12,8 @@ class HalfEclipseBackground extends StatelessWidget {
         ClipPath(
           clipper: HalfOvalClipper(context: context),
           child: Container(
-            height: MediaQuery.of(context).size.height * .5,
-            color: Colors.white,
+            height: MediaQuery.of(context).size.height * 0.5,
+            color: Color(0xFFF3F5F7),
           ),
         ),
         const Padding(padding: EdgeInsets.all(8.0), child: BackArrowButton()),
@@ -24,7 +23,7 @@ class HalfEclipseBackground extends StatelessWidget {
           right: 0,
           left: 0,
           child: Center(
-            child: CustomNetworkImage(
+            child: CachedNetworkImage(
               imageUrl: imageUrl,
               height: 187,
               width: 201,

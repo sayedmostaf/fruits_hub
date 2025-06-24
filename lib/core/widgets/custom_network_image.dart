@@ -22,10 +22,9 @@ class CustomNetworkImage extends StatelessWidget {
       width: width,
       fit: fit,
       errorBuilder: (context, error, stackTrace) {
-        return Container(
+        return SizedBox(
           height: height,
           width: width,
-          color: Colors.grey[300],
           child: const Icon(Icons.error, color: Colors.grey),
         );
       },
