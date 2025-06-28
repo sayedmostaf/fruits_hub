@@ -7,6 +7,7 @@ import 'package:fruits_hub/features/home/presentation/views/widgets/products_gri
 import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_header.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/featured_list.dart';
+import 'package:fruits_hub/features/search/presentation/view/search_result_view.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -34,7 +35,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 SizedBox(height: kTopPadding),
                 CustomHomeAppBar(),
                 SizedBox(height: kTopPadding),
-                const SearchTextField(),
+                SearchTextField(
+                  readOnly: true,
+                  onTap:
+                      () => Navigator.pushNamed(
+                        context,
+                        SearchResultView.routeName,
+                      ),
+                ),
                 SizedBox(height: 12),
                 FeaturedList(),
                 SizedBox(height: 12),

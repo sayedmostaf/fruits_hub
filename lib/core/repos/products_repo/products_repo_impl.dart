@@ -52,4 +52,23 @@ class ProductsRepoImpl extends ProductsRepo {
       return left(ServerFailure('Failed to get products: ${e.toString()}'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> searchProducts({
+    required String collectionName,
+    required String query,
+  }) async {
+    try {
+      final response = await databaseService.getData(
+        path: collectionName,
+        query: {'search': query},
+      );
+      List<ProductEntity> products =
+          response.map((map) => ProductModel.fromJson(map)).toList();
+      return right(products);
+    } catch (e) {
+      developer.log('Error fetching products: $e', error: e);
+      return left(ServerFailure('Failed to get products: ${e.toString()}'));
+    }
+  }
 }

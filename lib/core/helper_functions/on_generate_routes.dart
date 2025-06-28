@@ -8,6 +8,7 @@ import 'package:fruits_hub/features/home/domain/entities/cart_entity.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/product_details_view.dart';
+import 'package:fruits_hub/features/search/presentation/view/search_result_view.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -31,10 +32,13 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       );
     case ProductDetailsView.routeName:
       return MaterialPageRoute(
-        builder: (context) => ProductDetailsView(
-          productModel: settings.arguments as ProductModel,
-        ),
+        builder:
+            (context) => ProductDetailsView(
+              productModel: settings.arguments as ProductModel,
+            ),
       );
+    case SearchResultView.routeName:
+      return MaterialPageRoute(builder: (_) => const SearchResultView());
     default:
       return MaterialPageRoute(builder: (_) => const Scaffold());
   }
