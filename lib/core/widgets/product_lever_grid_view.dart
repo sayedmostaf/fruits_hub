@@ -17,7 +17,7 @@ class ProductLeverGridView extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: 147 / 181,
+        childAspectRatio: 140 / 191,
       ),
       itemBuilder: (context, index) {
         return FruitItem(productEntity: products[index]);

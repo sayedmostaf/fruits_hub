@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
@@ -59,7 +60,29 @@ class SearchResultGrid extends StatelessWidget {
           );
         } else if (state is SearchFailure) {
           return SliverToBoxAdapter(
-            child: Center(child: Text("خطأ: ${state.errorMessage}")),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 64,
+                      color: Color(0xFF616A6B),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      state.errorMessage,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.regular13.copyWith(
+                        color: Color(0xFF616A6B),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         } else {
           return const SliverToBoxAdapter(child: SizedBox.shrink());

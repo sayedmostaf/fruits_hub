@@ -29,6 +29,14 @@ class FireStoreService implements DatabaseService {
     } else {
       Query<Map<String, dynamic>> data = firestore.collection(path);
       if (query != null) {
+        if (query['search'] != null) {
+          String searchTerm = query['search'].toString().toLowerCase().trim();
+          if (searchTerm.isNotEmpty) {
+            data = data
+                .where('name', isGreaterThanOrEqualTo: searchTerm)
+                .where('name', isLessThan: searchTerm + '\uf8ff');
+          }
+        }
         if (query['orderBy'] != null) {
           var orderByField = query['orderBy'];
           var descending = query['descending'];

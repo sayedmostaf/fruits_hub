@@ -59,16 +59,26 @@ class ProductsRepoImpl extends ProductsRepo {
     required String query,
   }) async {
     try {
+      developer.log('Searching products with query: $query');
       final response = await databaseService.getData(
         path: collectionName,
         query: {'search': query},
       );
-      List<ProductEntity> products =
-          response.map((map) => ProductModel.fromJson(map)).toList();
-      return right(products);
+
+      if (response is List) {
+        List<ProductEntity> products =
+            response
+                .map((map) => ProductModel.fromJson(map).toEntity())
+                .toList();
+        developer.log('Search successful. Found ${products.length} products');
+        return right(products);
+      } else {
+        developer.log('Search failed: Invalid response format');
+        return left(ServerFailure('خطأ في تنسيق البيانات المستلمة'));
+      }
     } catch (e) {
-      developer.log('Error fetching products: $e', error: e);
-      return left(ServerFailure('Failed to get products: ${e.toString()}'));
+      developer.log('Error searching products: $e', error: e);
+      return left(ServerFailure('فشل في البحث. يرجى المحاولة مرة أخرى.'));
     }
   }
 }

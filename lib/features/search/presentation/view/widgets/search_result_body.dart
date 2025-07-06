@@ -9,12 +9,13 @@ class SearchResultBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       child: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverToBoxAdapter(child: buildAppBar(context, title: 'البحث')),
           SliverToBoxAdapter(child: SearchTextField()),
+          SliverToBoxAdapter(child: SizedBox(height: 16)),
           SearchResultGrid(),
         ],
       ),
