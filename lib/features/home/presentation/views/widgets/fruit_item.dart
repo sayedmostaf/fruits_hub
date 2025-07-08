@@ -9,6 +9,8 @@ import 'package:fruits_hub/core/widgets/custom_network_image.dart';
 import 'package:fruits_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_hub/features/product_details/presentation/view/product_details_view.dart';
 import 'package:fruits_hub/core/models/review_model.dart';
+import 'package:fruits_hub/features/favorite/presentation/manager/cubit/favorite_cubit.dart';
+import 'package:get_it/get_it.dart';
 
 class FruitItem extends StatefulWidget {
   const FruitItem({super.key, required this.productEntity});
@@ -22,7 +24,6 @@ class _FruitItemState extends State<FruitItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
-  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -56,6 +57,10 @@ class _FruitItemState extends State<FruitItem>
 
   @override
   Widget build(BuildContext context) {
+    final isFavorite = context.watch<FavoriteCubit>().isFavorite(
+      productCode: widget.productEntity.code,
+    );
+
     return AnimatedBuilder(
       animation: _scaleAnimation,
       builder: (context, child) {
@@ -301,9 +306,14 @@ class _FruitItemState extends State<FruitItem>
                     right: 12,
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          _isFavorite = !_isFavorite;
-                        });
+                        final cubit = context.read<FavoriteCubit>();
+                        if (isFavorite) {
+                          cubit.removeFromFavorites(
+                            productCode: widget.productEntity.code,
+                          );
+                        } else {
+                          cubit.addToFavorites(product: widget.productEntity);
+                        }
                         HapticFeedback.lightImpact();
                       },
                       child: Container(
@@ -323,12 +333,12 @@ class _FruitItemState extends State<FruitItem>
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 200),
                           child: Icon(
-                            _isFavorite
+                            isFavorite
                                 ? Icons.favorite
                                 : Icons.favorite_outline,
-                            key: ValueKey(_isFavorite),
+                            key: ValueKey(isFavorite),
                             color:
-                                _isFavorite ? Colors.red : Colors.grey.shade600,
+                                isFavorite ? Colors.red : Colors.grey.shade600,
                             size: 20,
                           ),
                         ),

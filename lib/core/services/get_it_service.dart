@@ -8,7 +8,10 @@ import 'package:fruits_hub/core/services/firestore_service.dart';
 import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:fruits_hub/features/auth/domain/repos/auth_repo.dart';
 import 'package:fruits_hub/features/favorite/data/repo/favorite_repo.dart';
+import 'package:fruits_hub/features/favorite/data/repo/favorite_repo_impl.dart';
 import 'package:get_it/get_it.dart';
+import 'package:fruits_hub/core/services/firebase_favorite_service.dart';
+import 'package:fruits_hub/core/services/favorite_service.dart';
 
 final getIt = GetIt.instance;
 void setupGetIt() {
@@ -25,5 +28,14 @@ void setupGetIt() {
   );
 
   getIt.registerSingleton<OrdersRepo>(OrdersRepoImpl(getIt<DatabaseService>()));
-  getIt.registerSingleton(getIt<FavoriteRepo>());
+
+  // Register FirebaseFavoriteService as FavoriteService
+  getIt.registerSingleton<FavoriteService>(FirebaseFavoriteService());
+  // Register FavoriteRepoImpl with correct dependencies
+  getIt.registerSingleton<FavoriteRepo>(
+    FavoriteRepoImpl(
+      getIt<FavoriteService>(),
+      getIt<DatabaseService>() as FireStoreService,
+    ),
+  );
 }

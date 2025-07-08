@@ -8,7 +8,7 @@ import '../../data/repo/favorite_repo.dart';
 
 class FavoriteView extends StatelessWidget {
   const FavoriteView({super.key});
-
+  static const String routeName = '/favoriteView';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

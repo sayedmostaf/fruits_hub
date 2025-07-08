@@ -1,12 +1,11 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/product_lever_grid_view.dart';
 import 'package:fruits_hub/core/widgets/skeletonizer_sliver_loading_with_dummy_products.dart';
 import 'package:fruits_hub/features/favorite/presentation/manager/cubit/favorite_cubit.dart';
 import 'package:fruits_hub/features/favorite/presentation/manager/cubit/favorite_state.dart';
-import 'package:provider/provider.dart';
 
 class FavoriteViewBody extends StatefulWidget {
   const FavoriteViewBody({super.key});
@@ -17,12 +16,13 @@ class FavoriteViewBody extends StatefulWidget {
 
 class _FavoriteViewBodyState extends State<FavoriteViewBody> {
   bool isFirstLoaded = true;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isFirstLoaded) {
-        context.read<FavoriteCubit>().getFavorites();
+        context.read<FavoriteCubit>().initFavorites();
         isFirstLoaded = false;
       }
     });
@@ -42,9 +42,12 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
               showBackButton: true,
             ),
           ),
+          SliverToBoxAdapter(child: SizedBox(height: 20)),
           BlocBuilder<FavoriteCubit, FavoriteState>(
             builder: (context, state) {
+              log('Current FavoriteState: $state');
               if (state is FavoriteSuccess) {
+                log('Favorite products: ${state.favoriteProducts.length}');
                 if (state.favoriteProducts.isEmpty) {
                   return SliverToBoxAdapter(
                     child: Center(
@@ -60,6 +63,7 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
                   products: state.favoriteProducts,
                 );
               } else if (state is FavoriteFailure) {
+                log('Favorite failure: ${state.message}');
                 return SliverToBoxAdapter(
                   child: Center(
                     child: Column(
