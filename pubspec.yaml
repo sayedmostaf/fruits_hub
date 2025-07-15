@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animate_do: ^4.2.0
   cached_network_image: ^3.4.1
   cloud_firestore: ^5.6.7
   cupertino_icons: ^1.0.8
@@ -111,5 +112,4 @@ flutter_assets:
   output_path: lib/core/utils
   filename: app_images.dart
   field_prefix: null
-flutter_intl:
-  enabled: true
+
