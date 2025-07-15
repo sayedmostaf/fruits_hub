@@ -1,3 +1,0 @@
-String getCurrency() {
-  return 'USD';
-}
