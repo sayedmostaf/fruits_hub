@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/models/product_model.dart';
+import 'package:fruits_hub/core/models/review_model.dart';
 import 'package:fruits_hub/features/auth/presentation/views/signin_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/signup_view.dart';
 import 'package:fruits_hub/features/best_selling_fruits/presentation/views/best_selling_view.dart';
@@ -32,16 +34,43 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
             (_) => CheckoutView(cartEntity: settings.arguments as CartEntity),
       );
     case ProductDetailsView.routeName:
-      return MaterialPageRoute(
-        builder:
-            (context) => ProductDetailsView(
-              productModel: settings.arguments as ProductModel,
-            ),
-      );
+      final arg = settings.arguments;
+      if (arg is ProductEntity) {
+        return MaterialPageRoute(
+          builder:
+              (context) => ProductDetailsView(
+                productModel: ProductModel(
+                  name: arg.name,
+                  code: arg.code,
+                  description: arg.description,
+                  price: arg.price,
+                  isFeatured: arg.isFeatured,
+                  imageUrl: arg.imageUrl,
+                  expirationsMonths: arg.expirationsMonths,
+                  isOrganic: arg.isOrganic,
+                  numberOfCalories: arg.numberOfCalories,
+                  avgRating: arg.avgRating,
+                  unitAmount: arg.unitAmount,
+                  sellingCount: 0,
+                  reviews:
+                      arg.reviews
+                          .map((e) => ReviewModel.fromEntity(e))
+                          .toList(),
+                ),
+              ),
+        );
+      } else {
+        return MaterialPageRoute(
+          builder:
+              (context) => ProductDetailsView(
+                productModel: settings.arguments as ProductModel,
+              ),
+        );
+      }
     case SearchResultView.routeName:
       return MaterialPageRoute(builder: (_) => const SearchResultView());
     case FavoriteView.routeName:
-      return MaterialPageRoute(builder: (_) => const FavoriteView ());
+      return MaterialPageRoute(builder: (_) => const FavoriteView());
     default:
       return MaterialPageRoute(builder: (_) => const Scaffold());
   }

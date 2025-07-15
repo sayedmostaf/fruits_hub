@@ -81,4 +81,25 @@ class ProductsRepoImpl extends ProductsRepo {
       return left(ServerFailure('فشل في البحث. يرجى المحاولة مرة أخرى.'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> priceFiltering({
+    required String collectionName,
+    required bool ascending,
+    required bool alpha,
+  }) async {
+    try {
+      final response = await databaseService.getData(
+        path: collectionName,
+        query: {'ascending': ascending, 'alpha': alpha},
+      );
+      List<ProductEntity> products =
+          response.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+      return right(products);
+    } catch (e) {
+      return left(
+        ServerFailure('فشل في تصفية الأسعار. يرجى المحاولة مرة أخرى.'),
+      );
+    }
+  }
 }

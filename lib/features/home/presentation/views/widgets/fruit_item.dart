@@ -10,7 +10,6 @@ import 'package:fruits_hub/features/home/presentation/cubits/cart_cubit/cart_cub
 import 'package:fruits_hub/features/product_details/presentation/view/product_details_view.dart';
 import 'package:fruits_hub/core/models/review_model.dart';
 import 'package:fruits_hub/features/favorite/presentation/manager/cubit/favorite_cubit.dart';
-import 'package:get_it/get_it.dart';
 
 class FruitItem extends StatefulWidget {
   const FruitItem({super.key, required this.productEntity});

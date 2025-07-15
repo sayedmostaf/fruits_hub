@@ -4,6 +4,7 @@ import 'package:fruits_hub/constants.dart';
 import 'package:fruits_hub/core/cubits/products_cubit/products_cubit.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/search_text_field.dart';
+import 'package:fruits_hub/features/category/presentation/view/widgets/our_category_bloc_builder.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view_bloc_builder.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/product_view_header.dart';
 
@@ -34,6 +35,8 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                 buildAppBar(context, title: 'المنتجات', showBackButton: false),
                 const SizedBox(height: 16),
                 SearchTextField(),
+                const SizedBox(height: 12),
+                OurCategoryBlocBuilder(),
                 const SizedBox(height: 12),
                 ProductViewHeader(
                   productsLength: context.read<ProductsCubit>().productsLength,

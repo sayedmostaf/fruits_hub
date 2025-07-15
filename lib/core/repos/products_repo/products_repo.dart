@@ -9,4 +9,9 @@ abstract class ProductsRepo {
     required String collectionName,
     required String query,
   });
+  Future<Either<Failure, List<ProductEntity>>> priceFiltering({
+    required String collectionName,
+    required bool ascending,
+    required bool alpha,
+  });
 }
