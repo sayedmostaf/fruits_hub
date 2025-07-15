@@ -34,6 +34,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   dots_indicator: ^4.0.1
+  easy_localization: ^3.0.7+1
   easy_refresh: ^3.4.0
   equatable: ^2.0.7
   firebase_auth: ^5.5.2
@@ -112,4 +113,3 @@ flutter_assets:
   output_path: lib/core/utils
   filename: app_images.dart
   field_prefix: null
-
