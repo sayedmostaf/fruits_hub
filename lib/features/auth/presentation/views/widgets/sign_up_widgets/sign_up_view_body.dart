@@ -35,7 +35,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             child: Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
-
               child: Column(
                 children: [
                   SizedBox(height: 24),
@@ -83,7 +82,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-
                         if (isTermsAccepted) {
                           context
                               .read<SignupCubit>()

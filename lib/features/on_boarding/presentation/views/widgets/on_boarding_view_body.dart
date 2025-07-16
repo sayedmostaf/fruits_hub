@@ -59,8 +59,10 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             child: CustomButton(
               onPressed: () {
                 Pref.setBool(Constants.isOnBoardingViewSeen, true);
-                // TODO: implement login
-                Navigator.pushNamed(context, Constants.signUpViewRoute);
+                Navigator.pushReplacementNamed(
+                  context,
+                  Constants.loginViewRoute,
+                );
               },
               text: AppStrings.startNow.tr(),
             ),
