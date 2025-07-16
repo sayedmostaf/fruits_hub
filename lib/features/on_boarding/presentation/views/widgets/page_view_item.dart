@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 
@@ -43,10 +44,13 @@ class PageViewItem extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         Pref.setBool(Constants.isOnBoardingViewSeen, true);
-                        // TODO: implement login
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Constants.loginViewRoute,
+                        );
                       },
                       child: Text(
-                        'skip'.tr(),
+                        AppStrings.skip.tr(),
                         textAlign: TextAlign.center,
                         style: AppTextStyle.textStyle13w400.copyWith(
                           color: Theme.of(context).hintColor,

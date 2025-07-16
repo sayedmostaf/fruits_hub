@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_or_divider.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_text_form_field.dart';
@@ -49,7 +50,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      //TODO: handle navigate to forgot password
+                      Navigator.pushNamed(
+                        context,
+                        Constants.forgetPasswordViewRoute,
+                      );
                     },
                     child: Text(
                       AppStrings.forgetPassword.tr(),

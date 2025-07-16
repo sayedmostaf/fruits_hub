@@ -3,6 +3,7 @@ class Constants {
   static const String onboardingViewRoute = '/onboardingView';
   static const String isOnBoardingViewSeen = 'isOnBoarding';
   static const String loginViewRoute = '/LoginView';
+  static const String forgetPasswordViewRoute = '/ForgetPasswordView';
 
   static const String signUpViewRoute = '/SignUpView';
 
