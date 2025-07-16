@@ -185,5 +185,6 @@
     "password_hint": "كلمة المرور",
     "recent_search_title": "عمليات البحث الأخيرة",
     "clear_all": "حذف الكل",
-    "no_recent_searches": "لا توجد عمليات بحث بعد"
+    "no_recent_searches": "لا توجد عمليات بحث بعد",
+    "skip": "تخطي"
 }

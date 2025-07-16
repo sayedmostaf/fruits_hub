@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
+import 'package:fruits_hub/core/utils/constants.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -13,7 +15,7 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
-    // TODO: implement nav to onboarding
+    _navigateToOnboardingView();
     super.initState();
   }
 
@@ -37,7 +39,15 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     );
   }
 
-  void _navigateToOnboardingView(){
-    // TODO: implement nav to onboarding
+  void _navigateToOnboardingView() {
+    final bool isOnBoardingSeen = Pref.getBool(Constants.isOnBoardingViewSeen);
+    // TODO: implement navgate to login
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Constants.onboardingViewRoute,
+        (route) => false,
+      );
+    });
   }
 }
