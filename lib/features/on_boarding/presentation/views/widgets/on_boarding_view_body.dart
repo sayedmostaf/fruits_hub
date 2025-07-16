@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
@@ -59,8 +60,9 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
               onPressed: () {
                 Pref.setBool(Constants.isOnBoardingViewSeen, true);
                 // TODO: implement login
+                Navigator.pushNamed(context, Constants.signUpViewRoute);
               },
-              text: 'start_now'.tr(),
+              text: AppStrings.startNow.tr(),
             ),
           ),
         ),
