@@ -6,6 +6,8 @@ import 'package:fruits_hub/core/helper_functions/build_custom_snack_bar.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/managers/theme/theme_cubit.dart';
 import 'package:fruits_hub/core/managers/theme/theme_state.dart';
+import 'package:fruits_hub/core/services/app_locator.dart';
+import 'package:fruits_hub/core/services/bloc_observer.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/themes/themes.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
@@ -17,6 +19,9 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await Pref.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  Bloc.observer = CustomBlocObserver();
+  setupLocator();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en'), Locale('ar')],
