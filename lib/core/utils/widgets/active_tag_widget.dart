@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
@@ -41,7 +42,7 @@ class ActiveTagWidget extends StatelessWidget {
           const SizedBox(width: 4),
           Flexible(
             child: Text(
-              title,
+              title.tr(),
               style: AppTextStyle.textStyle11w600.copyWith(color: primaryColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

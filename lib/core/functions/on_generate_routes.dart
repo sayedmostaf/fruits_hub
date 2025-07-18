@@ -3,6 +3,7 @@ import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/features/auth/presentation/views/login_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/forget_password_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/main_navigation_view.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 
@@ -19,6 +20,10 @@ Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
     case Constants.forgetPasswordViewRoute:
       return MaterialPageRoute(
         builder: (context) => const ForgetPasswordView(),
+      );
+    case Constants.mainNavigationViewRoute:
+      return MaterialPageRoute(
+        builder: (context) => const MainNavigationView(),
       );
     default:
       return MaterialPageRoute(

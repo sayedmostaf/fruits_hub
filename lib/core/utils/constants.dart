@@ -7,5 +7,7 @@ class Constants {
 
   static const String signUpViewRoute = '/SignUpView';
 
+  static const String mainNavigationViewRoute = '/MainNavigationView';
+
   static const String userData = 'User Data';
 }

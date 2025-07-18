@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fruits_hub/core/services/firebase_auth_service.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
@@ -41,13 +42,29 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void _navigateToOnboardingView() {
     final bool isOnBoardingSeen = Pref.getBool(Constants.isOnBoardingViewSeen);
-    // TODO: implement navgate to login
+    final bool isLoggedIn = FirebaseAuthService().isUserLoggedIn();
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        Constants.onboardingViewRoute,
-        (route) => false,
-      );
+      if (isOnBoardingSeen) {
+        if (isLoggedIn) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Constants.mainNavigationViewRoute,
+            (route) => false,
+          );
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Constants.loginViewRoute,
+            (route) => false,
+          );
+        }
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Constants.onboardingViewRoute,
+          (route) => false,
+        );
+      }
     });
   }
 }

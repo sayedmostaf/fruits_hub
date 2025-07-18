@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/helper_functions/build_error_snack_bar.dart';
+import 'package:fruits_hub/core/functions/build_error_snack_bar.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_text_form_field.dart';

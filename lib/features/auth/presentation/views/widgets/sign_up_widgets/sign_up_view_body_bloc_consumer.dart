@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruits_hub/core/helper_functions/build_error_snack_bar.dart';
-import 'package:fruits_hub/core/helper_functions/build_success_snack_bar.dart';
+import 'package:fruits_hub/core/functions/build_error_snack_bar.dart';
+import 'package:fruits_hub/core/functions/build_success_snack_bar.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_progress_hub_widget.dart';
 import 'package:fruits_hub/features/auth/presentation/managers/signup_cubit.dart/signup_cubit.dart';
