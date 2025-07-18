@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class SeeMoreButton extends StatelessWidget {
   const SeeMoreButton({super.key, required this.view});
@@ -13,7 +14,12 @@ class SeeMoreButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          // TODO: handle go to next page
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: view,
+            withNavBar: true,
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
         },
         splashColor: theme.colorScheme.secondary.withOpacity(0.1),
         highlightColor: Colors.transparent,

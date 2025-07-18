@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/see_more_button.dart';
+import 'package:fruits_hub/features/best_selling/presentation/views/best_selling_view.dart';
 
 class CustomBestSellingHeader extends StatelessWidget {
   const CustomBestSellingHeader({super.key});
@@ -18,8 +19,7 @@ class CustomBestSellingHeader extends StatelessWidget {
           ),
         ),
         Spacer(),
-        // TODO add best selling view
-        SeeMoreButton(view: Container()),
+        SeeMoreButton(view: BestSellingView()),
       ],
     );
   }
