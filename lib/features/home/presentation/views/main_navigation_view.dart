@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
+import 'package:fruits_hub/features/products/presentation/views/products_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class MainNavigationView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
 
   List<Widget> _views() => [
     HomeView(),
-    Placeholder(),
+    ProductsView(),
     Placeholder(),
     Placeholder(),
   ];
