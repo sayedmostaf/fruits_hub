@@ -52,8 +52,13 @@ class ProductRepoImpl extends ProductRepo {
           'where': [
             {
               'field': FirebaseFields.productName,
-              'operator': '==',
+              'operator': '>=',
               'value': searchQuery,
+            },
+            {
+              'field': FirebaseFields.productName,
+              'operator': '<=',
+              'value': searchQuery + '\uf8ff',
             },
           ],
           'limit': 10,
@@ -69,7 +74,7 @@ class ProductRepoImpl extends ProductRepo {
 
       return right(products);
     } catch (e) {
-      log('ProductRepoImpl.getSearchedProducts: ❌ ${e.toString()}');
+      log('ProductRepoImpl.getSearchedProducts: ❌  [31m${e.toString()}');
       return left(ServerFailure(errMessage: 'Failed to search products'));
     }
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/search/presentation/views/search_products_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CustomSearchAppBar extends StatefulWidget {
   const CustomSearchAppBar({super.key});
@@ -27,7 +29,15 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
       controller: _controller,
       readOnly: true,
       onTap: () async {
-        // TODO: handle go to next page
+        final result = await PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: const SearchProductsView(),
+          withNavBar: true,
+          pageTransitionAnimation: PageTransitionAnimation.fade,
+        );
+        if (result != null) {
+          _controller.text = result;
+        }
       },
       decoration: InputDecoration(
         hintText: 'search_hint'.tr(),

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/functions/build_custom_snack_bar.dart';
 import 'package:fruits_hub/core/functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/managers/theme/theme_cubit.dart';
@@ -10,7 +11,11 @@ import 'package:fruits_hub/core/services/bloc_observer.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/themes/themes.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
+import 'package:fruits_hub/core/utils/locale_box.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/custom_scroll_behavior.dart';
 import 'package:fruits_hub/firebase_options.dart';
+import 'package:fruits_hub/features/search/domain/entities/recent_search_entity.dart';
+import 'package:hive_flutter/adapters.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -18,6 +23,11 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await Pref.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(RecentSearchesEntityAdapter());
+  Hive.registerAdapter(ProductEntityAdapter());
+  await Hive.openBox<List>(LocaleBox.recentSearchBox);
 
   Bloc.observer = CustomBlocObserver();
   setupLocator();
@@ -79,19 +89,20 @@ class _FruitHubState extends State<FruitHub> {
       child: BlocBuilder<ThemeCubit, ThemeMode?>(
         builder: (context, themeMode) {
           if (themeMode == null) return SizedBox();
-
-          /// TODO: handle custom scroll behavior
-          return MaterialApp(
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeMode,
-            locale: context.locale,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            onGenerateRoute: onGenerateRoute,
-            initialRoute: Constants.splashViewRoute,
+          return ScrollConfiguration(
+            behavior: CustomScrollBehavior(),
+            child: MaterialApp(
+              navigatorKey: navigatorKey,
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: themeMode,
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              onGenerateRoute: onGenerateRoute,
+              initialRoute: Constants.splashViewRoute,
+            ),
           );
         },
       ),

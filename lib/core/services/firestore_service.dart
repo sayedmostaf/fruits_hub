@@ -17,6 +17,15 @@ class FirestoreService implements DatabaseService {
   }
 
   @override
+  Future<bool> isDocumentExist({
+    required String path,
+    required documentId,
+  }) async {
+    var doc = await firestore.collection(path).doc(documentId).get();
+    return doc.exists;
+  }
+
+  @override
   Future getDocumentOrCollection({
     required String path,
     String? documentId,
@@ -26,7 +35,9 @@ class FirestoreService implements DatabaseService {
       final doc = await firestore.collection(path).doc(documentId).get();
       return doc.data();
     }
+
     Query<Map<String, dynamic>> collection = firestore.collection(path);
+
     if (queries != null) {
       queries.forEach((key, value) {
         if (key == 'where' && value is List) {
@@ -60,25 +71,19 @@ class FirestoreService implements DatabaseService {
             );
           }
         }
+
         if (key == 'orderBy') {
           bool descending = queries['descending'] ?? false;
           collection = collection.orderBy(value, descending: descending);
         }
+
         if (key == 'limit') {
           collection = collection.limit(value);
         }
       });
     }
-    final data = await collection.get();
-    return data.docs.map((element) => element.data()).toList();
-  }
 
-  @override
-  Future<bool> isDocumentExist({
-    required String path,
-    required documentId,
-  }) async {
-    var doc = await firestore.collection(path).doc(documentId).get();
-    return doc.exists;
+    final data = await collection.get();
+    return data.docs.map((doc) => doc.data()).toList();
   }
 }

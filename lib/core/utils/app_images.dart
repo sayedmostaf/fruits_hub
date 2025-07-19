@@ -94,6 +94,10 @@ class Assets {
   /// assets/images/search_icon.svg
   static const String imagesSearchIcon = "assets/images/search_icon.svg";
 
+  /// Assets for imagesSearchNotFound
+  /// assets/images/search_not_found.svg
+  static const String imagesSearchNotFound = "assets/images/search_not_found.svg";
+
   /// Assets for imagesSplashBottom
   /// assets/images/splash_bottom.svg
   static const String imagesSplashBottom = "assets/images/splash_bottom.svg";
