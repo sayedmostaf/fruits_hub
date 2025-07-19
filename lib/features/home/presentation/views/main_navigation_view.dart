@@ -1,10 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/core/functions/build_success_snack_bar.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:fruits_hub/features/products/presentation/views/products_view.dart';
+import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
+import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_state.dart';
+import 'package:fruits_hub/features/shopping_cart/presentation/view/shopping_cart_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class MainNavigationView extends StatefulWidget {
@@ -22,7 +27,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
   List<Widget> _views() => [
     HomeView(),
     ProductsView(),
-    Placeholder(),
+    ShoppingCartView(),
     Placeholder(),
   ];
 
@@ -132,27 +137,33 @@ class _MainNavigationViewState extends State<MainNavigationView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement cart cubit
-    return PersistentTabView.custom(
-      context,
-      controller: _controller,
-      itemCount: 4,
-      screens:
-          _views().map((view) => CustomNavBarScreen(screen: view)).toList(),
-      confineToSafeArea: true,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      hideNavigationBarWhenKeyboardAppears: true,
-      onWillPop: _onWillPop,
-      customWidget: CustomButtonNavigationBar(
-        currentTag: _controller.index,
-        onTap: (index) {
-          setState(() {
-            _controller.jumpToTab(index);
-          });
-        },
+    return BlocListener<CartCubit, CartState>(
+      listener: (context, state) {
+        if (state is CartItemChanged) {
+          buildSuccessSnackBar(context, message: AppStrings.cartUpdated.tr());
+        }
+      },
+      child: PersistentTabView.custom(
+        context,
+        controller: _controller,
+        itemCount: 4,
+        screens:
+            _views().map((view) => CustomNavBarScreen(screen: view)).toList(),
+        confineToSafeArea: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        handleAndroidBackButtonPress: true,
+        resizeToAvoidBottomInset: true,
+        stateManagement: true,
+        hideNavigationBarWhenKeyboardAppears: true,
+        onWillPop: _onWillPop,
+        customWidget: CustomButtonNavigationBar(
+          currentTag: _controller.index,
+          onTap: (index) {
+            setState(() {
+              _controller.jumpToTab(index);
+            });
+          },
+        ),
       ),
     );
   }

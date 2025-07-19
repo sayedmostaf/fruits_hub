@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class FruitItem extends StatelessWidget {
@@ -157,7 +159,9 @@ class FruitItem extends StatelessWidget {
                   shadowColor: Colors.black.withOpacity(0.15),
                   child: InkWell(
                     onTap: () {
-                      // TODO: handle add to cart
+                      context.read<CartCubit>().addCartItem(
+                        product: productEntity,
+                      );
                     },
                     customBorder: const CircleBorder(),
                     splashColor: Theme.of(
