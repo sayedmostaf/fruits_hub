@@ -1,3 +1,5 @@
+import 'package:fruits_hub/core/repos/order/order_repo.dart';
+import 'package:fruits_hub/core/repos/order/order_repo_impl.dart';
 import 'package:fruits_hub/core/repos/product/product_repo.dart';
 import 'package:fruits_hub/core/repos/product/product_repo_impl.dart';
 import 'package:fruits_hub/core/services/database_service.dart';
@@ -19,5 +21,9 @@ void setupLocator() {
   );
   getIt.registerSingleton<ProductRepo>(
     ProductRepoImpl(getIt.get<DatabaseService>()),
+  );
+
+  getIt.registerSingleton<OrderRepo>(
+    OrderRepoImpl(databaseService: getIt.get<DatabaseService>()),
   );
 }

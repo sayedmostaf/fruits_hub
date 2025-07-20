@@ -61,7 +61,7 @@ class AppStrings {
   static const String completeShippingForm = 'complete_shipping_form';
   static const String shipping = 'shipping';
   static const String payment = 'payment';
-  static const String paymentSuccessed = 'payment_successed';
+  static const String paymentSuccess = 'payment_success';
   static const String onBoarding1Title1 = 'on_boarding_1_title_1';
   static const String onBoarding1Subtitle = 'on_boarding_1_subtitle';
   static const String onBoarding2Title = 'on_boarding_2_title';
