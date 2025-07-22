@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:fruits_hub/core/functions/build_error_snack_bar.dart';
+import 'package:fruits_hub/core/functions/build_success_snack_bar.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button.dart';
 import 'package:fruits_hub/features/checkout/data/models/paypal_payment_model.dart';
@@ -87,7 +88,11 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               } else if (page == 1) {
                 _validateAddressForm(context);
               } else {
-                _processPayment(context);
+                // _processPayment(context);
+                buildSuccessSnackBar(
+                  context,
+                  message: AppStrings.paymentSuccess,
+                );
               }
             },
             text: getNextButtonText(

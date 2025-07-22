@@ -13,6 +13,7 @@ import 'package:fruits_hub/core/themes/themes.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/locale_box.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_scroll_behavior.dart';
+import 'package:fruits_hub/features/settings/presentation/managers/favorites/favorites_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart_item/cart_item_cubit.dart';
 import 'package:fruits_hub/firebase_options.dart';
@@ -30,6 +31,7 @@ void main() async {
   Hive.registerAdapter(RecentSearchesEntityAdapter());
   Hive.registerAdapter(ProductEntityAdapter());
   await Hive.openBox<List>(LocaleBox.recentSearchBox);
+  await Hive.openBox<ProductEntity>(LocaleBox.favoritesBox);
 
   Bloc.observer = CustomBlocObserver();
   setupLocator();
@@ -53,6 +55,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => CartCubit()),
         BlocProvider(create: (_) => CartItemCubit()),
+        BlocProvider(create: (_) => FavoritesCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
       ],
       child: FruitHub(),

@@ -7,6 +7,7 @@ import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:fruits_hub/features/products/presentation/views/products_view.dart';
+import 'package:fruits_hub/features/settings/presentation/views/favorites_view.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_state.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/view/shopping_cart_view.dart';
@@ -28,7 +29,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
     HomeView(),
     ProductsView(),
     ShoppingCartView(),
-    Placeholder(),
+    FavoritesView(),
   ];
 
   Future<bool> _onWillPop(BuildContext? context) async {
@@ -159,7 +160,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
         customWidget: CustomButtonNavigationBar(
           currentTag: _controller.index,
           onTap: (index) {
-            setState(() {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               _controller.jumpToTab(index);
             });
           },
