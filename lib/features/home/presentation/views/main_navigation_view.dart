@@ -160,7 +160,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
         customWidget: CustomButtonNavigationBar(
           currentTag: _controller.index,
           onTap: (index) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+            setState(() {
               _controller.jumpToTab(index);
             });
           },

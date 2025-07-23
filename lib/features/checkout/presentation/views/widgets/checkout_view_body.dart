@@ -88,7 +88,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               } else if (page == 1) {
                 _validateAddressForm(context);
               } else {
+                final order = context.read<OrderEntity>();
                 // _processPayment(context);
+                context.read<OrderCubit>().addOrder(orderEntity: order);
                 buildSuccessSnackBar(
                   context,
                   message: AppStrings.paymentSuccess,
