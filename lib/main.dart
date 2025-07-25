@@ -9,6 +9,7 @@ import 'package:fruits_hub/core/managers/theme/theme_cubit.dart';
 import 'package:fruits_hub/core/services/app_locator.dart';
 import 'package:fruits_hub/core/services/bloc_observer.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
+import 'package:fruits_hub/core/services/supabase_storage_service.dart';
 import 'package:fruits_hub/core/themes/themes.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/locale_box.dart';
@@ -24,6 +25,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await SupabaseStorageService.init();
   await Pref.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

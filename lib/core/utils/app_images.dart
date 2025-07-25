@@ -14,6 +14,10 @@ class Assets {
   /// assets/images/calendar.svg
   static const String imagesCalendar = "assets/images/calendar.svg";
 
+  /// Assets for imagesCamera
+  /// assets/images/camera.svg
+  static const String imagesCamera = "assets/images/camera.svg";
+
   /// Assets for imagesCheck
   /// assets/images/Check.svg
   static const String imagesCheck = "assets/images/Check.svg";
@@ -42,9 +46,17 @@ class Assets {
   /// assets/images/fire.svg
   static const String imagesFire = "assets/images/fire.svg";
 
+  /// Assets for imagesGlobal
+  /// assets/images/global.svg
+  static const String imagesGlobal = "assets/images/global.svg";
+
   /// Assets for imagesGoogleIcon
   /// assets/images/google_icon.svg
   static const String imagesGoogleIcon = "assets/images/google_icon.svg";
+
+  /// Assets for imagesInfoCircle
+  /// assets/images/info_circle.svg
+  static const String imagesInfoCircle = "assets/images/info_circle.svg";
 
   /// Assets for imagesLocation
   /// assets/images/location.svg
@@ -53,6 +65,10 @@ class Assets {
   /// Assets for imagesLogo
   /// assets/images/logo.svg
   static const String imagesLogo = "assets/images/logo.svg";
+
+  /// Assets for imagesMagicpen
+  /// assets/images/magicpen.svg
+  static const String imagesMagicpen = "assets/images/magicpen.svg";
 
   /// Assets for imagesNoResult
   /// assets/images/no_result.svg
@@ -85,6 +101,10 @@ class Assets {
   /// Assets for imagesPlant
   /// assets/images/plant.svg
   static const String imagesPlant = "assets/images/plant.svg";
+
+  /// Assets for imagesProfileHeart
+  /// assets/images/profile_heart.svg
+  static const String imagesProfileHeart = "assets/images/profile_heart.svg";
 
   /// Assets for imagesProfileImage
   /// assets/images/profile_image.png

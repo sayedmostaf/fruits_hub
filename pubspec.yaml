@@ -49,15 +49,21 @@ dependencies:
   flutter_paypal_payment: ^1.0.8
   flutter_svg: ^2.0.17
   flutter_svg_provider: ^1.0.7
+  flutter_switch: ^0.3.2
   get_it: ^8.0.3
   google_sign_in: ^6.3.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  http: ^1.4.0
+  image_picker: ^1.1.2
   modal_progress_hud_nsn: ^0.5.1
+  path: ^1.9.1
+  permission_handler: ^12.0.1
   persistent_bottom_nav_bar: ^6.2.1
   provider: ^6.1.5
   shared_preferences: ^2.5.3
   skeletonizer: ^1.4.3
+  supabase_flutter: ^2.9.1
   widget_and_text_animator: ^1.1.5
 
 dev_dependencies:

@@ -8,36 +8,52 @@ part 'product_entity.g.dart';
 class ProductEntity extends Equatable {
   @HiveField(0)
   final String name;
+
   @HiveField(1)
   final String code;
+
   @HiveField(2)
   final String description;
+
   @HiveField(3)
   final double price;
+
   @HiveField(4)
   final int expirationMonths;
+
   @HiveField(5)
   final bool isFeatured;
+
   @HiveField(6)
   final bool isOrganic;
+
   @HiveField(7)
   final DateTime addDate;
+
   @HiveField(8)
   final int unitCount;
+
   @HiveField(9)
   final num avgRating;
+
   @HiveField(10)
   final int reviewsCount;
+
   @HiveField(11)
   final int numberOfCalories;
+
   @HiveField(12)
   final List<ReviewEntity> reviews;
+
   @HiveField(13)
   final int sellingCount;
+
   @HiveField(14)
   final String? imageUrL;
+
   @HiveField(15)
   final String? imageFilePath;
+
   @HiveField(16)
   final DiscountEntity? discount;
   const ProductEntity({

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/functions/build_error_snack_bar.dart';
 import 'package:fruits_hub/core/functions/build_success_snack_bar.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
+import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_progress_hub_widget.dart';
 import 'package:fruits_hub/features/auth/presentation/managers/login_cubit/login_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/managers/login_cubit/login_state.dart';
@@ -18,8 +19,12 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           buildSuccessSnackBar(context, message: AppStrings.loginSuccess.tr());
-        
-        // TODO: go to home page
+
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Constants.mainNavigationViewRoute,
+            (route) => false,
+          );
         }
         if (state is LoginFailure) {
           buildErrorSnackBar(context, message: state.errMessage.tr());
