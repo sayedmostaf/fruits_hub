@@ -7,7 +7,6 @@ import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_button_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:fruits_hub/features/products/presentation/views/products_view.dart';
-import 'package:fruits_hub/features/settings/presentation/views/favorites_view.dart';
 import 'package:fruits_hub/features/settings/presentation/views/settings_view.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_state.dart';
