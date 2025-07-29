@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/presentation/views/product_details_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_featured_button.dart';
+import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class FeaturedItem extends StatelessWidget {
   const FeaturedItem({
@@ -79,12 +82,16 @@ class FeaturedItem extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
 
-                  /// TODO add product details screen
-                  CustomFeaturedButton(
+                    CustomFeaturedButton(
                     onPressed: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: Container(),
+                        screen: ProductDetailsView(
+                          cartItemEntity: context
+                              .read<CartCubit>()
+                              .cart
+                              .getCartItem(productEntity: productEntity),
+                        ),
                         withNavBar: false,
                         pageTransitionAnimation:
                             PageTransitionAnimation.cupertino,

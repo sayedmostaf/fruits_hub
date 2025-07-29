@@ -25,16 +25,19 @@ class ReviewModel extends ReviewEntity {
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     final dynamic rawDate = json[FirebaseFields.reviewDate];
-    final DateTime parsedDate = rawDate is Timestamp
-        ? rawDate.toDate()
-        : DateTime.tryParse(rawDate?.toString() ?? '') ?? DateTime(2000, 1, 1);
+    final DateTime parsedDate =
+        rawDate is Timestamp
+            ? rawDate.toDate()
+            : DateTime.tryParse(rawDate?.toString() ?? '') ??
+                DateTime(2000, 1, 1);
 
     return ReviewModel(
       userId: json[FirebaseFields.reviewUserId] as String? ?? '',
       userName: json[FirebaseFields.reviewUserName] as String? ?? '',
       createdAt: parsedDate,
       rating: json[FirebaseFields.reviewRating] as num? ?? 0,
-      reviewDescription: json[FirebaseFields.reviewDescription] as String? ?? '',
+      reviewDescription:
+          json[FirebaseFields.reviewDescription] as String? ?? '',
       imageUrl: json[FirebaseFields.reviewImageUrl] as String?,
     );
   }

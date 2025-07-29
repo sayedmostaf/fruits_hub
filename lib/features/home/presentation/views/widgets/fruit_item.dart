@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/presentation/views/product_details_view.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/favorites/favorites_cubit.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/favorites/favorites_state.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
@@ -28,11 +29,15 @@ class FruitItem extends StatelessWidget {
             shadowColor: Theme.of(context).shadowColor,
             child: InkWell(
               borderRadius: BorderRadius.circular(8),
-              // TODO add product details screen
               onTap:
                   () => PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    screen: Container(),
+                    screen: ProductDetailsView(
+                      cartItemEntity: context
+                          .read<CartCubit>()
+                          .cart
+                          .getCartItem(productEntity: productEntity),
+                    ),
                     withNavBar: false,
                     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   ),

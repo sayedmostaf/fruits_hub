@@ -11,6 +11,8 @@ import 'package:fruits_hub/core/services/storage_service.dart';
 import 'package:fruits_hub/core/services/supabase_storage_service.dart';
 import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:fruits_hub/features/auth/domain/repos/auth_repo.dart';
+import 'package:fruits_hub/features/reviews/data/repos/reviews_repo_impl.dart';
+import 'package:fruits_hub/features/reviews/domain/repos/reviews_repo.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -33,5 +35,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<ImagesRepo>(
     ImagesRepoImpl(storageService: getIt.get<StorageService>()),
+  );
+  getIt.registerSingleton<ReviewsRepo>(
+    ReviewsRepoImpl(databaseService: getIt.get<DatabaseService>()),
   );
 }

@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
         child:
             child ??
             Text(
-              text!.tr(),
+              'text!.tr()',
               style: AppTextStyle.textStyle16w700.copyWith(
                 color: isDark ? Colors.white : theme.colorScheme.onPrimary,
               ),

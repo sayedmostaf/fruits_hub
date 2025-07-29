@@ -13,12 +13,14 @@ import 'package:fruits_hub/features/reviews/domain/repos/reviews_repo.dart';
 
 class ReviewsRepoImpl implements ReviewsRepo {
   final DatabaseService databaseService;
-  final FirestoreService firestoreService = FirestoreService();
+  final FirestoreService firebaseStore = FirestoreService();
+
   ReviewsRepoImpl({required this.databaseService});
+
   @override
   Future<Either<Failure, void>> addNewReview({
     required String productCode,
-    required ReviewModel newReviewModel,
+    required ReviewEntity newReviewModel,
   }) async {
     try {
       final dynamic rawData = await databaseService.getDocumentOrCollection(
@@ -32,10 +34,12 @@ class ReviewsRepoImpl implements ReviewsRepo {
           ServerFailure(errMessage: 'Product not found or invalid format'),
         );
       }
+
       final productJson = rawData as Map<String, dynamic>;
       final ProductModel productModel = ProductModel.fromJson(productJson);
+
       final reviewsSnapshot =
-          await firestoreService.firestore
+          await firebaseStore.firestore
               .collection(BackendEndpoints.getProducts)
               .doc(productCode)
               .collection(BackendEndpoints.getReviews)
@@ -50,6 +54,7 @@ class ReviewsRepoImpl implements ReviewsRepo {
         ...existingReviews.where((r) => r.userId != newReviewModel.userId),
         ReviewModel.fromEntity(newReviewModel),
       ];
+
       final totalRating = updatedReviews.fold<num>(
         0,
         (sum, r) => sum + (r.rating ?? 0),
@@ -64,11 +69,11 @@ class ReviewsRepoImpl implements ReviewsRepo {
 
       await databaseService.addDocument(
         path: BackendEndpoints.updateProduct,
-        data: updatedProduct.toJson(),
         documentId: productCode,
+        data: updatedProduct.toJson(),
       );
 
-      await firestoreService.firestore
+      await firebaseStore.firestore
           .collection(BackendEndpoints.getProducts)
           .doc(productCode)
           .collection(BackendEndpoints.getReviews)
@@ -77,6 +82,7 @@ class ReviewsRepoImpl implements ReviewsRepo {
             ReviewModel.fromEntity(newReviewModel).toJson(),
             SetOptions(merge: true),
           );
+
       log('✅ Review saved and product updated');
       return right(null);
     } catch (e, stackTrace) {
@@ -92,16 +98,18 @@ class ReviewsRepoImpl implements ReviewsRepo {
   }) async {
     try {
       final reviewsSnapshot =
-          await firestoreService.firestore
+          await firebaseStore.firestore
               .collection(BackendEndpoints.getProducts)
               .doc(productCode)
               .collection(BackendEndpoints.getReviews)
               .orderBy(BackendEndpoints.getReviewDate, descending: true)
               .get();
+
       final reviews =
           reviewsSnapshot.docs
               .map((doc) => ReviewModel.fromJson(doc.data()))
               .toList();
+
       log('✅ Fetched ${reviews.length} reviews for product: $productCode');
       return right(reviews);
     } catch (e, stackTrace) {
