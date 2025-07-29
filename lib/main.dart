@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
@@ -8,12 +9,15 @@ import 'package:fruits_hub/core/functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/managers/theme/theme_cubit.dart';
 import 'package:fruits_hub/core/services/app_locator.dart';
 import 'package:fruits_hub/core/services/bloc_observer.dart';
+import 'package:fruits_hub/core/services/fcm_services.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/services/supabase_storage_service.dart';
 import 'package:fruits_hub/core/themes/themes.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/locale_box.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_scroll_behavior.dart';
+import 'package:fruits_hub/features/notifications/domain/repos/notifications_repo.dart';
+import 'package:fruits_hub/features/notifications/presentation/managers/notifications_cubit.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/favorites/favorites_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart_item/cart_item_cubit.dart';
@@ -34,6 +38,9 @@ void main() async {
   Hive.registerAdapter(ProductEntityAdapter());
   await Hive.openBox<List>(LocaleBox.recentSearchBox);
   await Hive.openBox<ProductEntity>(LocaleBox.favoritesBox);
+
+  FirebaseMessaging.onBackgroundMessage(FcmServices.backgroundHandler);
+  await FcmServices.initFcm();
 
   Bloc.observer = CustomBlocObserver();
   setupLocator();
@@ -59,6 +66,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CartItemCubit()),
         BlocProvider(create: (_) => FavoritesCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(
+          create:
+              (_) => NotificationsCubit(
+                notificationsRepo: getIt.get<NotificationsRepo>(),
+              )..fetchNotifications(),
+        ),
       ],
       child: FruitHub(),
     );

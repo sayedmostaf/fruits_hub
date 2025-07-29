@@ -10,6 +10,8 @@ import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/auth/domain/repos/auth_repo.dart';
+import 'package:fruits_hub/features/notifications/presentation/managers/notifications_cubit.dart';
+import 'package:fruits_hub/features/notifications/presentation/managers/notifications_state.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/images/profile_image_cubit.dart';
 import 'package:fruits_hub/features/settings/presentation/views/about_us_view.dart';
 import 'package:fruits_hub/features/settings/presentation/views/favorites_view.dart';
@@ -17,6 +19,7 @@ import 'package:fruits_hub/features/settings/presentation/views/profile_view.dar
 import 'package:fruits_hub/features/settings/presentation/views/widgets/custom_profile_info.dart';
 import 'package:fruits_hub/features/settings/presentation/views/widgets/custom_setting_item.dart';
 import 'package:fruits_hub/features/settings/presentation/views/widgets/custom_settings_sign_out_button.dart';
+import 'package:fruits_hub/features/settings/presentation/views/widgets/custom_switch_button.dart';
 import 'package:fruits_hub/features/settings/presentation/views/widgets/theme_switch_setting_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -92,7 +95,25 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   title: AppStrings.favorites.tr(),
                   image: Assets.imagesProfileHeart,
                 ),
-                // TODO: add notifications
+                BlocBuilder<NotificationsCubit, NotificationsState>(
+                  builder: (context, state) {
+                    final enabled =
+                        context.read<NotificationsCubit>().notificationsEnabled;
+
+                    return CustomSwitchButton(
+                      title: AppStrings.notifications.tr(),
+                      svgIcon: Assets.imagesNotification,
+                      onChanged: (value) async {
+                        context.read<NotificationsCubit>().toggleNotifications(
+                          value,
+                        );
+                        await Future.delayed(const Duration(milliseconds: 300));
+                        context.read<NotificationsCubit>().fetchNotifications();
+                      },
+                      value: enabled,
+                    );
+                  },
+                ),
                 CustomSettingItem(
                   onTap: () => _showLanguagePicker(context),
                   title: AppStrings.language.tr(),

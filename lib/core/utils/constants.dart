@@ -10,4 +10,5 @@ class Constants {
   static const String mainNavigationViewRoute = '/MainNavigationView';
 
   static const String userData = 'User Data';
+  static const String notificationKey = 'notifications_enabled';
 }
