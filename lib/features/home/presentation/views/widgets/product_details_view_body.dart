@@ -339,6 +339,7 @@ class ProductDetailsViewBody extends StatelessWidget {
                 right: 16,
                 bottom: MediaQuery.of(context).size.height * 0.067,
                 child: CustomButton(
+                  text: AppStrings.addToCart.tr(),
                   onPressed:
                       () => context.read<CartCubit>().addCartItem(
                         product: productEntity,

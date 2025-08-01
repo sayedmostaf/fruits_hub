@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
@@ -30,7 +31,7 @@ class CustomButton extends StatelessWidget {
         child:
             child ??
             Text(
-              'text!.tr()',
+              text?.tr() ?? AppStrings.next.tr(),
               style: AppTextStyle.textStyle16w700.copyWith(
                 color: isDark ? Colors.white : theme.colorScheme.onPrimary,
               ),
