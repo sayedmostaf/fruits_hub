@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/entities/discount_entity.dart';
 import 'package:fruits_hub/core/errors/failure.dart';
 import 'package:fruits_hub/core/models/discount_model.dart';
-import 'package:fruits_hub/core/utils/backend_endpoints.dart';
 import 'package:fruits_hub/features/notifications/domain/repos/notifications_repo.dart';
 
 class NotificationsRepoImpl implements NotificationsRepo {
@@ -15,14 +13,16 @@ class NotificationsRepoImpl implements NotificationsRepo {
   @override
   Future<Either<Failure, List<DiscountEntity>>> fetchNotifications() async {
     try {
-      final snapshot =
-          await firestore
-              .collection(BackendEndpoints.getNotificationsDiscounts)
-              .get();
+      final snapshot = await firestore.collection('Products').get();
+
       final discounts =
-          snapshot.docs.map((doc) {
-            final json = doc.data();
-            return DiscountModel.fromJson(json).copyWith(productCode: doc.id);
+          snapshot.docs.where((doc) => doc.data().containsKey('discount')).map((
+            doc,
+          ) {
+            final discountJson = Map<String, dynamic>.from(doc['discount']);
+            return DiscountModel.fromJson(
+              discountJson,
+            ).copyWith(productCode: doc.id);
           }).toList();
 
       return right(discounts);
@@ -35,16 +35,16 @@ class NotificationsRepoImpl implements NotificationsRepo {
   @override
   Future<Either<Failure, void>> markAllAsRead(String uid) async {
     try {
-      final collection = firestore.collection(
-        BackendEndpoints.getNotificationsDiscounts,
-      );
-      final snapshot = await collection.get();
+      final snapshot = await firestore.collection('Products').get();
 
       for (final doc in snapshot.docs) {
-        await doc.reference.update({
-          'readBy': FieldValue.arrayUnion([uid]),
-        });
+        if (doc.data().containsKey('discount')) {
+          await doc.reference.update({
+            'discount.readBy': FieldValue.arrayUnion([uid]),
+          });
+        }
       }
+
       return right(null);
     } catch (e) {
       log('❌ Error marking all notifications as read: $e');
@@ -60,13 +60,19 @@ class NotificationsRepoImpl implements NotificationsRepo {
     required String uid,
   }) async {
     try {
-      if (discountId.isEmpty) throw Exception('discount is empty');
-      await firestore
-          .collection(BackendEndpoints.getNotificationsDiscounts)
-          .doc(discountId)
-          .update({
-            'readBy': FieldValue.arrayUnion([uid]),
-          });
+      if (discountId.isEmpty) throw Exception('discountId is empty');
+
+      final docRef = firestore.collection('Products').doc(discountId);
+
+      final doc = await docRef.get();
+      if (!doc.exists || !doc.data()!.containsKey('discount')) {
+        throw Exception('Discount not found');
+      }
+
+      await docRef.update({
+        'discount.readBy': FieldValue.arrayUnion([uid]),
+      });
+
       return right(null);
     } catch (e) {
       log('❌ Error marking one notification as read: $e');

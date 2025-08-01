@@ -59,7 +59,12 @@ class ProductModel extends ProductEntity {
               .toList() ??
           [],
       sellingCount: json[FirebaseFields.productSellingCount] as int? ?? 0,
-      discount: null,
+      discount:
+          json['discount'] != null
+              ? DiscountModel.fromJson(
+                Map<String, dynamic>.from(json['discount']),
+              )
+              : null,
     );
   }
 

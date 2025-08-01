@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class FeaturedItem extends StatelessWidget {
     final height = width * 158 / 342;
 
     final hasDiscount = productEntity.discount != null;
+    log('FeaturedItem: hasDiscount: $hasDiscount');
     final discountText =
         hasDiscount
             ? "${productEntity.discount!.percentage.toInt()}% ${AppStrings.discount.tr()}"
@@ -82,7 +85,7 @@ class FeaturedItem extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
 
-                    CustomFeaturedButton(
+                  CustomFeaturedButton(
                     onPressed: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
