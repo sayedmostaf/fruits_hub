@@ -11,7 +11,7 @@ class CustomProductAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Align(
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         child: Text(
           AppStrings.products.tr(),
           style: AppTextStyle.textStyle18w700.copyWith(
