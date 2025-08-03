@@ -106,6 +106,7 @@ class _FruitHubState extends State<FruitHub> {
               message: message,
               backgroundColor: color,
               icon: icon,
+              title: '${state.toString().split('.').last} Mode',
             );
           });
         }

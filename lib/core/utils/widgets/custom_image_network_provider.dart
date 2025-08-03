@@ -6,11 +6,9 @@ class CustomImageNetworkProvider extends StatelessWidget {
     super.key,
     this.imageUrl,
     this.borderRadius = 8,
-    this.boxShadow,
   });
   final String? imageUrl;
   final double borderRadius;
-  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +27,7 @@ class CustomImageNetworkProvider extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow:
-              boxShadow ??
-              [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 6,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+          
         ),
         child: CachedNetworkImage(
           imageUrl: imageUrl!,

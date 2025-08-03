@@ -26,14 +26,6 @@ class ActiveTagWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: surfaceVariant,
         borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: primaryColor.withOpacity(0.1),
-            blurRadius: elevation * 2,
-            spreadRadius: elevation * 0.5,
-            offset: Offset(0, elevation),
-          ),
-        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -44,13 +36,6 @@ class ActiveTagWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: primaryColor,
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: primaryColor.withOpacity(0.3),
-                  blurRadius: 4,
-                  spreadRadius: 1,
-                ),
-              ],
             ),
             child: Center(
               child: SvgPicture.asset(

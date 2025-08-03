@@ -29,13 +29,6 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
       child: TextField(
         keyboardType: TextInputType.text,

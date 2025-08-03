@@ -40,14 +40,6 @@ class NotificationIcon extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary.withOpacity(0.08),
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 6,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
                   ),
                   child: Center(
                     child: SvgPicture.asset(
@@ -72,13 +64,6 @@ class NotificationIcon extends StatelessWidget {
                           color: theme.colorScheme.background,
                           width: 2,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.red.withOpacity(0.3),
-                            blurRadius: 4,
-                            spreadRadius: 1,
-                          ),
-                        ],
                       ),
                     ),
                   ),

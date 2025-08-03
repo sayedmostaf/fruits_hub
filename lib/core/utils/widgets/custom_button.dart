@@ -29,15 +29,6 @@ class CustomButton extends StatelessWidget {
       height: 54,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          if (elevation > 0)
-            BoxShadow(
-              color: theme.colorScheme.primary.withOpacity(0.3),
-              blurRadius: elevation * 4,
-              spreadRadius: elevation * 0.5,
-              offset: Offset(0, elevation * 2),
-            ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -65,14 +56,6 @@ class CustomButton extends StatelessWidget {
                   text?.tr() ?? AppStrings.next.tr(),
                   style: AppTextStyle.textStyle16w700.copyWith(
                     color: isDark ? Colors.white : theme.colorScheme.onPrimary,
-                    shadows: [
-                      if (elevation > 0)
-                        Shadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 2,
-                          offset: Offset(0, 1),
-                        ),
-                    ],
                   ),
                 ),
           ),

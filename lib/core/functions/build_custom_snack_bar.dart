@@ -6,31 +6,83 @@ import 'package:fruits_hub/main.dart';
 
 void buildCustomSnackBar({
   required String message,
+  required String title,
   Color? backgroundColor,
-  IconData icon = Icons.info_outline,
+  IconData icon = Icons.info_outline_rounded,
+  int durationSeconds = 4,
 }) {
   final currentContext = navigatorKey.currentState?.overlay?.context;
-  if (currentContext != null) return;
+  if (currentContext == null) return;
+
+  final theme = Theme.of(currentContext);
+
   Flushbar(
-    margin: EdgeInsets.all(16),
+    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    padding: const EdgeInsets.all(20),
     borderRadius: BorderRadius.circular(12),
-    backgroundColor:
-        backgroundColor ?? Theme.of(currentContext!).colorScheme.primary,
+    backgroundColor: backgroundColor ?? theme.colorScheme.secondary,
     flushbarPosition: FlushbarPosition.TOP,
-    icon: Icon(icon, color: Colors.white, size: 28),
-    duration: Duration(seconds: 2),
-    messageText: Text(
-      message.tr(),
-      textAlign: TextAlign.start,
-      style: AppTextStyle.textStyle13w600.copyWith(color: Colors.white),
+    icon: Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.2),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: Colors.white, size: 22),
+    ),
+    shouldIconPulse: false,
+    duration: Duration(seconds: durationSeconds),
+    messageText: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.tr(),
+          style: AppTextStyle.textStyle14w700.copyWith(
+            color: Colors.white,
+            height: 1.3,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          message.tr(),
+          style: AppTextStyle.textStyle14w400.copyWith(
+            color: Colors.white.withOpacity(0.9),
+            height: 1.4,
+          ),
+        ),
+      ],
+    ),
+    mainButton: TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        minimumSize: const Size(40, 40),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+      child: Icon(
+        Icons.close_rounded,
+        color: Colors.white.withOpacity(0.8),
+        size: 20,
+      ),
+      onPressed: () {},
     ),
     boxShadows: [
       BoxShadow(
         color: Colors.black.withOpacity(0.1),
-        blurRadius: 6,
-        offset: Offset(0, 2),
+        blurRadius: 16,
+        spreadRadius: 0,
+        offset: const Offset(0, 4),
       ),
     ],
-    animationDuration: Duration(milliseconds: 400),
-  ).show(currentContext!);
+    animationDuration: const Duration(milliseconds: 600),
+    forwardAnimationCurve: Curves.fastEaseInToSlowEaseOut,
+    reverseAnimationCurve: Curves.fastOutSlowIn,
+    dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+    isDismissible: true,
+    showProgressIndicator: true,
+    progressIndicatorBackgroundColor: Colors.white.withOpacity(0.2),
+    progressIndicatorValueColor: AlwaysStoppedAnimation<Color>(
+      Colors.white.withOpacity(0.6),
+    ),
+  ).show(currentContext);
 }
