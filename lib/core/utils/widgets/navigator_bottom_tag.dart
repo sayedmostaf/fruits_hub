@@ -11,15 +11,19 @@ class NavigatorBottomTag extends StatelessWidget {
   });
   final bool isSelected;
   final BottomNavigationBarEntity tagEntity;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       switchInCurve: Curves.easeOutBack,
       switchOutCurve: Curves.easeIn,
       transitionBuilder: (child, animation) {
         return ScaleTransition(
-          scale: animation,
+          scale: Tween<double>(
+            begin: 0.8,
+            end: 1.0,
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
           child: FadeTransition(opacity: animation, child: child),
         );
       },
@@ -28,10 +32,11 @@ class NavigatorBottomTag extends StatelessWidget {
               ? ActiveTagWidget(
                 activeTagIcon: tagEntity.activeTag,
                 title: tagEntity.translatedName,
-                key: ValueKey('active'),
+                key: const ValueKey('active'),
+                maxWidth: 120,
               )
               : InActiveTagWidget(
-                key: ValueKey('inactive'),
+                key: const ValueKey('inactive'),
                 inActiveTagIcon: tagEntity.inActiveTag,
               ),
     );

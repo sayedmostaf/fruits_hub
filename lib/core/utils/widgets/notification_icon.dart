@@ -13,35 +13,43 @@ class NotificationIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return BlocProvider.value(
       value: context.read<NotificationsCubit>(),
       child: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
           final hasRead =
               state is NotificationsSuccess && state.discounts.isNotEmpty;
-          return Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Material(
-                color: theme.colorScheme.primary.withOpacity(0.08),
-                shape: CircleBorder(),
-                elevation: 3,
-                shadowColor: Colors.black.withOpacity(0.1),
-                child: InkWell(
-                  onTap: () {
-                    PersistentNavBarNavigator.pushNewScreen(
-                      context,
-                      screen: const NotificationsView(),
-                      withNavBar: true,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                    );
-                  },
-                  customBorder: CircleBorder(),
-                  splashColor: theme.colorScheme.primary.withOpacity(0.2),
-                  highlightColor: theme.colorScheme.primary.withOpacity(0.1),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
+
+          return GestureDetector(
+            onTap: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const NotificationsView(),
+                withNavBar: true,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withOpacity(0.08),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
                     child: SvgPicture.asset(
                       Assets.imagesNotification,
                       width: 20,
@@ -50,21 +58,32 @@ class NotificationIcon extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              if (hasRead)
-                Positioned(
-                  top: 8,
-                  right: 17.5,
-                  child: Container(
-                    width: 4,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
+                if (hasRead)
+                  Positioned(
+                    top: 6,
+                    right: 6,
+                    child: Container(
+                      width: 10,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: theme.colorScheme.background,
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.red.withOpacity(0.3),
+                            blurRadius: 4,
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           );
         },
       ),

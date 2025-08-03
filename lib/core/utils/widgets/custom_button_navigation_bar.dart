@@ -10,26 +10,25 @@ class CustomButtonNavigationBar extends StatelessWidget {
   });
   final int currentTag;
   final Function(int) onTap;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 70,
-      decoration: ShapeDecoration(
+      height: 80,
+      decoration: BoxDecoration(
         color:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor ??
             Theme.of(context).colorScheme.background,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        shadows: [
+        boxShadow: [
           BoxShadow(
-            color: Color(0x19000000),
-            blurRadius: 25,
-            offset: Offset(0, -2),
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 20,
+            offset: const Offset(0, -5),
             spreadRadius: 0,
           ),
         ],
@@ -46,10 +45,21 @@ class CustomButtonNavigationBar extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () => onTap(index),
-                    child: SizedBox.expand(
-                      child: NavigatorBottomTag(
-                        isSelected: currentTag == index,
-                        tagEntity: entity,
+                    splashColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.1),
+                    highlightColor: Colors.transparent,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOutQuad,
+                      margin: EdgeInsets.only(
+                        bottom: currentTag == index ? 10 : 0,
+                      ),
+                      child: SizedBox.expand(
+                        child: NavigatorBottomTag(
+                          isSelected: currentTag == index,
+                          tagEntity: entity,
+                        ),
                       ),
                     ),
                   ),

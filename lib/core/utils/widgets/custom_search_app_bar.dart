@@ -24,48 +24,82 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      keyboardType: TextInputType.text,
-      controller: _controller,
-      readOnly: true,
-      onTap: () async {
-        final result = await PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: const SearchProductsView(),
-          withNavBar: true,
-          pageTransitionAnimation: PageTransitionAnimation.fade,
-        );
-        if (result != null) {
-          _controller.text = result;
-        }
-      },
-      decoration: InputDecoration(
-        hintText: 'search_hint'.tr(),
-        suffixIcon: SizedBox(
-          width: 20,
-          child: Center(child: SvgPicture.asset(Assets.imagesFilter)),
+    final theme = Theme.of(context);
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: TextField(
+        keyboardType: TextInputType.text,
+        controller: _controller,
+        readOnly: true,
+        onTap: () async {
+          final result = await PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: const SearchProductsView(),
+            withNavBar: true,
+            pageTransitionAnimation: PageTransitionAnimation.fade,
+          );
+          if (result != null) {
+            _controller.text = result;
+          }
+        },
+        decoration: InputDecoration(
+          hintText: 'search_hint'.tr(),
+          suffixIcon: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                Assets.imagesFilter,
+                width: 16,
+                height: 16,
+                color: theme.colorScheme.primary,
+              ),
+              onPressed: () {},
+            ),
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 12, right: 8),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                Assets.imagesSearchIcon,
+                width: 18,
+                height: 18,
+                color: theme.colorScheme.secondary,
+              ),
+              onPressed: () {},
+            ),
+          ),
+          hintStyle: AppTextStyle.textStyle13w400.copyWith(
+            color: theme.colorScheme.secondary.withOpacity(0.7),
+          ),
+          filled: true,
+          fillColor: theme.colorScheme.surface,
+          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+          border: buildBorder(),
+          enabledBorder: buildBorder(),
+          focusedBorder: buildBorder(),
         ),
-        prefixIcon: SizedBox(
-          width: 20,
-          child: Center(child: SvgPicture.asset(Assets.imagesSearchIcon)),
-        ),
-        hintStyle: AppTextStyle.textStyle13w400.copyWith(
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
-        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        border: buildBorder(),
-        enabledBorder: buildBorder(),
-        focusedBorder: buildBorder(),
       ),
     );
   }
 
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Theme.of(context).dividerColor, width: 1),
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
     );
   }
 }

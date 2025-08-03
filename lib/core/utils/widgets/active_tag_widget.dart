@@ -9,41 +9,66 @@ class ActiveTagWidget extends StatelessWidget {
     required this.activeTagIcon,
     required this.title,
     this.maxWidth = 100,
+    this.elevation = 2,
   });
   final String activeTagIcon, title;
   final double maxWidth;
+  final double elevation;
+
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final surfaceVariant = Theme.of(context).colorScheme.surfaceVariant;
+
     return Container(
       constraints: BoxConstraints(maxWidth: maxWidth),
-      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: ShapeDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
         color: surfaceVariant,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor.withOpacity(0.1),
+            blurRadius: elevation * 2,
+            spreadRadius: elevation * 0.5,
+            offset: Offset(0, elevation),
+          ),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: 24,
             height: 24,
-            decoration: ShapeDecoration(
+            decoration: BoxDecoration(
               color: primaryColor,
-              shape: OvalBorder(),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: primaryColor.withOpacity(0.3),
+                  blurRadius: 4,
+                  spreadRadius: 1,
+                ),
+              ],
             ),
             child: Center(
-              child: SvgPicture.asset(activeTagIcon, width: 12, height: 12),
+              child: SvgPicture.asset(
+                activeTagIcon,
+                width: 12,
+                height: 12,
+                color: Colors.white,
+              ),
             ),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: 6),
           Flexible(
             child: Text(
               title.tr(),
-              style: AppTextStyle.textStyle11w600.copyWith(color: primaryColor),
+              style: AppTextStyle.textStyle11w600.copyWith(
+                color: primaryColor,
+                letterSpacing: 0.5,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
