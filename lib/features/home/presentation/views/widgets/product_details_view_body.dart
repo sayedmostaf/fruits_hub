@@ -23,8 +23,12 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 class ProductDetailsViewBody extends StatelessWidget {
   const ProductDetailsViewBody({super.key, required this.productEntity});
   final ProductEntity productEntity;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return MultiBlocListener(
       listeners: [
         BlocListener<CartItemCubit, CartItemState>(
@@ -42,311 +46,344 @@ class ProductDetailsViewBody extends StatelessWidget {
             avgRating = reviewsState.averageRating.toDouble();
             reviewsCount = reviewsState.reviewsCount;
           }
-          return Stack(
-            children: [
-              ScrollConfiguration(
-                behavior: CustomScrollBehavior(),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Column(
-                        children: [
-                          Stack(
+
+          return Scaffold(
+            backgroundColor: theme.colorScheme.surface,
+            body: Stack(
+              children: [
+                ScrollConfiguration(
+                  behavior: const CustomScrollBehavior(),
+                  child: CustomScrollView(
+                    slivers: [
+                      // Product Image Sliver
+                      SliverAppBar(
+                        expandedHeight: 280,
+                        collapsedHeight: 80,
+                        pinned: true,
+                        backgroundColor: theme.colorScheme.surface,
+                        elevation: 0,
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            backgroundColor: theme.colorScheme.surface
+                                .withOpacity(0.8),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: theme.colorScheme.primary,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ),
+                        ),
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: Stack(
                             alignment: Alignment.center,
                             children: [
                               SvgPicture.asset(
                                 Assets.imagesProductDetailsBackground,
-                                color: Theme.of(context).colorScheme.surface,
-                              ),
-                              CachedNetworkImage(
-                                imageUrl: productEntity.imageUrL ?? '',
-                                width: 221,
-                                height: 167,
+                                color: theme.colorScheme.surface,
                                 fit: BoxFit.cover,
-                                placeholder:
-                                    (context, url) => Container(
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.image,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
+                                width: double.infinity,
+                              ),
+                              Hero(
+                                tag: 'product-${productEntity.code}',
+                                child: CachedNetworkImage(
+                                  imageUrl: productEntity.imageUrL ?? '',
+                                  width: 240,
+                                  height: 200,
+                                  fit: BoxFit.contain,
+                                  placeholder:
+                                      (context, url) => Center(
+                                        child: CircularProgressIndicator(
+                                          color: theme.colorScheme.primary,
                                         ),
                                       ),
-                                    ),
-                                errorWidget:
-                                    (context, url, error) => Icon(
-                                      Icons.error,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
+                                  errorWidget:
+                                      (context, url, error) => Icon(
+                                        Icons.error,
+                                        color: theme.colorScheme.error,
+                                        size: 40,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 24),
-                          Padding(
-                            padding: EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      productEntity.name,
-                                      style: AppTextStyle.textStyle16w700
-                                          .copyWith(
-                                            color:
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.primary,
-                                          ),
-                                    ),
-                                    Spacer(),
-                                    BlocBuilder<CartCubit, CartState>(
-                                      builder: (context, state) {
-                                        final cartItem = context
-                                            .read<CartCubit>()
-                                            .cart
-                                            .getCartItem(
-                                              productEntity: productEntity,
-                                            );
-                                        return ShoppingCartActions(
-                                          cartItemEntity: cartItem,
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 4),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: '${productEntity.price}جنية ',
-                                        style: AppTextStyle.textStyle13w700
-                                            .copyWith(
-                                              color:
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.secondary,
-                                            ),
-                                      ),
-                                      TextSpan(
-                                        text: '/',
-                                        style: AppTextStyle.textStyle13w700
-                                            .copyWith(
-                                              color:
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.tertiary,
-                                            ),
-                                      ),
-                                      const TextSpan(text: ' '),
-                                      TextSpan(
-                                        text: AppStrings.kilo.tr(),
-                                        style: AppTextStyle.textStyle13w600
-                                            .copyWith(
-                                              color:
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.tertiary,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      Assets.imagesStar,
-                                      color:
-                                          Theme.of(
-                                            context,
-                                          ).colorScheme.secondary,
-                                    ),
-                                    Text(
-                                      avgRating.toStringAsFixed(1),
-                                      style: AppTextStyle.textStyle13w600
-                                          .copyWith(
-                                            color:
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.primary,
-                                          ),
-                                    ),
-                                    const SizedBox(width: 9),
-                                    Text(
-                                      '($reviewsCount+)',
-                                      style: AppTextStyle.textStyle13w600
-                                          .copyWith(
-                                            color: Theme.of(context).hintColor,
-                                          ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () async {
-                                        context
-                                            .read<ReviewsCubit>()
-                                            .fetchLatestReviews();
-                                        await PersistentNavBarNavigator.pushNewScreen(
-                                          context,
-                                          screen: ReviewsView(
-                                            productEntity: productEntity,
-                                          ),
-                                          withNavBar: false,
-                                          pageTransitionAnimation:
-                                              PageTransitionAnimation.cupertino,
-                                        );
-                                      },
-                                      child: Text(
-                                        AppStrings.review.tr(),
-                                        style: AppTextStyle.textStyle13w700
-                                            .copyWith(
-                                              color:
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  productEntity.description,
-                                  style: AppTextStyle.textStyle13w400.copyWith(
-                                    color: Theme.of(context).hintColor,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      sliver: SliverGrid(
-                        delegate: SliverChildListDelegate([
-                          CustomProductDetailsBox(
-                            image: Assets.imagesCalendar,
-                            title: Text(
-                              AppStrings.general.tr(),
-                              style: AppTextStyle.textStyle16w700.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                            subTitle: AppStrings.validity.tr(),
+
+                      // Product Details Sliver
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
                           ),
-                          CustomProductDetailsBox(
-                            image: Assets.imagesCalendar,
-                            title: Text(
-                              productEntity.isOrganic ? '100%' : '50%',
-                              style: AppTextStyle.textStyle16w700.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                            subTitle: AppStrings.organic.tr(),
-                          ),
-                          CustomProductDetailsBox(
-                            image: Assets.imagesOrganic,
-                            title: Text(
-                              '${productEntity.numberOfCalories} ${AppStrings.calories.tr()}',
-                              style: AppTextStyle.textStyle16w700.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                            subTitle: '100 ${AppStrings.grams.tr()}',
-                          ),
-                          CustomProductDetailsBox(
-                            image: Assets.imagesReviewStar,
-                            title: Text.rich(
-                              TextSpan(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextSpan(
-                                    text: ' $avgRating',
-                                    style: AppTextStyle.textStyle16w700
-                                        .copyWith(
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          productEntity.name,
+                                          style: AppTextStyle.textStyle23w700
+                                              .copyWith(
+                                                color:
+                                                    theme.colorScheme.primary,
+                                                height: 1.3,
+                                              ),
                                         ),
+                                        const SizedBox(height: 8),
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '${productEntity.price} ',
+                                                style: AppTextStyle
+                                                    .textStyle18w700
+                                                    .copyWith(
+                                                      color:
+                                                          theme
+                                                              .colorScheme
+                                                              .secondary,
+                                                    ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    '${AppStrings.currency.tr()} / ${AppStrings.kilo.tr()}',
+                                                style: AppTextStyle
+                                                    .textStyle14w600
+                                                    .copyWith(
+                                                      color:
+                                                          theme
+                                                              .colorScheme
+                                                              .tertiary,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  TextSpan(
-                                    text: ' (',
-                                    style: AppTextStyle.textStyle12w500
-                                        .copyWith(
-                                          color: Theme.of(context).hintColor,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: '$reviewsCount',
-                                    style: AppTextStyle.textStyle13w600
-                                        .copyWith(
-                                          color: Theme.of(context).hintColor,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: ')',
-                                    style: AppTextStyle.textStyle12w500
-                                        .copyWith(
-                                          color: Theme.of(context).hintColor,
-                                        ),
+                                  const SizedBox(width: 16),
+                                  BlocBuilder<CartCubit, CartState>(
+                                    builder: (context, state) {
+                                      final cartItem = context
+                                          .read<CartCubit>()
+                                          .cart
+                                          .getCartItem(
+                                            productEntity: productEntity,
+                                          );
+                                      return ShoppingCartActions(
+                                        cartItemEntity: cartItem,
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
-                            ),
-                            subTitle: AppStrings.reviews.tr(),
+                              const SizedBox(height: 20),
+
+                              // Rating Row
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: theme.colorScheme.secondary
+                                          .withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SvgPicture.asset(
+                                          Assets.imagesStar,
+                                          width: 16,
+                                          height: 16,
+                                          color: theme.colorScheme.secondary,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          avgRating.toStringAsFixed(1),
+                                          style: AppTextStyle.textStyle14w600
+                                              .copyWith(
+                                                color:
+                                                    theme.colorScheme.primary,
+                                              ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '($reviewsCount)',
+                                          style: AppTextStyle.textStyle14w400
+                                              .copyWith(
+                                                color: theme
+                                                    .colorScheme
+                                                    .onSurface
+                                                    .withOpacity(0.6),
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  TextButton(
+                                    onPressed: () async {
+                                      context
+                                          .read<ReviewsCubit>()
+                                          .fetchLatestReviews();
+                                      await PersistentNavBarNavigator.pushNewScreen(
+                                        context,
+                                        screen: ReviewsView(
+                                          productEntity: productEntity,
+                                        ),
+                                        withNavBar: false,
+                                        pageTransitionAnimation:
+                                            PageTransitionAnimation.cupertino,
+                                      );
+                                    },
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    child: Text(
+                                      AppStrings.review.tr(),
+                                      style: AppTextStyle.textStyle14w600
+                                          .copyWith(
+                                            color: theme.colorScheme.primary,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+
+                              // Description
+                              Text(
+                                'description'.tr(),
+                                style: AppTextStyle.textStyle16w700.copyWith(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                productEntity.description,
+                                style: AppTextStyle.textStyle14w400.copyWith(
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.7),
+                                  height: 1.5,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
                           ),
-                        ]),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: 163 / 80,
                         ),
                       ),
-                    ),
-                    SliverToBoxAdapter(child: SizedBox(height: 122)),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 40,
-                right: 16,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: MediaQuery.of(context).size.height * 0.067,
-                child: CustomButton(
-                  text: AppStrings.addToCart.tr(),
-                  onPressed:
-                      () => context.read<CartCubit>().addCartItem(
-                        product: productEntity,
+
+                      // Product Info Grid
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        sliver: SliverGrid(
+                          delegate: SliverChildListDelegate([
+                            CustomProductDetailsBox(
+                              image: Assets.imagesCalendar,
+                              title: Text(
+                                AppStrings.general.tr(),
+                                style: AppTextStyle.textStyle16w700.copyWith(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                              subTitle: AppStrings.validity.tr(),
+                            ),
+                            CustomProductDetailsBox(
+                              image: Assets.imagesCalendar,
+                              title: Text(
+                                productEntity.isOrganic ? '100%' : '50%',
+                                style: AppTextStyle.textStyle16w700.copyWith(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                              subTitle: AppStrings.organic.tr(),
+                            ),
+                            CustomProductDetailsBox(
+                              image: Assets.imagesOrganic,
+                              title: Text(
+                                '${productEntity.numberOfCalories}',
+                                style: AppTextStyle.textStyle16w700.copyWith(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                              subTitle: '100 ${AppStrings.grams.tr()}',
+                            ),
+                            CustomProductDetailsBox(
+                              image: Assets.imagesReviewStar,
+                              title: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: avgRating.toStringAsFixed(1),
+                                      style: AppTextStyle.textStyle16w700
+                                          .copyWith(
+                                            color: theme.colorScheme.primary,
+                                          ),
+                                    ),
+                                    TextSpan(
+                                      text: ' ($reviewsCount)',
+                                      style: AppTextStyle.textStyle12w500
+                                          .copyWith(
+                                            color: theme.colorScheme.onSurface
+                                                .withOpacity(0.6),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              subTitle: AppStrings.reviews.tr(),
+                            ),
+                          ]),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 16,
+                                crossAxisSpacing: 16,
+                                childAspectRatio: 1.8,
+                              ),
+                        ),
                       ),
+                      const SliverToBoxAdapter(child: SizedBox(height: 100)),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+
+                // Add to Cart Button
+                Positioned(
+                  left: 20,
+                  right: 20,
+                  bottom: 20,
+                  child: SafeArea(
+                    child: CustomButton(
+                      text: AppStrings.addToCart.tr(),
+                      onPressed:
+                          () => context.read<CartCubit>().addCartItem(
+                            product: productEntity,
+                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

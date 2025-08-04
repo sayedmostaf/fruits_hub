@@ -10,17 +10,21 @@ class CustomBestSellingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          AppStrings.bestSelling.tr(),
-          style: AppTextStyle.textStyle16w700.copyWith(
-            color: Theme.of(context).colorScheme.primary,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Text(
+            AppStrings.bestSelling.tr(),
+            style: AppTextStyle.textStyle16w700.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              letterSpacing: 0.5,
+            ),
           ),
-        ),
-        Spacer(),
-        SeeMoreButton(view: BestSellingView()),
-      ],
+          const Spacer(),
+          SeeMoreButton(view: const BestSellingView()),
+        ],
+      ),
     );
   }
 }

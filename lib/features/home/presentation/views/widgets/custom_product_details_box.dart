@@ -11,44 +11,44 @@ class CustomProductDetailsBox extends StatelessWidget {
   });
   final String image, subTitle;
   final Widget title;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 12, left: 16, right: 8),
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(width: 1, color: Theme.of(context).dividerColor),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).dividerColor.withOpacity(0.3),
         ),
+        color: Theme.of(context).colorScheme.surface,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  title,
-                  Text(
-                    subTitle,
-                    style: AppTextStyle.textStyle13w600.copyWith(
-                      color: Theme.of(context).hintColor,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 16),
-              SvgPicture.asset(
-                image,
-                theme: const SvgTheme(currentColor: Colors.tealAccent),
+              title,
+              const SizedBox(height: 4),
+              Text(
+                subTitle,
+                style: AppTextStyle.textStyle13w600.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
               ),
             ],
           ),
+          SvgPicture.asset(image, width: 32, height: 32),
         ],
       ),
     );
