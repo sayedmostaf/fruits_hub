@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
@@ -28,6 +29,7 @@ class ProductDetailsViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return MultiBlocListener(
       listeners: [
@@ -55,56 +57,65 @@ class ProductDetailsViewBody extends StatelessWidget {
                   behavior: const CustomScrollBehavior(),
                   child: CustomScrollView(
                     slivers: [
-                      // Product Image Sliver
+                      // Product Image Sliver with improved design
                       SliverAppBar(
-                        expandedHeight: 280,
+                        expandedHeight: screenWidth * 0.9,
                         collapsedHeight: 80,
                         pinned: true,
                         backgroundColor: theme.colorScheme.surface,
                         elevation: 0,
                         leading: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            backgroundColor: theme.colorScheme.surface
-                                .withOpacity(0.8),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.arrow_back,
-                                color: theme.colorScheme.primary,
-                              ),
-                              onPressed: () => Navigator.of(context).pop(),
+                          padding: const EdgeInsets.all(12.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: theme.colorScheme.primary,
+                              size: 24,
                             ),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
                         ),
                         flexibleSpace: FlexibleSpaceBar(
                           background: Stack(
                             alignment: Alignment.center,
                             children: [
-                              SvgPicture.asset(
-                                Assets.imagesProductDetailsBackground,
-                                color: theme.colorScheme.surface,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
+                              // Hero image with better shadow and border
                               Hero(
                                 tag: 'product-${productEntity.code}',
-                                child: CachedNetworkImage(
-                                  imageUrl: productEntity.imageUrL ?? '',
-                                  width: 240,
-                                  height: 200,
-                                  fit: BoxFit.contain,
-                                  placeholder:
-                                      (context, url) => Center(
-                                        child: CircularProgressIndicator(
-                                          color: theme.colorScheme.primary,
-                                        ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColor.primaryGreen
+                                            .withOpacity(0.2),
+                                        blurRadius: 20,
+                                        spreadRadius: 2,
+                                        offset: const Offset(0, 10),
                                       ),
-                                  errorWidget:
-                                      (context, url, error) => Icon(
-                                        Icons.error,
-                                        color: theme.colorScheme.error,
-                                        size: 40,
-                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: CachedNetworkImage(
+                                      imageUrl: productEntity.imageUrL ?? '',
+                                      width: screenWidth * 0.7,
+                                      height: screenWidth * 0.7,
+                                      fit: BoxFit.cover,
+                                      placeholder:
+                                          (context, url) => Center(
+                                            child: CircularProgressIndicator(
+                                              color: theme.colorScheme.primary,
+                                            ),
+                                          ),
+                                      errorWidget:
+                                          (context, url, error) => Icon(
+                                            Icons.error,
+                                            color: theme.colorScheme.error,
+                                            size: 40,
+                                          ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -112,16 +123,17 @@ class ProductDetailsViewBody extends StatelessWidget {
                         ),
                       ),
 
-                      // Product Details Sliver
+                      // Product Details Sliver with improved spacing
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                            horizontal: 24,
                             vertical: 16,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Title and price section with better layout
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -138,35 +150,51 @@ class ProductDetailsViewBody extends StatelessWidget {
                                                     theme.colorScheme.primary,
                                                 height: 1.3,
                                               ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        const SizedBox(height: 8),
-                                        Text.rich(
-                                          TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: '${productEntity.price} ',
-                                                style: AppTextStyle
-                                                    .textStyle18w700
-                                                    .copyWith(
-                                                      color:
-                                                          theme
-                                                              .colorScheme
-                                                              .secondary,
-                                                    ),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    '${AppStrings.currency.tr()} / ${AppStrings.kilo.tr()}',
-                                                style: AppTextStyle
-                                                    .textStyle14w600
-                                                    .copyWith(
-                                                      color:
-                                                          theme
-                                                              .colorScheme
-                                                              .tertiary,
-                                                    ),
-                                              ),
-                                            ],
+                                        const SizedBox(height: 12),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 6,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: theme.colorScheme.secondary
+                                                .withOpacity(0.1),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                          child: Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productEntity.price} ',
+                                                  style: AppTextStyle
+                                                      .textStyle18w700
+                                                      .copyWith(
+                                                        color:
+                                                            theme
+                                                                .colorScheme
+                                                                .secondary,
+                                                      ),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      '${AppStrings.currency.tr()} / ${AppStrings.kilo.tr()}',
+                                                  style: AppTextStyle
+                                                      .textStyle14w600
+                                                      .copyWith(
+                                                        color:
+                                                            theme
+                                                                .colorScheme
+                                                                .tertiary,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -188,103 +216,157 @@ class ProductDetailsViewBody extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 24),
 
-                              // Rating Row
-                              Row(
+                              // Rating Row with improved visual hierarchy
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.surfaceVariant
+                                      .withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: theme.colorScheme.outline
+                                        .withOpacity(0.1),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    // Rating badge with improved design
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 6,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: theme.colorScheme.secondary
+                                            .withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SvgPicture.asset(
+                                            Assets.imagesStar,
+                                            width: 16,
+                                            height: 16,
+                                            color: theme.colorScheme.secondary,
+                                          ),
+                                          const SizedBox(width: 6),
+                                          Text(
+                                            avgRating.toStringAsFixed(1),
+                                            style: AppTextStyle.textStyle14w600
+                                                .copyWith(
+                                                  color:
+                                                      theme.colorScheme.primary,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            '($reviewsCount)',
+                                            style: AppTextStyle.textStyle14w400
+                                                .copyWith(
+                                                  color: theme
+                                                      .colorScheme
+                                                      .onSurface
+                                                      .withOpacity(0.6),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    // Reviews button with icon
+                                    TextButton.icon(
+                                      onPressed: () async {
+                                        context
+                                            .read<ReviewsCubit>()
+                                            .fetchLatestReviews();
+                                        await PersistentNavBarNavigator.pushNewScreen(
+                                          context,
+                                          screen: ReviewsView(
+                                            productEntity: productEntity,
+                                          ),
+                                          withNavBar: false,
+                                          pageTransitionAnimation:
+                                              PageTransitionAnimation.cupertino,
+                                        );
+                                      },
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                        ),
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        foregroundColor:
+                                            theme.colorScheme.primary,
+                                      ),
+                                      icon: Icon(
+                                        Icons.reviews_outlined,
+                                        size: 18,
+                                        color: theme.colorScheme.primary,
+                                      ),
+                                      label: Text(
+                                        AppStrings.review.tr(),
+                                        style: AppTextStyle.textStyle14w600
+                                            .copyWith(
+                                              color: theme.colorScheme.primary,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 28),
+
+                              // Description section with better typography
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.description_outlined,
+                                        size: 20,
+                                        color: theme.colorScheme.primary
+                                            .withOpacity(0.8),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'description'.tr(),
+                                        style: AppTextStyle.textStyle16w700
+                                            .copyWith(
+                                              color: theme.colorScheme.primary,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 6,
+                                      horizontal: 16,
+                                      vertical: 12,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: theme.colorScheme.secondary
-                                          .withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SvgPicture.asset(
-                                          Assets.imagesStar,
-                                          width: 16,
-                                          height: 16,
-                                          color: theme.colorScheme.secondary,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          avgRating.toStringAsFixed(1),
-                                          style: AppTextStyle.textStyle14w600
-                                              .copyWith(
-                                                color:
-                                                    theme.colorScheme.primary,
-                                              ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '($reviewsCount)',
-                                          style: AppTextStyle.textStyle14w400
-                                              .copyWith(
-                                                color: theme
-                                                    .colorScheme
-                                                    .onSurface
-                                                    .withOpacity(0.6),
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  TextButton(
-                                    onPressed: () async {
-                                      context
-                                          .read<ReviewsCubit>()
-                                          .fetchLatestReviews();
-                                      await PersistentNavBarNavigator.pushNewScreen(
-                                        context,
-                                        screen: ReviewsView(
-                                          productEntity: productEntity,
-                                        ),
-                                        withNavBar: false,
-                                        pageTransitionAnimation:
-                                            PageTransitionAnimation.cupertino,
-                                      );
-                                    },
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      tapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      color: theme.colorScheme.surfaceVariant
+                                          .withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Text(
-                                      AppStrings.review.tr(),
-                                      style: AppTextStyle.textStyle14w600
+                                      productEntity.description,
+                                      style: AppTextStyle.textStyle14w400
                                           .copyWith(
-                                            color: theme.colorScheme.primary,
-                                            decoration:
-                                                TextDecoration.underline,
+                                            color: theme.colorScheme.onSurface
+                                                .withOpacity(0.8),
+                                            height: 1.6,
                                           ),
                                     ),
                                   ),
                                 ],
-                              ),
-                              const SizedBox(height: 24),
-
-                              // Description
-                              Text(
-                                'description'.tr(),
-                                style: AppTextStyle.textStyle16w700.copyWith(
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                productEntity.description,
-                                style: AppTextStyle.textStyle14w400.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withOpacity(0.7),
-                                  height: 1.5,
-                                ),
                               ),
                               const SizedBox(height: 32),
                             ],
@@ -292,9 +374,9 @@ class ProductDetailsViewBody extends StatelessWidget {
                         ),
                       ),
 
-                      // Product Info Grid
+                      // Product Info Grid using CustomProductDetailsBox
                       SliverPadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
                         sliver: SliverGrid(
                           delegate: SliverChildListDelegate([
                             CustomProductDetailsBox(
@@ -354,11 +436,11 @@ class ProductDetailsViewBody extends StatelessWidget {
                             ),
                           ]),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 16,
                                 crossAxisSpacing: 16,
-                                childAspectRatio: 1.8,
+                                childAspectRatio: screenWidth < 400 ? 1.6 : 1.8,
                               ),
                         ),
                       ),
@@ -367,18 +449,20 @@ class ProductDetailsViewBody extends StatelessWidget {
                   ),
                 ),
 
-                // Add to Cart Button
+                // Add to Cart Button with floating effect
                 Positioned(
-                  left: 20,
-                  right: 20,
-                  bottom: 20,
+                  left: 24,
+                  right: 24,
+                  bottom: 24,
                   child: SafeArea(
-                    child: CustomButton(
-                      text: AppStrings.addToCart.tr(),
-                      onPressed:
-                          () => context.read<CartCubit>().addCartItem(
-                            product: productEntity,
-                          ),
+                    child: Container(
+                      child: CustomButton(
+                        text: AppStrings.addToCart.tr(),
+                        onPressed:
+                            () => context.read<CartCubit>().addCartItem(
+                              product: productEntity,
+                            ),
+                      ),
                     ),
                   ),
                 ),

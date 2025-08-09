@@ -14,8 +14,8 @@ class ShoppingCartActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24,
-      height: 24,
+      width: 32,
+      height: 32,
       decoration: ShapeDecoration(
         color: backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
@@ -25,7 +25,7 @@ class ShoppingCartActionButton extends StatelessWidget {
           onPressed: onPressed,
           icon: IconButton(
             onPressed: onPressed,
-            icon: Icon(icon, color: iconColor),
+            icon: Icon(icon, color: iconColor, size: 30),
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:ui' as ui;
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/functions/build_custom_snack_bar.dart';
 import 'package:fruits_hub/core/functions/on_generate_routes.dart';
@@ -13,6 +14,7 @@ import 'package:fruits_hub/core/services/fcm_services.dart';
 import 'package:fruits_hub/core/services/shared_preferences.dart';
 import 'package:fruits_hub/core/services/supabase_storage_service.dart';
 import 'package:fruits_hub/core/themes/themes.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/core/utils/locale_box.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_scroll_behavior.dart';
@@ -26,6 +28,7 @@ import 'package:fruits_hub/features/search/domain/entities/recent_search_entity.
 import 'package:hive_flutter/adapters.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -94,8 +97,8 @@ class _FruitHubState extends State<FruitHub> {
           Future.delayed(Duration(milliseconds: 300), () {
             final message =
                 state == ThemeMode.dark
-                    ? 'dark_mode_enabled'.tr()
-                    : 'light_mode_enabled'.tr();
+                    ? AppStrings.darkModeEnabled.tr()
+                    : AppStrings.lightModeEnabled.tr();
             final color =
                 state == ThemeMode.dark ? Color(0xFF4A148C) : Color(0xFF4A148C);
             final IconData icon =
@@ -114,6 +117,11 @@ class _FruitHubState extends State<FruitHub> {
       child: BlocBuilder<ThemeCubit, ThemeMode?>(
         builder: (context, themeMode) {
           if (themeMode == null) return SizedBox();
+
+          final currentLocale = context.locale;
+          // Determine text direction: Arabic = RTL, English = LTR
+          final isArabic = currentLocale.languageCode == 'ar';
+
           return ScrollConfiguration(
             behavior: CustomScrollBehavior(),
             child: MaterialApp(
@@ -122,11 +130,19 @@ class _FruitHubState extends State<FruitHub> {
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: themeMode,
-              locale: context.locale,
+              locale: currentLocale,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               onGenerateRoute: onGenerateRoute,
               initialRoute: Constants.splashViewRoute,
+              // Set directionality based on locale
+              builder: (context, child) {
+                return Directionality(
+                  textDirection:
+                      isArabic ? ui.TextDirection.rtl : ui.TextDirection.ltr,
+                  child: child ?? SizedBox(),
+                );
+              },
             ),
           );
         },

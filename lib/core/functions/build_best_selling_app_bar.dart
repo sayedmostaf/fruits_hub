@@ -26,16 +26,9 @@ AppBar buildBestSellingAppBar(BuildContext context) {
       ),
     ),
     actions: [
-      Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withOpacity(0.1),
-          shape: BoxShape.circle,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FittedBox(fit: BoxFit.scaleDown, child: NotificationIcon()),
-        ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FittedBox(fit: BoxFit.scaleDown, child: NotificationIcon()),
       ),
     ],
     title: Text(

@@ -98,9 +98,17 @@ class Assets {
   /// assets/images/page_view_item2_image.svg
   static const String imagesPageViewItem2Image = "assets/images/page_view_item2_image.svg";
 
+  /// Assets for imagesPersonal
+  /// assets/images/personal.png
+  static const String imagesPersonal = "assets/images/personal.png";
+
   /// Assets for imagesPlant
   /// assets/images/plant.svg
   static const String imagesPlant = "assets/images/plant.svg";
+
+  /// Assets for imagesPrivacy
+  /// assets/images/privacy.svg
+  static const String imagesPrivacy = "assets/images/privacy.svg";
 
   /// Assets for imagesProductDetailsBackground
   /// assets/images/product_details_background.svg
@@ -133,6 +141,10 @@ class Assets {
   /// Assets for imagesStar
   /// assets/images/star.svg
   static const String imagesStar = "assets/images/star.svg";
+
+  /// Assets for imagesSupport
+  /// assets/images/support.svg
+  static const String imagesSupport = "assets/images/support.svg";
 
   /// Assets for imagesTrash
   /// assets/images/trash.svg

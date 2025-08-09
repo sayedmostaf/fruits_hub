@@ -33,13 +33,12 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   Future<void> fetchNotifications() async {
     emit(NotificationsLoading());
-    final uid = getSavedUserData().uid;
     final result = await notificationsRepo.fetchNotifications();
     result.fold((failure) => emit(NotificationsFailure(failure.errMessage)), (
       discounts,
     ) {
-      final filtered = discounts.where((e) => !e.readBy.contains(uid)).toList();
-      emit(NotificationsSuccess(filtered));
+      // ✅ FIX: Return ALL notifications, let UI handle filtering
+      emit(NotificationsSuccess(discounts));
     });
   }
 
@@ -53,10 +52,20 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     result.fold((_) {}, (_) {
       final currentState = state;
       if (currentState is NotificationsSuccess) {
+        // ✅ FIX: Update the discount in the list instead of removing it
         final updatedList =
-            currentState.discounts
-                .where((e) => e.productCode != discount.productCode)
-                .toList();
+            currentState.discounts.map((e) {
+              if (e.productCode == discount.productCode) {
+                // Create a new instance with updated readBy list
+                final updatedReadBy = List<String>.from(e.readBy);
+                if (!updatedReadBy.contains(uid)) {
+                  updatedReadBy.add(uid);
+                }
+                return e.copyWith(readBy: updatedReadBy);
+              }
+              return e;
+            }).toList();
+
         emit(NotificationsSuccess(updatedList));
       }
     });
@@ -65,10 +74,24 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   Future<void> markAllAsRead() async {
     final uid = getSavedUserData().uid;
     final result = await notificationsRepo.markAllAsRead(uid);
-    result.fold(
-      (failure) => emit(NotificationsFailure(failure.errMessage)),
-      (_) => emit(NotificationsSuccess([])),
-    );
+    result.fold((failure) => emit(NotificationsFailure(failure.errMessage)), (
+      _,
+    ) {
+      // ✅ FIX: Update all notifications instead of clearing the list
+      final currentState = state;
+      if (currentState is NotificationsSuccess) {
+        final updatedList =
+            currentState.discounts.map((discount) {
+              final updatedReadBy = List<String>.from(discount.readBy);
+              if (!updatedReadBy.contains(uid)) {
+                updatedReadBy.add(uid);
+              }
+              return discount.copyWith(readBy: updatedReadBy);
+            }).toList();
+
+        emit(NotificationsSuccess(updatedList));
+      }
+    });
   }
 
   Future<void> toggleNotifications(bool value) async {

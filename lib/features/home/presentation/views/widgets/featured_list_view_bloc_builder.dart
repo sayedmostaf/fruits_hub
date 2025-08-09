@@ -23,7 +23,7 @@ class FeaturedListViewBlocBuilder extends StatelessWidget {
             products: state.productsEntities,
           );
         } else if (state is FeaturedProductFailure) {
-          return SliverToBoxAdapter(
+          return Center(
             child: CustomLoadingError(errMessage: state.errMessage),
           );
         } else {
@@ -49,18 +49,17 @@ class FeaturedListViewBlocBuilder extends StatelessWidget {
       height: itemWidth * 158 / 342,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
-
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(right: 12),
             child: FeaturedItem(
               width: itemWidth,
               productEntity: products[index],
             ),
           );
         },
-        separatorBuilder: (context, index) => SizedBox(width: 8),
+        separatorBuilder: (context, index) => const SizedBox(width: 8),
         itemCount: itemCount,
       ),
     );

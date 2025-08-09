@@ -23,8 +23,8 @@ class DiscountModel extends DiscountEntity {
 
   factory DiscountModel.fromJson(Map<String, dynamic> json) {
     return DiscountModel(
-      percentage: (json[FirebaseFields.discountPercentage] as num).toDouble(),
-      createdAt: (json[FirebaseFields.discountCreatedAt] as Timestamp).toDate(),
+      percentage: _parseDouble(json[FirebaseFields.discountPercentage]),
+      createdAt: _parseTimestamp(json[FirebaseFields.discountCreatedAt]),
       note: json[FirebaseFields.discountNote] as String?,
       productCode: json[FirebaseFields.productCode] ?? '',
       readBy: List<String>.from(json[FirebaseFields.readBy] ?? []),
@@ -56,6 +56,21 @@ class DiscountModel extends DiscountEntity {
       productCode: productCode ?? this.productCode,
       readBy: readBy ?? this.readBy,
     );
+  }
+
+  static double _parseDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is double) return value;
+    if (value is int) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
+
+  static DateTime _parseTimestamp(dynamic value) {
+    if (value == null) return DateTime.now();
+    if (value is Timestamp) return value.toDate();
+    if (value is DateTime) return value;
+    return DateTime.now();
   }
 
   DiscountEntity toEntity() {

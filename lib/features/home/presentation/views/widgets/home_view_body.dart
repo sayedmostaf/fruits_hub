@@ -26,7 +26,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
       child: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [

@@ -127,9 +127,12 @@ class FruitItem extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
+                                    width: 35,
+                                    height: 35,
                                     decoration: BoxDecoration(
                                       color: theme.colorScheme.primary,
-                                      shape: BoxShape.circle,
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: IconButton(
                                       onPressed: () {

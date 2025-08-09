@@ -27,9 +27,7 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
     final theme = Theme.of(context);
 
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: TextField(
         keyboardType: TextInputType.text,
         controller: _controller,
@@ -47,6 +45,7 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
         },
         decoration: InputDecoration(
           hintText: 'search_hint'.tr(),
+
           suffixIcon: Container(
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -70,13 +69,13 @@ class _CustomSearchAppBarState extends State<CustomSearchAppBar> {
                 Assets.imagesSearchIcon,
                 width: 18,
                 height: 18,
-                color: theme.colorScheme.secondary,
+                color: theme.colorScheme.primary,
               ),
               onPressed: () {},
             ),
           ),
           hintStyle: AppTextStyle.textStyle13w400.copyWith(
-            color: theme.colorScheme.secondary.withOpacity(0.7),
+            color: theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
           ),
           filled: true,
           fillColor: theme.colorScheme.surface,

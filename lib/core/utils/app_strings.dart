@@ -11,6 +11,7 @@ class AppStrings {
       'account_created_successfully';
   static const String login = 'login';
   static const String sendCode = 'send_code';
+  static const String sendReview = 'send_review';
   static const String loginWithGoogle = 'login_with_google';
   static const String invalidEmailFormat = 'invalid_email_format';
   static const String noFavoritesYet = 'no_favorites_yet';

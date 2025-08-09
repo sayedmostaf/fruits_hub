@@ -10,13 +10,11 @@ class CustomProductAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          AppStrings.products.tr(),
-          style: AppTextStyle.textStyle18w700.copyWith(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
+      title: Text(
+        AppStrings.products.tr(),
+        textAlign: TextAlign.start,
+        style: AppTextStyle.textStyle18w700.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       trailing: NotificationIcon(),

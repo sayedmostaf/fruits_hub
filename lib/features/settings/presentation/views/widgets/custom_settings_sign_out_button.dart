@@ -16,10 +16,12 @@ class CustomSettingsSignOutButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
+        
         splashColor: theme.colorScheme.error.withOpacity(0.2),
         highlightColor: theme.colorScheme.error.withOpacity(0.1),
         onTap: () => _showSignOutConfirmation(context),
         child: Padding(
+          
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

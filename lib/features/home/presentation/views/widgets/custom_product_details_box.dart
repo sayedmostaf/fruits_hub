@@ -14,41 +14,54 @@ class CustomProductDetailsBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20), // Increased padding for better spacing
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(
+          20,
+        ), // Larger radius for modern look
         border: Border.all(
           width: 1,
-          color: Theme.of(context).dividerColor.withOpacity(0.3),
+          color:
+              isDarkMode
+                  ? theme.colorScheme.outline.withOpacity(0.2)
+                  : theme.colorScheme.outline.withOpacity(0.1),
         ),
-        color: Theme.of(context).colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: theme.colorScheme.surface,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              title,
-              const SizedBox(height: 4),
-              Text(
-                subTitle,
-                style: AppTextStyle.textStyle13w600.copyWith(
-                  color: Theme.of(context).hintColor,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                title,
+                const SizedBox(height: 6), // Slightly increased spacing
+                Text(
+                  subTitle,
+                  style: AppTextStyle.textStyle13w600.copyWith(
+                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    letterSpacing: 0.2,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          SvgPicture.asset(image, width: 32, height: 32),
+          const SizedBox(width: 12), // Add spacing between content and icon
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: SvgPicture.asset(image, width: 24, height: 24),
+          ),
         ],
       ),
     );

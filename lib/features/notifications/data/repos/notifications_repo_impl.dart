@@ -16,18 +16,24 @@ class NotificationsRepoImpl implements NotificationsRepo {
       final snapshot = await firestore.collection('Products').get();
 
       final discounts =
-          snapshot.docs.where((doc) => doc.data().containsKey('discount')).map((
-            doc,
-          ) {
-            final discountJson = Map<String, dynamic>.from(doc['discount']);
-            return DiscountModel.fromJson(
-              discountJson,
-            ).copyWith(productCode: doc.id);
-          }).toList();
+          snapshot.docs
+              .map((doc) {
+                final discountData = doc.data()['discount'];
+                if (discountData == null || discountData is! Map) {
+                  return null;
+                }
+
+                final discountJson = Map<String, dynamic>.from(discountData);
+                return DiscountModel.fromJson(
+                  discountJson,
+                ).copyWith(productCode: doc.id);
+              })
+              .whereType<DiscountModel>()
+              .toList();
 
       return right(discounts);
-    } catch (e) {
-      log('❌ Error fetching notifications: $e');
+    } catch (e, stack) {
+      log('❌ Error fetching notifications: $e\n$stack');
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
