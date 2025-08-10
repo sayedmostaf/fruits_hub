@@ -19,6 +19,7 @@ class LoginView extends StatelessWidget {
         appBar: buildAppBar(
           context,
           title: AppStrings.login.tr(),
+          goBack: false,
         ),
         body: LoginViewBodyBlocConsumer(),
       ),
