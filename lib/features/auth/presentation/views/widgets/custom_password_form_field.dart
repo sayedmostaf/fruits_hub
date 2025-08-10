@@ -10,11 +10,18 @@ class CustomPasswordFormField extends StatefulWidget {
     this.hintText = 'password_hint',
     this.validator,
     this.controller,
+    this.onChanged,
+    this.prefixIcon,
+    this.contentPadding,
   });
   final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
   final String? hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final EdgeInsetsGeometry? contentPadding;
+  final Widget? prefixIcon;
+
   @override
   State<CustomPasswordFormField> createState() =>
       _CustomPasswordFormFieldState();
@@ -22,39 +29,59 @@ class CustomPasswordFormField extends StatefulWidget {
 
 class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
   bool isObscureText = true;
+  bool hasText = false;
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired.tr();
+    }
+    if (value.length < 8) {
+      return 'AppStrings.passwordTooShort.tr()';
+    }
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return 'AppStrings.passwordNeedsUppercase.tr()';
+    }
+    if (!value.contains(RegExp(r'[0-9]'))) {
+      return 'AppStrings.passwordNeedsNumber.tr()';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return CustomTextFormField(
-      validator:
-          widget.validator ??
-          (value) {
-            if (value == null || value.isEmpty) {
-              return AppStrings.fieldRequired.tr();
-            } else {
-              return null;
-            }
-          },
+      prefixIcon: widget.prefixIcon,
+      validator: widget.validator ?? _validatePassword,
       controller: widget.controller,
       hintText: widget.hintText!.tr(),
       textInputType: TextInputType.visiblePassword,
       isObscureText: isObscureText,
       onSaved: widget.onSaved,
-      suffixIcon: InkWell(
-        onTap: () {
-          setState(() {
-            isObscureText = !isObscureText;
-          });
-        },
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 31, vertical: 16),
-          child: Icon(
-            isObscureText ? Icons.visibility_off : Icons.visibility,
-            color: isObscureText ? theme.hintColor : theme.colorScheme.primary,
-          ),
-        ),
-      ),
+      onChanged: (value) {
+        setState(() => hasText = value.isNotEmpty);
+        widget.onChanged?.call(value);
+      },
+      contentPadding: widget.contentPadding,
+      suffixIcon:
+          hasText
+              ? IconButton(
+                icon: Icon(
+                  isObscureText ? Icons.visibility_off : Icons.visibility,
+                  color:
+                      isObscureText
+                          ? theme.hintColor
+                          : theme.colorScheme.primary,
+                  size: 20,
+                ),
+                onPressed: () {
+                  setState(() => isObscureText = !isObscureText);
+                },
+                padding: EdgeInsets.zero,
+                splashRadius: 20,
+              )
+              : null,
     );
   }
 }

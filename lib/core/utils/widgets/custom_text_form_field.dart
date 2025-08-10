@@ -9,23 +9,32 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     required this.textInputType,
     this.onSaved,
+    this.onChanged,
     this.isObscureText = false,
     this.controller,
     this.validator,
     this.contentPadding,
     this.borderRadius = 12,
     this.elevation = 0,
+    this.fillColor,
+    this.hintStyle,
+    this.textStyle,
   });
+
   final String hintText;
   final Widget? prefixIcon, suffixIcon;
   final TextInputType textInputType;
   final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
   final bool isObscureText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final EdgeInsetsGeometry? contentPadding;
   final double borderRadius;
   final double elevation;
+  final Color? fillColor;
+  final TextStyle? hintStyle;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +44,19 @@ class CustomTextFormField extends StatelessWidget {
       elevation: elevation,
       borderRadius: BorderRadius.circular(borderRadius),
       shadowColor: theme.shadowColor,
+      color: Colors.transparent,
       child: TextFormField(
         obscureText: isObscureText,
         keyboardType: textInputType,
         controller: controller,
         onSaved: onSaved,
+        onChanged: onChanged,
         validator: validator,
-        style: AppTextStyle.textStyle13w400.copyWith(
-          color: theme.colorScheme.onBackground,
-        ),
+        style:
+            textStyle ??
+            AppTextStyle.textStyle16w400.copyWith(
+              color: theme.colorScheme.onBackground,
+            ),
         decoration: InputDecoration(
           hintText: hintText,
           suffixIcon:
@@ -60,11 +73,11 @@ class CustomTextFormField extends StatelessWidget {
                     child: prefixIcon,
                   )
                   : null,
-          hintStyle: AppTextStyle.textStyle13w400.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.6),
-          ),
+          hintStyle:
+              hintStyle ??
+              AppTextStyle.textStyle16w400.copyWith(color: theme.hintColor),
           filled: true,
-          fillColor: theme.colorScheme.surface,
+          fillColor: fillColor ?? theme.colorScheme.surface,
           contentPadding:
               contentPadding ??
               const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -73,6 +86,9 @@ class CustomTextFormField extends StatelessWidget {
           focusedBorder: buildFocusedBorder(theme),
           errorBorder: buildErrorBorder(theme),
           focusedErrorBorder: buildErrorBorder(theme),
+          errorStyle: AppTextStyle.textStyle12w400.copyWith(
+            color: theme.colorScheme.error,
+          ),
         ),
       ),
     );

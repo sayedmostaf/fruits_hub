@@ -20,3 +20,12 @@ final class NotificationSwitchChanged extends NotificationsState {
   final bool enabled;
   NotificationSwitchChanged(this.enabled);
 }
+
+final class NotificationMarkedAsRead extends NotificationsState {
+  final DiscountEntity discount;
+  NotificationMarkedAsRead(this.discount);
+}
+
+final class NotificationsMarkedAllAsRead extends NotificationsState {
+  NotificationsMarkedAllAsRead();
+}

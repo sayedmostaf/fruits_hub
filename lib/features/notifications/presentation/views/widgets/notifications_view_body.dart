@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:fruits_hub/core/utils/widgets/custom_section_header.dart';
 import 'package:fruits_hub/features/notifications/presentation/managers/notifications_cubit.dart';
 import 'package:fruits_hub/features/notifications/presentation/managers/notifications_state.dart';
 import 'package:fruits_hub/features/notifications/presentation/views/widgets/discount_notification_card.dart';
-import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 enum NotificationFilter { all, unread, read }
@@ -64,28 +61,29 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<NotificationsCubit, NotificationsState>(
-      listener: _handleStateChanges,
+      listener: (context, state) {
+        if (state is NotificationMarkedAsRead) {
+          buildSuccessSnackBar(
+            context,
+            message: 'Notification marked as read'.tr(),
+          );
+        } else if (state is NotificationsMarkedAllAsRead) {
+          buildSuccessSnackBar(
+            context,
+            message: AppStrings.markedAllAsRead.tr(),
+          );
+        } else if (state is NotificationsFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error ?? 'Something went wrong'.tr()),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      },
       builder: (context, state) => _buildContent(context, state),
     );
-  }
-
-  void _handleStateChanges(BuildContext context, NotificationsState state) {
-    if (state is NotificationsSuccess) {
-      buildSuccessSnackBar(context, message: AppStrings.markedAllAsRead.tr());
-    } else if (state is NotificationsSuccess) {
-      buildSuccessSnackBar(
-        context,
-        message: 'Notification marked as read'.tr(),
-      );
-    } else if (state is NotificationsFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.error ?? 'Something went wrong'.tr()),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    }
   }
 
   Widget _buildContent(BuildContext context, NotificationsState state) {
@@ -122,7 +120,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
               title: AppStrings.notificationsNew.tr(),
               subTitle:
                   _isSelectionMode
-                      ? '${_selectedNotifications.length} selected'
+                      ? '${_selectedNotifications.length} selected'.tr()
                       : AppStrings.markAllAsRead.tr(),
               count: unreadCount,
               onTap:
@@ -202,20 +200,14 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                     : Theme.of(context).colorScheme.outline,
           ),
           style: IconButton.styleFrom(
-            backgroundColor:
-                isEnabled
-                    ? Theme.of(context).colorScheme.surface
-                    : Theme.of(context).colorScheme.surfaceVariant,
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           label.tr(),
           style: AppTextStyle.textStyle11w600.copyWith(
-            color:
-                isEnabled
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.outline,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
       ],
@@ -629,7 +621,6 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   ) {
     List<DiscountEntity> filtered = notifications;
 
-    // Apply filter
     switch (_currentFilter) {
       case NotificationFilter.unread:
         filtered = filtered.where((n) => !_isNotificationRead(n)).toList();
@@ -641,7 +632,6 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
         break;
     }
 
-    // Apply sort
     switch (_currentSort) {
       case NotificationSort.newest:
         filtered.sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -736,7 +726,6 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   }
 
   void _deleteSelected(BuildContext context) {
-    // Show confirmation dialog
     showDialog(
       context: context,
       builder:

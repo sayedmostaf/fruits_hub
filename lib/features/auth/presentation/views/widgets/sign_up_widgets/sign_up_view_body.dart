@@ -19,100 +19,121 @@ class SignUpViewBody extends StatefulWidget {
 
 class _SignUpViewBodyState extends State<SignUpViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
   late String name, email, password;
   bool isTermsAccepted = false;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: BouncingScrollPhysics(),
-      slivers: [
-        SliverFillRemaining(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Form(
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: size.height - (size.height * 0.2),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppStrings.createAccountNow.tr(),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onBackground,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'AppStrings.fillDetailsToContinue.tr()',
+              style: TextStyle(fontSize: 16, color: theme.hintColor),
+            ),
+            const SizedBox(height: 32),
+            Form(
               key: formKey,
               autovalidateMode: autovalidateMode,
               child: Column(
                 children: [
-                  SizedBox(height: 24),
                   CustomTextFormField(
-                    onSaved: (value) {
-                      name = value!;
-                    },
+                    onSaved: (value) => name = value!,
                     hintText: AppStrings.fullName.tr(),
                     textInputType: TextInputType.name,
-                  ),
-                  SizedBox(height: 16),
-                  CustomTextFormField(
-                    onSaved: (value) {
-                      email = value!;
-                    },
+                    prefixIcon: Icon(Icons.person_outline, size: 20),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppStrings.enterEmailRequired.tr();
+                        return AppStrings.fieldRequired.tr();
                       }
-                      final emailRegExp = RegExp(
+                      if (value.length < 3) {
+                        return 'AppStrings.nameTooShort.tr()';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextFormField(
+                    onSaved: (value) => email = value!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppStrings.fieldRequired.tr();
+                      }
+                      if (!RegExp(
                         r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                      );
-                      if (!emailRegExp.hasMatch(value)) {
+                      ).hasMatch(value)) {
                         return AppStrings.invalidEmailFormat.tr();
                       }
                       return null;
                     },
                     hintText: AppStrings.emailHint.tr(),
                     textInputType: TextInputType.emailAddress,
+                    prefixIcon: Icon(Icons.email_outlined, size: 20),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   CustomPasswordFormField(
-                    onSaved: (value) {
-                      password = value!;
-                    },
+                    onSaved: (value) => password = value!,
+                    hintText: AppStrings.passwordHint.tr(),
+                    prefixIcon: Icon(Icons.lock_outline, size: 20),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TermsAndConditionsWidget(
                     onChange: (currentState) {
-                      isTermsAccepted = currentState;
+                      setState(() => isTermsAccepted = currentState);
                     },
                   ),
-                  Expanded(child: SizedBox(height: 30)),
+                  const SizedBox(height: 32),
                   CustomButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        if (isTermsAccepted) {
-                          context
-                              .read<SignupCubit>()
-                              .createUserWithEmailAndPassword(
-                                name: name,
-                                email: email,
-                                password: password,
-                              );
-                        } else {
-                          buildErrorSnackBar(
-                            context,
-                            message: AppStrings.acceptTermsFirst.tr(),
-                          );
-                        }
-                      } else {
-                        setState(() {
-                          autovalidateMode = AutovalidateMode.always;
-                        });
-                      }
-                    },
+                    onPressed: _submitForm,
                     text: AppStrings.createNewAccount.tr(),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 24),
                   HaveAnAccountWidget(),
-                  SizedBox(height: 8),
                 ],
               ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
+  }
+
+  void _submitForm() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      if (isTermsAccepted) {
+        setState(() => isLoading = true);
+        context.read<SignupCubit>().createUserWithEmailAndPassword(
+          name: name,
+          email: email,
+          password: password,
+        );
+      } else {
+        buildErrorSnackBar(context, message: AppStrings.acceptTermsFirst.tr());
+      }
+    } else {
+      setState(() => autovalidateMode = AutovalidateMode.always);
+    }
   }
 }

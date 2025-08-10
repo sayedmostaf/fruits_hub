@@ -7,41 +7,48 @@ class CustomCheckBox extends StatelessWidget {
     super.key,
     required this.onChange,
     required this.isChecked,
+    this.size = 24,
+    this.borderRadius = 8,
   });
   final ValueChanged<bool> onChange;
   final bool isChecked;
+  final double size;
+  final double borderRadius;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final Color fillColor =
-        isChecked ? theme.colorScheme.primary : theme.colorScheme.background;
-    final Color borderColor =
-        isChecked ? Colors.transparent : theme.dividerColor;
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () => onChange(!isChecked),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 150),
-        width: 24,
-        height: 24,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
-          color: fillColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: borderColor, width: 1.5),
+          color: isChecked ? theme.colorScheme.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(borderRadius),
+          border: Border.all(
+            color: isChecked ? Colors.transparent : theme.dividerColor,
+            width: 1.5,
+          ),
         ),
         child:
             isChecked
-                ? Padding(
-                  padding: EdgeInsets.all(2),
+                ? Center(
                   child: SvgPicture.asset(
                     Assets.imagesCheck,
+                    width: size * 0.6,
+                    height: size * 0.6,
                     colorFilter: ColorFilter.mode(
                       theme.colorScheme.onPrimary,
                       BlendMode.srcIn,
                     ),
                   ),
                 )
-                : SizedBox.shrink(),
+                : null,
       ),
     );
   }

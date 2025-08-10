@@ -10,6 +10,7 @@ import 'package:fruits_hub/features/notifications/presentation/managers/notifica
 class NotificationsCubit extends Cubit<NotificationsState> {
   final NotificationsRepo notificationsRepo;
   bool notificationsEnabled = true;
+
   NotificationsCubit({required this.notificationsRepo})
     : super(NotificationsInitial()) {
     _init();
@@ -34,29 +35,26 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   Future<void> fetchNotifications() async {
     emit(NotificationsLoading());
     final result = await notificationsRepo.fetchNotifications();
-    result.fold((failure) => emit(NotificationsFailure(failure.errMessage)), (
-      discounts,
-    ) {
-      // ✅ FIX: Return ALL notifications, let UI handle filtering
-      emit(NotificationsSuccess(discounts));
-    });
+    result.fold(
+      (failure) => emit(NotificationsFailure(failure.errMessage)),
+      (discounts) => emit(NotificationsSuccess(discounts)),
+    );
   }
 
   Future<void> markOneAsRead(DiscountEntity discount) async {
     final uid = getSavedUserData().uid;
-
     final result = await notificationsRepo.markOneAsRead(
       discountId: discount.productCode,
       uid: uid,
     );
-    result.fold((_) {}, (_) {
+    result.fold((failure) => emit(NotificationsFailure(failure.errMessage)), (
+      _,
+    ) {
       final currentState = state;
       if (currentState is NotificationsSuccess) {
-        // ✅ FIX: Update the discount in the list instead of removing it
         final updatedList =
             currentState.discounts.map((e) {
               if (e.productCode == discount.productCode) {
-                // Create a new instance with updated readBy list
                 final updatedReadBy = List<String>.from(e.readBy);
                 if (!updatedReadBy.contains(uid)) {
                   updatedReadBy.add(uid);
@@ -65,8 +63,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
               }
               return e;
             }).toList();
-
         emit(NotificationsSuccess(updatedList));
+        emit(NotificationMarkedAsRead(discount));
       }
     });
   }
@@ -77,7 +75,6 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     result.fold((failure) => emit(NotificationsFailure(failure.errMessage)), (
       _,
     ) {
-      // ✅ FIX: Update all notifications instead of clearing the list
       final currentState = state;
       if (currentState is NotificationsSuccess) {
         final updatedList =
@@ -88,8 +85,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
               }
               return discount.copyWith(readBy: updatedReadBy);
             }).toList();
-
         emit(NotificationsSuccess(updatedList));
+        emit(NotificationsMarkedAllAsRead());
       }
     });
   }
@@ -97,7 +94,6 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   Future<void> toggleNotifications(bool value) async {
     notificationsEnabled = value;
     await Pref.setBool(Constants.notificationKey, value);
-
     await _handleFcmSubscription(value);
     emit(NotificationSwitchChanged(notificationsEnabled));
     Future.delayed(Duration(milliseconds: 400), () {
