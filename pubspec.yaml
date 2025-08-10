@@ -67,6 +67,7 @@ dependencies:
   shared_preferences: ^2.5.3
   skeletonizer: ^1.4.3
   supabase_flutter: ^2.9.1
+  url_launcher: ^6.3.2
   widget_and_text_animator: ^1.1.5
 
 dev_dependencies:

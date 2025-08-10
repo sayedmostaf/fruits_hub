@@ -5,6 +5,7 @@ import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/custom_auth_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_scroll_behavior.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsView extends StatefulWidget {
   const AboutUsView({super.key});
@@ -71,7 +72,7 @@ class _AboutUsViewState extends State<AboutUsView>
           isDark ? theme.scaffoldBackgroundColor : const Color(0xFFF8FAFB),
       appBar: buildAppBar(
         context,
-        title: AppStrings.aboutUsTitle,
+        title: AppStrings.aboutUsTitle.tr(),
         goBack: true,
       ),
       body: FadeTransition(
@@ -148,7 +149,11 @@ class _AboutUsViewState extends State<AboutUsView>
                         ),
                       ],
                     ),
-                    child: Image.asset(Assets.imagesPersonal),
+                    child: Image.asset(
+                      Assets.imagesPersonal,
+                      width: 150,
+                      height: 150,
+                    ),
                   ),
                   Positioned(
                     right: 0,
@@ -388,43 +393,6 @@ class _AboutUsViewState extends State<AboutUsView>
                               ),
                         ),
                         const SizedBox(height: 8),
-                        Stack(
-                          children: [
-                            Container(
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: theme.dividerColor.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                            Container(
-                              height: 8,
-                              width:
-                                  MediaQuery.of(context).size.width *
-                                  0.5 *
-                                  level *
-                                  value,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    theme.primaryColor,
-                                    theme.primaryColor.withOpacity(0.8),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: theme.primaryColor.withOpacity(0.3),
-                                    blurRadius: 6,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -725,11 +693,160 @@ class _AboutUsViewState extends State<AboutUsView>
                 ),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 24),
+
+              // Primary Contact Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => _launchEmail(),
+                  icon: const Icon(Icons.email_outlined),
+                  label: const Text('Get In Touch'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Social Media Buttons Row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildSocialButton(
+                    context,
+                    icon: Icons.work_outline,
+                    label: 'LinkedIn',
+                    onTap: () => _launchLinkedIn(),
+                  ),
+                  _buildSocialButton(
+                    context,
+                    icon: Icons.code,
+                    label: 'GitHub',
+                    onTap: () => _launchGitHub(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                children: [
+                  _buildSocialButton(
+                    context,
+                    icon: Icons.phone_outlined,
+                    label: 'Call',
+                    onTap: () => _launchPhone(),
+                  ),
+                  _buildSocialButton(
+                    context,
+                    icon: Icons.description_outlined,
+                    label: 'Resume',
+                    onTap: () => _downloadResume(),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildSocialButton(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 75,
+        height: 75,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Theme.of(context).primaryColor.withOpacity(0.3),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 25, color: Theme.of(context).primaryColor),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: AppTextStyle.textStyle12w500?.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onBackground.withOpacity(0.8),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Helper methods for launching URLs and actions
+  void _launchEmail() async {
+    const email = 'your.email@example.com';
+    const subject = 'Hello! Let\'s connect';
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      queryParameters: {'subject': subject},
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    }
+  }
+
+  void _launchLinkedIn() async {
+    const url = 'https://linkedin.com/in/your-profile';
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  void _launchGitHub() async {
+    const url = 'https://github.com/your-username';
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  void _launchPhone() async {
+    const phoneNumber = '+201091706101';
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    }
+  }
+
+  void _downloadResume() async {
+    // You can either launch a URL to your resume or implement file download
+    const resumeUrl = 'https://your-website.com/resume.pdf';
+    final Uri uri = Uri.parse(resumeUrl);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   Widget _buildAnimatedSection(

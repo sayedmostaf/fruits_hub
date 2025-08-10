@@ -13,23 +13,74 @@ class ShoppingCartViewHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withOpacity(0.1),
-      ),
-      child: Center(
-        child: BlocBuilder<CartCubit, CartState>(
-          builder: (context, state) {
-            final itemCount = context.watch<CartCubit>().cart.cartItems.length;
-            return Text(
-              plural(AppStrings.cartItemsCount, itemCount),
-              style: AppTextStyle.textStyle13w400.copyWith(
-                color: theme.colorScheme.primary,
-              ),
-            );
-          },
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            theme.colorScheme.primary.withOpacity(0.1),
+            theme.colorScheme.secondary.withOpacity(0.05),
+          ],
         ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: theme.colorScheme.primary.withOpacity(0.2),
+          width: 1,
+        ),
+      ),
+      child: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          final itemCount = context.watch<CartCubit>().cart.cartItems.length;
+          return Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  Icons.shopping_basket_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  child: Text(
+                    plural(AppStrings.cartItemsCount, itemCount),
+                    key: ValueKey(itemCount),
+                    style: AppTextStyle.textStyle13w400.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              if (itemCount > 0)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '$itemCount',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

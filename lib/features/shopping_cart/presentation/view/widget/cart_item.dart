@@ -13,126 +13,207 @@ import 'package:fruits_hub/features/shopping_cart/presentation/view/widget/shopp
 class CartItem extends StatelessWidget {
   const CartItem({super.key, required this.cartItemEntity});
   final CartItemEntity cartItemEntity;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocBuilder<CartItemCubit, CartItemState>(
-      buildWhen: (previous, current) {
-        if (current is CartItemUpdatedState) {
-          if (current.targetCartItem == cartItemEntity) {
-            return true;
-          }
-        }
-        return false;
-      },
+      buildWhen:
+          (previous, current) =>
+              current is CartItemUpdatedState &&
+              current.targetCartItem == cartItemEntity,
       builder: (context, state) {
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          padding: const EdgeInsets.all(12),
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: theme.shadowColor.withOpacity(0.15),
-                blurRadius: 12,
-                spreadRadius: 2,
-                offset: const Offset(0, 6),
-              ),
-            ],
+            border: Border.all(
+              color: theme.colorScheme.outline.withOpacity(0.1),
+            ),
           ),
-          child: Row(
-            children: [
-              Container(
-                width: 73,
-                height: 92,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () => _showItemDetails(context),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: cartItemEntity.productEntity.imageUrL ?? "",
-                      width: 53,
-                      height: 40,
-                      fit: BoxFit.cover,
-                      placeholder:
-                          (context, url) => Container(
-                            width: 53,
-                            height: 40,
-                            color: theme.colorScheme.surface,
-                          ),
-                      errorWidget:
-                          (context, error, stackTrace) =>
-                              Icon(Icons.error, color: theme.colorScheme.error),
-                    ),
+                    _buildImage(theme),
+                    const SizedBox(width: 12),
+                    Expanded(child: _buildDetails(theme, context)),
                   ],
                 ),
               ),
-              SizedBox(width: 17),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          cartItemEntity.productEntity.name,
-                          style: AppTextStyle.textStyle13w700.copyWith(
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
-                        Spacer(),
-                        Material(
-                          color: theme.colorScheme.surface.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(8),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(8),
-                            onTap:
-                                () => context.read<CartCubit>().removeCartItem(
-                                  cartItem: cartItemEntity,
-                                ),
-                            child: Padding(
-                              padding: EdgeInsets.all(4),
-                              child: SvgPicture.asset(
-                                Assets.imagesTrash,
-                                color: theme.colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      '${cartItemEntity.calculateTotalUnit() ?? 'N/A'} كم',
-                      style: AppTextStyle.textStyle13w400.copyWith(
-                        color: theme.colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        ShoppingCartActions(cartItemEntity: cartItemEntity),
-                        const Spacer(),
-                        Text(
-                          '${(cartItemEntity.calculateTotalPrice() ?? 0).toStringAsFixed(2)} جنيه',
-                          style: AppTextStyle.textStyle16w700.copyWith(
-                            color: theme.colorScheme.secondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildImage(ThemeData theme) {
+    return Hero(
+      tag: 'product_${cartItemEntity.productEntity.name}',
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          color: theme.colorScheme.primary.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(
+            imageUrl: cartItemEntity.productEntity.imageUrL ?? "",
+            fit: BoxFit.cover,
+            placeholder:
+                (context, url) => Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      theme.colorScheme.primary,
+                    ),
+                  ),
+                ),
+            errorWidget:
+                (context, error, stackTrace) => Icon(
+                  Icons.image_not_supported_rounded,
+                  color: theme.colorScheme.error,
+                  size: 24,
+                ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetails(ThemeData theme, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                cartItemEntity.productEntity.name,
+                style: AppTextStyle.textStyle13w700.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontSize: 14,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildRemoveButton(theme, context),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.secondary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            '${cartItemEntity.calculateTotalUnit() ?? 'N/A'} كم',
+            style: AppTextStyle.textStyle13w400.copyWith(
+              color: theme.colorScheme.secondary,
+              fontSize: 11,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            ShoppingCartActions(cartItemEntity: cartItemEntity),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                '${(cartItemEntity.calculateTotalPrice() ?? 0).toStringAsFixed(2)} جنيه',
+                style: AppTextStyle.textStyle14w700.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontSize: 13,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRemoveButton(ThemeData theme, BuildContext context) {
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.error.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () => _showRemoveDialog(context),
+          child: Center(
+            child: SvgPicture.asset(
+              Assets.imagesTrash,
+              width: 16,
+              height: 16,
+              color: theme.colorScheme.error,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showItemDetails(BuildContext context) {
+    // Add item details modal or navigation
+  }
+
+  void _showRemoveDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            title: const Text('Remove Item'),
+            content: const Text(
+              'Are you sure you want to remove this item from your cart?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<CartCubit>().removeCartItem(
+                    cartItem: cartItemEntity,
+                  );
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Remove'),
+              ),
+            ],
+          ),
     );
   }
 }

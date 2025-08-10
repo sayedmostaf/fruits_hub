@@ -276,9 +276,16 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 16),
+            Icon(
+              icon,
+              size: 16,
+              color: isSelected ? Colors.white : Colors.black,
+            ),
             const SizedBox(width: 4),
-            Text(label.tr()),
+            Text(
+              label.tr(),
+              style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+            ),
           ],
         ),
         selected: isSelected,
@@ -293,7 +300,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
         },
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         selectedColor: Theme.of(context).colorScheme.primaryContainer,
-        checkmarkColor: Theme.of(context).colorScheme.primary,
+        checkmarkColor: Colors.white,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
