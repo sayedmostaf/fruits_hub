@@ -14,7 +14,11 @@ class OrderPaymentItem extends StatelessWidget {
     final order = context.read<OrderEntity>();
     final theme = Theme.of(context);
     final total = order.cart.calculateTotalPrice();
-    const deliveryFee = 40;
+
+    var deliveryFee = 40;
+    if (order.payWithCash!) {
+      deliveryFee = 0;
+    }
     return PaymentItem(
       title: AppStrings.orderSummary.tr(),
       child: Column(

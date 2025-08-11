@@ -16,14 +16,14 @@ class NavigatorBottomTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 400),
-      switchInCurve: Curves.easeOutBack,
+      switchInCurve: Curves.easeOut,
       switchOutCurve: Curves.easeIn,
       transitionBuilder: (child, animation) {
         return ScaleTransition(
           scale: Tween<double>(
             begin: 0.8,
             end: 1.0,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
           child: FadeTransition(opacity: animation, child: child),
         );
       },

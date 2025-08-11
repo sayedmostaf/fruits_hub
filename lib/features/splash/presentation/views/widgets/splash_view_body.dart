@@ -125,7 +125,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void _navigate() {
     final isOnBoardingSeen = Pref.getBool(Constants.isOnBoardingViewSeen);
     final isLoggedIn = FirebaseAuthService().isUserLoggedIn();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 4), () {
       final route =
           isOnBoardingSeen
               ? isLoggedIn
