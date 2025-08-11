@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/features/auth/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
@@ -21,8 +23,8 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromFirebase(User user) {
     return UserModel(
-      name: user.displayName ?? 'Known User',
-      email: user.email ?? 'No Email',
+      name: user.displayName ?? AppStrings.noName.tr(),
+      email: user.email ?? AppStrings.noEmail.tr(),
       uid: user.uid,
       imageUrl: user.photoURL,
     );

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/widgets/notification_icon.dart';
 
@@ -22,7 +23,7 @@ AppBar buildBestSellingAppBar(BuildContext context) {
           color: theme.iconTheme.color,
           size: 20,
         ),
-        tooltip: 'back'.tr(),
+        tooltip: AppStrings.back.tr(),
       ),
     ),
     actions: [
@@ -32,7 +33,7 @@ AppBar buildBestSellingAppBar(BuildContext context) {
       ),
     ],
     title: Text(
-      'best_selling'.tr(),
+      AppStrings.bestSelling.tr(),
       style: AppTextStyle.textStyle19w700.copyWith(
         color: theme.textTheme.bodyLarge?.color,
         letterSpacing: 0.5,

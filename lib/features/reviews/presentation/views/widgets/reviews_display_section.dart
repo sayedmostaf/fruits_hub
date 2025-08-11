@@ -149,7 +149,7 @@ class _ReviewsDisplaySectionState extends State<ReviewsDisplaySection> {
                   ),
                 ),
                 Text(
-                  'recommended'.tr(),
+                  AppStrings.recommended.tr(),
                   style: AppTextStyle.textStyle12w400.copyWith(
                     color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
@@ -202,7 +202,7 @@ class _ReviewsDisplaySectionState extends State<ReviewsDisplaySection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Rating Breakdown',
+          AppStrings.ratingBreakdown.tr(),
           style: AppTextStyle.textStyle14w600.copyWith(
             color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
@@ -316,14 +316,14 @@ class _ReviewsDisplaySectionState extends State<ReviewsDisplaySection> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No reviews yet',
+            AppStrings.noReviewsYet.tr(),
             style: AppTextStyle.textStyle16w600.copyWith(
               color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Be the first to share your experience!',
+            AppStrings.beTheFirstToReview.tr(),
             textAlign: TextAlign.center,
             style: AppTextStyle.textStyle14w400.copyWith(
               color: Theme.of(context).textTheme.bodyMedium?.color,

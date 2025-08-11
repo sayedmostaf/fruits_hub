@@ -50,7 +50,7 @@ class _ProductHeaderWidgetState extends State<ProductHeaderWidget>
       child: Row(
         children: [
           Semantics(
-            label: '${widget.productLength} results found',
+            label: '${widget.productLength} ${AppStrings.resultsFound.tr()}',
             child: Text(
               '${widget.productLength} ${'results'.tr()}',
               style: AppTextStyle.textStyle14w700.copyWith(
@@ -69,7 +69,7 @@ class _ProductHeaderWidgetState extends State<ProductHeaderWidget>
   Widget _buildFilterButton(BuildContext context) {
     return Semantics(
       button: true,
-      label: 'Open filter options',
+      label: AppStrings.openFilterOptions.tr(),
       child: InkWell(
         onTapDown: (_) => _animationController.forward(),
         onTapUp: (_) => _animationController.reverse(),

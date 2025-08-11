@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 
 abstract class ProductState {}
 
@@ -18,5 +19,5 @@ class ProductFailure extends ProductState {
 
 class ProductNotFound extends ProductState {
   final String errMessage;
-  ProductNotFound({this.errMessage = 'لم يتم العثور على نتائج'});
+  ProductNotFound({this.errMessage = AppStrings.noProductsFound});
 }

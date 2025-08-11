@@ -116,7 +116,6 @@ class _FruitHubState extends State<FruitHub> {
       },
       child: BlocBuilder<ThemeCubit, ThemeMode?>(
         builder: (context, themeMode) {
-          if (themeMode == null) return SizedBox();
 
           final currentLocale = context.locale;
           // Determine text direction: Arabic = RTL, English = LTR

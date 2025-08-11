@@ -49,7 +49,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             const SizedBox(height: 8),
             Text(
-              'AppStrings.fillDetailsToContinue.tr()',
+              AppStrings.fillDetailsToContinue.tr(),
               style: TextStyle(fontSize: 16, color: theme.hintColor),
             ),
             const SizedBox(height: 32),
@@ -68,7 +68,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                         return AppStrings.fieldRequired.tr();
                       }
                       if (value.length < 3) {
-                        return 'AppStrings.nameTooShort.tr()';
+                        return AppStrings.nameTooShort.tr();
                       }
                       return null;
                     },

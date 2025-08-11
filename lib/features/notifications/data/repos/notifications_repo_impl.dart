@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/entities/discount_entity.dart';
 import 'package:fruits_hub/core/errors/failure.dart';
 import 'package:fruits_hub/core/models/discount_model.dart';
+import 'package:fruits_hub/core/utils/backend_endpoints.dart';
 import 'package:fruits_hub/features/notifications/domain/repos/notifications_repo.dart';
 
 class NotificationsRepoImpl implements NotificationsRepo {
@@ -13,7 +14,8 @@ class NotificationsRepoImpl implements NotificationsRepo {
   @override
   Future<Either<Failure, List<DiscountEntity>>> fetchNotifications() async {
     try {
-      final snapshot = await firestore.collection('Products').get();
+      final snapshot =
+          await firestore.collection(BackendEndpoints.getProducts).get();
 
       final discounts =
           snapshot.docs
@@ -41,7 +43,7 @@ class NotificationsRepoImpl implements NotificationsRepo {
   @override
   Future<Either<Failure, void>> markAllAsRead(String uid) async {
     try {
-      final snapshot = await firestore.collection('Products').get();
+      final snapshot = await firestore.collection(BackendEndpoints.getProducts).get();
 
       for (final doc in snapshot.docs) {
         if (doc.data().containsKey('discount')) {

@@ -4,7 +4,7 @@ import 'package:fruits_hub/core/services/shared_preferences.dart';
 
 class ThemeCubit extends Cubit<ThemeMode?> {
   static const _themeKey = 'isDark';
-  ThemeCubit() : super(null) {
+  ThemeCubit() : super(ThemeMode.light) {
     _loadSavedTheme();
   }
   void toggleTheme() {

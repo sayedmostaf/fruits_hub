@@ -182,7 +182,7 @@ class _AboutUsViewState extends State<AboutUsView>
               ),
               const SizedBox(height: 32),
               Text(
-                'Sayed Mostafa',
+                AppStrings.myName.tr(),
                 style:
                     AppTextStyle.textStyle24w700.copyWith(
                       color: theme.colorScheme.onBackground,
@@ -196,7 +196,7 @@ class _AboutUsViewState extends State<AboutUsView>
               ),
               const SizedBox(height: 8),
               Text(
-                'Flutter Developer & Designer',
+                AppStrings.myRole.tr(),
                 style:
                     AppTextStyle.textStyle16w600.copyWith(
                       color: theme.primaryColor,
@@ -236,30 +236,27 @@ class _AboutUsViewState extends State<AboutUsView>
       child: _buildContentCard(
         context,
         icon: Icons.flutter_dash_outlined,
-        title: 'About Me',
+        title: AppStrings.aboutMe.tr(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildAnimatedParagraph(
               context,
-              text:
-                  "Hello! I'm Sayed Mostafa, a passionate Flutter Developer and UI/UX Designer with over 3 years of experience creating beautiful, high-performance mobile applications.",
+              text: AppStrings.aboutMeDescription1.tr(),
               style: _getBodyTextStyle(context),
               delay: 300,
             ),
             const SizedBox(height: 20),
             _buildAnimatedParagraph(
               context,
-              text:
-                  "My journey in mobile development started with a curiosity about how beautiful apps come to life. Since then, I've been dedicated to crafting user experiences that are not only visually appealing but also intuitive and performant.",
+              text: AppStrings.aboutMeDescription2.tr(),
               style: _getBodyTextStyle(context),
               delay: 500,
             ),
             const SizedBox(height: 20),
             _buildAnimatedParagraph(
               context,
-              text:
-                  "I believe in the power of clean code, thoughtful design, and continuous learning. Every project is an opportunity to push boundaries and deliver something exceptional.",
+              text: AppStrings.aboutMeDescription3.tr(),
               style: _getBodyTextStyle(context, emphasized: true),
               delay: 700,
             ),
@@ -271,21 +268,33 @@ class _AboutUsViewState extends State<AboutUsView>
 
   Widget _buildSkillsSection(BuildContext context) {
     final skills = [
-      {'name': 'Flutter & Dart', 'level': 0.95, 'icon': Icons.flutter_dash},
-      {'name': 'UI/UX Design', 'level': 0.90, 'icon': Icons.palette_outlined},
       {
-        'name': 'State Management',
+        'name': AppStrings.flutterAndDart.tr(),
+        'level': 0.95,
+        'icon': Icons.flutter_dash,
+      },
+      {
+        'name': AppStrings.uiDesign.tr(),
+        'level': 0.90,
+        'icon': Icons.palette_outlined,
+      },
+      {
+        'name': AppStrings.stateManagement.tr(),
         'level': 0.88,
         'icon': Icons.settings_outlined,
       },
       {
-        'name': 'Firebase Integration',
+        'name': AppStrings.firebaseIntegration.tr(),
         'level': 0.85,
         'icon': Icons.cloud_outlined,
       },
-      {'name': 'API Integration', 'level': 0.92, 'icon': Icons.api_outlined},
       {
-        'name': 'Performance Optimization',
+        'name': AppStrings.apiIntegration.tr(),
+        'level': 0.92,
+        'icon': Icons.api_outlined,
+      },
+      {
+        'name': AppStrings.performanceOptimization.tr(),
         'level': 0.87,
         'icon': Icons.speed_outlined,
       },
@@ -297,7 +306,7 @@ class _AboutUsViewState extends State<AboutUsView>
       child: _buildContentCard(
         context,
         icon: Icons.star_outline,
-        title: 'Skills & Expertise',
+        title: AppStrings.skillsAndExpertise.tr(),
         child: Column(
           children:
               skills.asMap().entries.map((entry) {
@@ -424,36 +433,37 @@ class _AboutUsViewState extends State<AboutUsView>
       child: _buildContentCard(
         context,
         icon: Icons.work_outline,
-        title: 'Experience & Achievements',
+        title: AppStrings.experienceAndAchievements.tr(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildExperienceItem(
               context,
-              title: '3+ Years of Flutter Development',
+              title: AppStrings.experienceAndAchievementsPoint1.tr(),
               description:
-                  'Built and delivered 15+ production-ready mobile applications',
+                  AppStrings.experienceAndAchievementsPoint1Description.tr(),
+
               delay: 700,
             ),
             _buildExperienceItem(
               context,
-              title: 'Performance-Driven Development',
+              title: AppStrings.experienceAndAchievementsPoint2.tr(),
               description:
-                  'Specialized in creating smooth, optimized apps with 60fps animations',
+                  AppStrings.experienceAndAchievementsPoint2Description.tr(),
               delay: 900,
             ),
             _buildExperienceItem(
               context,
-              title: 'Full-Stack Integration',
+              title: AppStrings.experienceAndAchievementsPoint3.tr(),
               description:
-                  'Expert in Firebase, REST APIs, and state management solutions',
+                  AppStrings.experienceAndAchievementsPoint3Description.tr(),
               delay: 1100,
             ),
             _buildExperienceItem(
               context,
-              title: 'Community Contribution',
+              title: AppStrings.experienceAndAchievementsPoint4.tr(),
               description:
-                  'Active in Flutter community, sharing knowledge and best practices',
+                  AppStrings.experienceAndAchievementsPoint4Description.tr(),
               delay: 1300,
             ),
           ],
@@ -536,35 +546,35 @@ class _AboutUsViewState extends State<AboutUsView>
       child: _buildContentCard(
         context,
         icon: Icons.lightbulb_outline,
-        title: 'My Development Philosophy',
+        title: AppStrings.myDevelopmentPhilosophy.tr(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildPhilosophyPoint(
               context,
-              'User-Centric Design',
-              'Every line of code serves the user experience',
+              AppStrings.myDevelopmentPhilosophyPoint1.tr(),
+              AppStrings.myDevelopmentPhilosophyPoint1Description.tr(),
               Icons.people_outline,
               1000,
             ),
             _buildPhilosophyPoint(
               context,
-              'Clean Architecture',
-              'Maintainable, scalable, and testable code structure',
+              AppStrings.myDevelopmentPhilosophyPoint2.tr(),
+              AppStrings.myDevelopmentPhilosophyPoint2Description.tr(),
               Icons.architecture_outlined,
               1200,
             ),
             _buildPhilosophyPoint(
               context,
-              'Continuous Learning',
-              'Staying updated with latest trends and best practices',
+              AppStrings.myDevelopmentPhilosophyPoint3.tr(),
+              AppStrings.myDevelopmentPhilosophyPoint3Description.tr(),
               Icons.school_outlined,
               1400,
             ),
             _buildPhilosophyPoint(
               context,
-              'Quality First',
-              'Delivering polished, bug-free applications',
+              AppStrings.myDevelopmentPhilosophyPoint4.tr(),
+              AppStrings.myDevelopmentPhilosophyPoint4Description.tr(),
               Icons.verified_outlined,
               1600,
             ),
@@ -649,7 +659,7 @@ class _AboutUsViewState extends State<AboutUsView>
       child: _buildContentCard(
         context,
         icon: Icons.favorite_outline,
-        title: 'Let\'s Connect',
+        title: AppStrings.letsConnect.tr(),
         backgroundColor: Colors.transparent,
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -676,7 +686,7 @@ class _AboutUsViewState extends State<AboutUsView>
               ),
               const SizedBox(height: 16),
               Text(
-                'Thank you for taking the time to learn about me!',
+                AppStrings.thanksForConnecting.tr(),
                 style: AppTextStyle.textStyle16w600?.copyWith(
                   color: Theme.of(context).colorScheme.onBackground,
                 ),
@@ -684,7 +694,7 @@ class _AboutUsViewState extends State<AboutUsView>
               ),
               const SizedBox(height: 8),
               Text(
-                'I\'m always excited to work on new projects and collaborate with amazing teams. Let\'s build something incredible together!',
+                AppStrings.letsConnectDescription.tr(),
                 style: AppTextStyle.textStyle14w400?.copyWith(
                   color: Theme.of(
                     context,
@@ -701,7 +711,7 @@ class _AboutUsViewState extends State<AboutUsView>
                 child: ElevatedButton.icon(
                   onPressed: () => _launchEmail(),
                   icon: const Icon(Icons.email_outlined),
-                  label: const Text('Get In Touch'),
+                  label: Text(AppStrings.getInTouch.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
@@ -722,13 +732,13 @@ class _AboutUsViewState extends State<AboutUsView>
                   _buildSocialButton(
                     context,
                     icon: Icons.work_outline,
-                    label: 'LinkedIn',
+                    label: AppStrings.linkedin.tr(),
                     onTap: () => _launchLinkedIn(),
                   ),
                   _buildSocialButton(
                     context,
                     icon: Icons.code,
-                    label: 'GitHub',
+                    label: AppStrings.github.tr(),
                     onTap: () => _launchGitHub(),
                   ),
                 ],
@@ -741,13 +751,13 @@ class _AboutUsViewState extends State<AboutUsView>
                   _buildSocialButton(
                     context,
                     icon: Icons.phone_outlined,
-                    label: 'Call',
+                    label: AppStrings.call.tr(),
                     onTap: () => _launchPhone(),
                   ),
                   _buildSocialButton(
                     context,
                     icon: Icons.description_outlined,
-                    label: 'Resume',
+                    label: AppStrings.resume.tr(),
                     onTap: () => _downloadResume(),
                   ),
                 ],
@@ -769,7 +779,7 @@ class _AboutUsViewState extends State<AboutUsView>
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 75,
+        width: 90,
         height: 75,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         decoration: BoxDecoration(
@@ -785,7 +795,7 @@ class _AboutUsViewState extends State<AboutUsView>
             const SizedBox(height: 4),
             Text(
               label,
-              style: AppTextStyle.textStyle12w500?.copyWith(
+              style: AppTextStyle.textStyle12w400.copyWith(
                 color: Theme.of(
                   context,
                 ).colorScheme.onBackground.withOpacity(0.8),
@@ -799,8 +809,8 @@ class _AboutUsViewState extends State<AboutUsView>
 
   // Helper methods for launching URLs and actions
   void _launchEmail() async {
-    const email = 'your.email@example.com';
-    const subject = 'Hello! Let\'s connect';
+    const email = 'sayed.mostafa.attia1@gmail.com';
+    var subject = AppStrings.letsConnect.tr();
     final Uri emailUri = Uri(
       scheme: 'mailto',
       path: email,
@@ -813,7 +823,7 @@ class _AboutUsViewState extends State<AboutUsView>
   }
 
   void _launchLinkedIn() async {
-    const url = 'https://linkedin.com/in/your-profile';
+    const url = 'https://www.linkedin.com/in/sayed-mostafa2004';
     final Uri uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {
@@ -822,7 +832,7 @@ class _AboutUsViewState extends State<AboutUsView>
   }
 
   void _launchGitHub() async {
-    const url = 'https://github.com/your-username';
+    const url = 'https://github.com/sayedmostaf';
     final Uri uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {
@@ -841,7 +851,8 @@ class _AboutUsViewState extends State<AboutUsView>
 
   void _downloadResume() async {
     // You can either launch a URL to your resume or implement file download
-    const resumeUrl = 'https://your-website.com/resume.pdf';
+    const resumeUrl =
+        'https://drive.google.com/drive/u/0/folders/18VRA8Qd9qKTwqm_zyxcZ9JPtxkfgCGbW';
     final Uri uri = Uri.parse(resumeUrl);
 
     if (await canLaunchUrl(uri)) {

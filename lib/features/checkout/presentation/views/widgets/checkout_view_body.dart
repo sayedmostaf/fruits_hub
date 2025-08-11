@@ -1,3 +1,4 @@
+// checkout_view_body.dart
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -17,6 +18,7 @@ import 'package:provider/provider.dart';
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key, required this.pageIndexNotifier});
   final ValueNotifier<int> pageIndexNotifier;
+
   @override
   State<CheckoutViewBody> createState() => _CheckoutViewBodyState();
 }
@@ -26,6 +28,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final ValueNotifier<AutovalidateMode> valueListenable =
       ValueNotifier<AutovalidateMode>(AutovalidateMode.disabled);
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void dispose() {
     pageController.dispose();
+    valueListenable.dispose();
     super.dispose();
   }
 
@@ -58,7 +62,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 if (index == 0) {
                   pageController.animateToPage(
                     index,
-                    duration: Duration(milliseconds: 250),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
                   );
                 } else if (index == 1) {
@@ -70,7 +74,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             );
           },
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 16),
         Expanded(
           child: CheckoutStepsPageView(
             formKey: formKey,
@@ -79,7 +83,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: CustomButton(
             onPressed: () {
               final page = widget.pageIndexNotifier.value;
@@ -89,12 +93,15 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 _validateAddressForm(context);
               } else {
                 final order = context.read<OrderEntity>();
-                // _processPayment(context);
-                context.read<OrderCubit>().addOrder(orderEntity: order);
-                buildSuccessSnackBar(
-                  context,
-                  message: AppStrings.paymentSuccess,
-                );
+                if (order.payWithCash == true) {
+                  context.read<OrderCubit>().addOrder(orderEntity: order);
+                  buildSuccessSnackBar(
+                    context,
+                    message: AppStrings.orderPlacedSuccessfully.tr(),
+                  );
+                } else {
+                  _processPayment(context);
+                }
               }
             },
             text: getNextButtonText(
@@ -102,7 +109,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
           ),
         ),
-        const SizedBox(height: 32),
       ],
     );
   }
@@ -115,7 +121,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         builder:
             (_) => PaypalCheckoutView(
               sandboxMode: true,
-
               onSuccess: (Map params) async {
                 orderCubit.addOrder(orderEntity: order);
                 order.cart.clearCart();
@@ -138,9 +143,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 PaypalPaymentModel.fromEntity(orderEntity: order).toJson(),
               ],
               note: AppStrings.paymentNote.tr(),
-              // TODO: add clientId and secretKey for paypal
-              clientId: 'clientId',
-              secretKey: 'secretKey',
+              clientId: 'YOUR_PAYPAL_CLIENT_ID',
+              secretKey: 'YOUR_PAYPAL_SECRET_KEY',
             ),
       ),
     );
@@ -150,8 +154,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     final order = context.read<OrderEntity>();
     if (order.payWithCash != null) {
       pageController.nextPage(
-        duration: Duration(milliseconds: 250),
-        curve: Curves.bounceInOut,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
       );
     } else {
       buildErrorSnackBar(context, message: AppStrings.choosePaymentMethod.tr());
@@ -162,7 +166,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     if (formKey.currentState?.validate() ?? false) {
       formKey.currentState?.save();
       pageController.nextPage(
-        duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
@@ -178,10 +182,11 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 String getNextButtonText({required int currentPageIndex}) {
   switch (currentPageIndex) {
     case 0:
+      return AppStrings.continueToShipping.tr();
     case 1:
-      return AppStrings.next.tr();
+      return AppStrings.continueToPayment.tr();
     case 2:
-      return AppStrings.payWithPaypal.tr();
+      return AppStrings.placeOrder.tr();
     default:
       return AppStrings.next.tr();
   }
@@ -191,6 +196,6 @@ List<String> getCheckoutStepsText() {
   return [
     AppStrings.shipping.tr(),
     AppStrings.address.tr(),
-    AppStrings.payment.tr(),
+    AppStrings.summary.tr(),
   ];
 }

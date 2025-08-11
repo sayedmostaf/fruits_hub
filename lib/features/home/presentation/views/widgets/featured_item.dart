@@ -132,9 +132,9 @@ class FeaturedItem extends StatelessWidget {
                       productEntity.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: AppTextStyle.textStyle18w700.copyWith(
+                      style: AppTextStyle.textStyle16w700.copyWith(
                         color: theme.colorScheme.onPrimaryContainer,
-                        height: 1.3,
+                        height: 1.1,
                       ),
                     ),
                     const Spacer(),
@@ -160,7 +160,7 @@ class FeaturedItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 7),
                     CustomFeaturedButton(
                       onPressed: () {
                         PersistentNavBarNavigator.pushNewScreen(

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,7 +89,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 },
                 title: AppStrings.profile.tr(),
                 image: Assets.imagesVuesaxBoldUser,
-                subtitle: "Edit your profile information",
+                subtitle: AppStrings.editYourProfileInformation.tr(),
               ),
 
               CustomSettingItem(
@@ -106,7 +104,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 },
                 title: AppStrings.favorites.tr(),
                 image: Assets.imagesProfileHeart,
-                subtitle: "View your favorite items",
+                subtitle: AppStrings.viewYourFavoritesItems.tr(),
               ),
 
               BlocBuilder<NotificationsCubit, NotificationsState>(
@@ -117,7 +115,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                   return CustomSwitchButton(
                     title: AppStrings.notifications.tr(),
                     svgIcon: Assets.imagesNotification,
-                    subtitle: "Get notified about updates and messages",
+                    subtitle: AppStrings.getNotifiedAboutUpdates.tr(),
                     value: enabled,
                     onChanged: (value) async {
                       context.read<NotificationsCubit>().toggleNotifications(
@@ -139,7 +137,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 onTap: () => _showLanguagePicker(context),
                 title: AppStrings.language.tr(),
                 image: Assets.imagesGlobal,
-                subtitle: "Choose your preferred language",
+                subtitle: AppStrings.chooseYourPreferredLanguage.tr(),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -176,21 +174,21 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 },
                 title: AppStrings.aboutUs.tr(),
                 image: Assets.imagesInfoCircle,
-                subtitle: "Learn more about our app",
+                subtitle: AppStrings.learnMoreAboutUs.tr(),
               ),
 
               CustomSettingItem(
                 onTap: () => _showContactDialog(context),
-                title: "Contact Support",
+                title: AppStrings.contactSupport.tr(),
                 image: Assets.imagesSupport, // Replace with support icon
-                subtitle: "Get help with your account",
+                subtitle: AppStrings.getYourHelpAboutYourAccount.tr(),
               ),
 
               CustomSettingItem(
                 onTap: () => _showPrivacyDialog(context),
-                title: "Privacy Policy",
+                title: AppStrings.privacyPolicy.tr(),
                 image: Assets.imagesPrivacy, // Replace with privacy icon
-                subtitle: "Read our privacy policy",
+                subtitle: AppStrings.readOurPrivacyPolicy.tr(),
               ),
             ],
           ),
@@ -293,15 +291,18 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            title: const Text('Contact Support', textAlign: TextAlign.start),
-            content: const Text(
+            title: Text(
+              AppStrings.contactSupport.tr(),
               textAlign: TextAlign.start,
-              'You can reach us at:\n\nsayed.mostafa.wrk@gmail.com\n+20 1091706101',
+            ),
+            content:  Text(
+              textAlign: TextAlign.start,
+              '${AppStrings.youCanReachUsAt.tr()}\n\nsayed.mostafa.wrk@gmail.com\n+20 1091706101',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Close'),
+                child:  Text(AppStrings.close.tr()),
               ),
             ],
           ),
@@ -318,15 +319,15 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            title: const Text('Privacy Policy', textAlign: TextAlign.start),
-            content: const Text(
+            title:  Text(AppStrings.privacyPolicy.tr(), textAlign: TextAlign.start),
+            content:  Text(
               textAlign: TextAlign.start,
-              'Your privacy is important to us. We collect and use your data to provide better services...',
+              AppStrings.privacyPolicyContent.tr(),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Close', textAlign: TextAlign.start),
+                child:  Text(AppStrings.close.tr(), textAlign: TextAlign.start),
               ),
             ],
           ),
@@ -377,9 +378,9 @@ class _LanguagePickerModal extends StatelessWidget {
                   _buildLanguageOption(
                     context,
                     locale: const Locale('ar'),
-                    label: 'العربية',
+                    label: AppStrings.arabic.tr(),
                     flag: '🇪🇬',
-                    subtitle: 'Arabic',
+                    subtitle: AppStrings.arabic.tr(),
                   ),
 
                   const SizedBox(height: 12),
@@ -387,9 +388,9 @@ class _LanguagePickerModal extends StatelessWidget {
                   _buildLanguageOption(
                     context,
                     locale: const Locale('en'),
-                    label: 'English',
+                    label: AppStrings.english.tr(),
                     flag: '🇺🇸',
-                    subtitle: 'English',
+                    subtitle: AppStrings.english.tr(),
                   ),
                 ],
               ),

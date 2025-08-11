@@ -5,6 +5,7 @@ import 'package:fruits_hub/core/entities/review_entity.dart';
 import 'package:fruits_hub/core/functions/build_error_snack_bar.dart';
 import 'package:fruits_hub/core/functions/get_dummy_review_item.dart';
 import 'package:fruits_hub/core/functions/get_saved_user_data.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/reviews/presentation/managers/reviews_cubit.dart';
 import 'package:fruits_hub/features/reviews/presentation/managers/reviews_state.dart';
@@ -30,7 +31,6 @@ class _ReviewsSliverListViewBuilderState
     extends State<ReviewsSliverListViewBuilder>
     with AutomaticKeepAliveClientMixin {
   final Set<int> _expandedReviews = {};
-  String _sortBy = 'newest'; // newest, oldest, highest, lowest
 
   @override
   bool get wantKeepAlive => true;
@@ -48,22 +48,29 @@ class _ReviewsSliverListViewBuilderState
     if (state is ReviewAddedFailureState) {
       buildErrorSnackBar(context, message: state.errorMessage);
     } else if (state is ReviewsSuccessState) {
-      _showSuccessMessage(context);
-      // Clear expanded states when new review is added
+      // Show success message if a review was added
+      if (state.reviews.isNotEmpty) {
+        _showSuccessMessage(
+          context,
+          AppStrings.gettingReviews.tr(),
+        );
+      } else {
+        _showSuccessMessage(context, AppStrings.reviewAddedSuccessfully.tr());
+      }
       _expandedReviews.clear();
     } else if (state is ReviewAddedFailureState) {
       buildErrorSnackBar(context, message: state.errorMessage);
     }
   }
 
-  void _showSuccessMessage(BuildContext context) {
+  void _showSuccessMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
             Icon(Icons.check_circle, color: Colors.white, size: 20),
             const SizedBox(width: 8),
-            Text('Review added successfully!'.tr()),
+            Text(message.tr()),
           ],
         ),
         backgroundColor: Colors.green,
@@ -91,97 +98,32 @@ class _ReviewsSliverListViewBuilderState
       return _buildEmptyState(context);
     }
 
-    final sortedReviews = _sortReviews(reviews);
     final userReviews =
         widget.showUserReviewsFirst
-            ? _getUserReviews(sortedReviews)
+            ? _getUserReviews(reviews)
             : <ReviewEntity>[];
     final otherReviews =
-        widget.showUserReviewsFirst
-            ? _getOtherReviews(sortedReviews)
-            : sortedReviews;
+        widget.showUserReviewsFirst ? _getOtherReviews(reviews) : reviews;
 
     return SliverMainAxisGroup(
       slivers: [
-        if (reviews.length > 1) _buildSortingHeader(context),
         if (userReviews.isNotEmpty) ...[
-          _buildSectionHeader(context, 'Your Reviews', userReviews.length),
+          _buildSectionHeader(
+            context,
+            AppStrings.yourReviews.tr(),
+            userReviews.length,
+          ),
           _buildReviewsSliver(userReviews, isUserSection: true),
           if (otherReviews.isNotEmpty)
-            _buildSectionHeader(context, 'Other Reviews', otherReviews.length),
+            _buildSectionHeader(
+              context,
+              AppStrings.otherReviews.tr(),
+              otherReviews.length,
+            ),
         ],
         if (otherReviews.isNotEmpty)
           _buildReviewsSliver(otherReviews, isUserSection: false),
       ],
-    );
-  }
-
-  Widget _buildSortingHeader(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            Icon(
-              Icons.sort,
-              size: 18,
-              color: Theme.of(context).textTheme.bodyMedium?.color,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Sort by:'.tr(),
-              style: AppTextStyle.textStyle14w600.copyWith(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _buildSortChip(context, 'newest', 'Newest'),
-                    _buildSortChip(context, 'oldest', 'Oldest'),
-                    _buildSortChip(context, 'highest', 'Highest Rated'),
-                    _buildSortChip(context, 'lowest', 'Lowest Rated'),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSortChip(BuildContext context, String value, String label) {
-    final isSelected = _sortBy == value;
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        label: Text(
-          label.tr(),
-          style: AppTextStyle.textStyle12w500.copyWith(
-            color:
-                isSelected
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).textTheme.bodyMedium?.color,
-          ),
-        ),
-        selected: isSelected,
-        onSelected: (selected) {
-          if (selected) {
-            setState(() {
-              _sortBy = value;
-            });
-          }
-        },
-        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-        selectedColor: Theme.of(context).colorScheme.primary,
-        showCheckmark: false,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        visualDensity: VisualDensity.compact,
-      ),
     );
   }
 
@@ -282,14 +224,14 @@ class _ReviewsSliverListViewBuilderState
               ),
               const SizedBox(height: 24),
               Text(
-                'No reviews yet'.tr(),
+                AppStrings.noReviewsYet.tr(),
                 style: AppTextStyle.textStyle18w700.copyWith(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Be the first to share your experience with this product!'.tr(),
+                AppStrings.beTheFirstToReview.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyle.textStyle14w400.copyWith(
                   color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -306,7 +248,7 @@ class _ReviewsSliverListViewBuilderState
                   );
                 },
                 icon: const Icon(Icons.add_comment),
-                label: Text('Add Review'.tr()),
+                label: Text(AppStrings.addReview.tr()),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -363,14 +305,14 @@ class _ReviewsSliverListViewBuilderState
               ),
               const SizedBox(height: 24),
               Text(
-                'Something went wrong'.tr(),
+                AppStrings.somethingWentWrong.tr(),
                 style: AppTextStyle.textStyle18w700.copyWith(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                message ?? 'Failed to load reviews'.tr(),
+                message ?? AppStrings.failedToLoadReviews.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyle.textStyle14w400.copyWith(
                   color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -382,7 +324,7 @@ class _ReviewsSliverListViewBuilderState
                   context.read<ReviewsCubit>().fetchLatestReviews();
                 },
                 icon: const Icon(Icons.refresh),
-                label: Text('Try Again'.tr()),
+                label: Text(AppStrings.tryAgain.tr()),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -398,29 +340,6 @@ class _ReviewsSliverListViewBuilderState
         ),
       ),
     );
-  }
-
-  List<ReviewEntity> _sortReviews(List<ReviewEntity> reviews) {
-    final sortedReviews = List<ReviewEntity>.from(reviews);
-
-    switch (_sortBy) {
-      case 'newest':
-        sortedReviews.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        break;
-      case 'oldest':
-        sortedReviews.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-        break;
-      case 'highest':
-        sortedReviews.sort((a, b) => b.rating.compareTo(a.rating));
-        break;
-      case 'lowest':
-        sortedReviews.sort((a, b) => a.rating.compareTo(b.rating));
-        break;
-      default:
-        sortedReviews.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    }
-
-    return sortedReviews;
   }
 
   List<ReviewEntity> _getUserReviews(List<ReviewEntity> reviews) {

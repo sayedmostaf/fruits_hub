@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 
 class CustomOrDivider extends StatelessWidget {
   const CustomOrDivider({
     super.key,
     this.color,
     this.thickness = 1,
-    this.text = 'أو',
+    this.text = AppStrings.or,
   });
   final Color? color;
   final double thickness;
@@ -30,7 +32,7 @@ class CustomOrDivider extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              text,
+              text.tr(),
               style: TextStyle(
                 color: theme.colorScheme.onBackground.withOpacity(0.7),
                 fontSize: 14,

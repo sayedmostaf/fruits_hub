@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/core/functions/get_saved_user_data.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/images/profile_image_cubit.dart';
 import 'package:fruits_hub/features/settings/presentation/managers/images/profile_image_state.dart';
@@ -180,7 +181,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Select Image Source',
+                  AppStrings.selectImageSource.tr(),
                   style: AppTextStyle.textStyle13w700.copyWith(
                     color: theme.colorScheme.onSurface,
                     fontSize: 18,
@@ -192,7 +193,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
                   children: [
                     _buildImageSourceOption(
                       icon: Icons.camera_alt,
-                      label: 'Camera',
+                      label: AppStrings.camera.tr(),
                       onTap: () {
                         Navigator.pop(context);
                         _pickImageFromSource(ImageSource.camera);
@@ -200,7 +201,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
                     ),
                     _buildImageSourceOption(
                       icon: Icons.photo_library,
-                      label: 'Gallery',
+                      label: AppStrings.gallery.tr(),
                       onTap: () {
                         Navigator.pop(context);
                         _pickImageFromSource(ImageSource.gallery);
@@ -280,18 +281,18 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
               borderRadius: BorderRadius.circular(16),
             ),
             title: Text(
-              'Permission Required',
+              AppStrings.permissionRequired.tr(),
               style: TextStyle(color: theme.colorScheme.onSurface),
             ),
             content: Text(
-              'Please grant photo access permission to change your profile picture.',
+              AppStrings.permissionRequiredPhotoAccess.tr(),
               style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
-                  'Cancel',
+                  AppStrings.cancel.tr(),
                   style: TextStyle(color: theme.colorScheme.outline),
                 ),
               ),
@@ -301,7 +302,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
                   openAppSettings();
                 },
                 child: Text(
-                  'Open Settings',
+                  AppStrings.openSettings.tr(),
                   style: TextStyle(color: theme.colorScheme.primary),
                 ),
               ),
@@ -405,8 +406,8 @@ class _CustomProfileInfoState extends State<CustomProfileInfo>
                                   size: 20,
                                 ),
                                 const SizedBox(width: 12),
-                                const Text(
-                                  'Profile picture updated successfully',
+                                 Text(
+                                  AppStrings.profilePictureUpdated.tr(),
                                 ),
                               ],
                             ),

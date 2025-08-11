@@ -7,7 +7,7 @@ class CustomPasswordFormField extends StatefulWidget {
   const CustomPasswordFormField({
     super.key,
     this.onSaved,
-    this.hintText = 'password_hint',
+    this.hintText = AppStrings.passwordHint,
     this.validator,
     this.controller,
     this.onChanged,
@@ -36,13 +36,13 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
       return AppStrings.fieldRequired.tr();
     }
     if (value.length < 8) {
-      return 'AppStrings.passwordTooShort.tr()';
+      return AppStrings.passwordTooShort.tr();
     }
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'AppStrings.passwordNeedsUppercase.tr()';
+      return AppStrings.passwordNeedsUppercase.tr();
     }
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'AppStrings.passwordNeedsNumber.tr()';
+      return AppStrings.passwordNeedsNumber.tr();
     }
     return null;
   }

@@ -120,7 +120,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
               title: AppStrings.notificationsNew.tr(),
               subTitle:
                   _isSelectionMode
-                      ? '${_selectedNotifications.length} selected'.tr()
+                      ? '${_selectedNotifications.length} ${AppStrings.selected.tr()}'
                       : AppStrings.markAllAsRead.tr(),
               count: unreadCount,
               onTap:
@@ -149,7 +149,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           _buildActionButton(
             context,
             icon: Icons.mark_email_read,
-            label: 'Mark Read',
+            label: AppStrings.markRead.tr(),
             onPressed:
                 _selectedNotifications.isNotEmpty
                     ? () => _markSelectedAsRead(context)
@@ -158,7 +158,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           _buildActionButton(
             context,
             icon: Icons.delete_outline,
-            label: 'Delete',
+            label: AppStrings.delete.tr(),
             onPressed:
                 _selectedNotifications.isNotEmpty
                     ? () => _deleteSelected(context)
@@ -167,13 +167,13 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           _buildActionButton(
             context,
             icon: Icons.select_all,
-            label: 'Select All',
+            label: AppStrings.selectAll.tr(),
             onPressed: () => _selectAll(context),
           ),
           _buildActionButton(
             context,
             icon: Icons.close,
-            label: 'Cancel',
+            label: AppStrings.cancel.tr(),
             onPressed: _exitSelectionMode,
           ),
         ],
@@ -228,19 +228,19 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                     _buildFilterChip(
                       context,
                       NotificationFilter.all,
-                      'All',
+                      AppStrings.all.tr(),
                       Icons.notifications,
                     ),
                     _buildFilterChip(
                       context,
                       NotificationFilter.unread,
-                      'Unread',
+                      AppStrings.unread.tr(),
                       Icons.mark_email_unread,
                     ),
                     _buildFilterChip(
                       context,
                       NotificationFilter.read,
-                      'Read',
+                      AppStrings.read.tr(),
                       Icons.mark_email_read,
                     ),
                   ],
@@ -317,7 +317,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
             ),
             const SizedBox(width: 4),
             Text(
-              _currentSort == NotificationSort.newest ? 'Newest' : 'Oldest',
+              _currentSort == NotificationSort.newest ? AppStrings.newest.tr() : AppStrings.oldest.tr(),
               style: AppTextStyle.textStyle12w500,
             ).tr(),
           ],
@@ -336,7 +336,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                 children: [
                   const Icon(Icons.arrow_downward, size: 16),
                   const SizedBox(width: 8),
-                  Text('Newest First'.tr()),
+                  Text(AppStrings.newestFirst.tr()),
                 ],
               ),
             ),
@@ -346,7 +346,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                 children: [
                   const Icon(Icons.arrow_upward, size: 16),
                   const SizedBox(width: 8),
-                  Text('Oldest First'.tr()),
+                  Text(AppStrings.oldestFirst.tr()),
                 ],
               ),
             ),
@@ -481,11 +481,11 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
 
     switch (_currentFilter) {
       case NotificationFilter.unread:
-        message = 'No unread notifications';
+        message = AppStrings.noUnreadNotifications.tr();
         icon = Icons.mark_email_read;
         break;
       case NotificationFilter.read:
-        message = 'No read notifications';
+        message = AppStrings.noReadNotifications.tr();
         icon = Icons.mark_email_unread;
         break;
       default:
@@ -525,7 +525,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
               ).tr(),
               const SizedBox(height: 8),
               Text(
-                'Pull down to refresh or check back later',
+                AppStrings.pullToRefresh.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyle.textStyle14w400.copyWith(
                   color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -550,12 +550,12 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
               Icon(Icons.error_outline, size: 64, color: Colors.red.shade400),
               const SizedBox(height: 16),
               Text(
-                'Something went wrong',
+                AppStrings.errorOccurred.tr(),
                 style: AppTextStyle.textStyle18w700,
               ).tr(),
               const SizedBox(height: 8),
               Text(
-                message ?? 'Unable to load notifications',
+                message ?? AppStrings.unableToLoadNotifications.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyle.textStyle14w400.copyWith(
                   color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -567,7 +567,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                     () =>
                         context.read<NotificationsCubit>().fetchNotifications(),
                 icon: const Icon(Icons.refresh),
-                label: Text('Try Again'.tr()),
+                label: Text(AppStrings.retry.tr()),
               ),
             ],
           ),
@@ -592,7 +592,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           children: [
             if (_getUnreadCount(state) > 0)
               FloatingActionButton.small(
-                heroTag: "mark_all",
+                heroTag: AppStrings.markRead.tr(),
                 onPressed: () => _markAllAsRead(context),
                 backgroundColor:
                     Theme.of(context).colorScheme.secondaryContainer,
@@ -730,15 +730,14 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Delete Notifications'.tr()),
+            title: Text(AppStrings.deleteNotifications.tr()),
             content: Text(
-              'Are you sure you want to delete the selected notifications?'
-                  .tr(),
+              AppStrings.deleteNotificationsConfirmation.tr(),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel'.tr()),
+                child: Text(AppStrings.cancel.tr()),
               ),
               TextButton(
                 onPressed: () {
@@ -747,12 +746,12 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                   _exitSelectionMode();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Notifications deleted'.tr()),
+                      content: Text(AppStrings.notificationsDeleted.tr()),
                       backgroundColor: Colors.green,
                     ),
                   );
                 },
-                child: Text('Delete'.tr()),
+                child: Text(AppStrings.delete.tr()),
               ),
             ],
           ),

@@ -190,4 +190,215 @@ class AppStrings {
   static const String clearAll = 'clear_all';
   static const String noRecentSearches = 'no_recent_searches';
   static const String skip = 'skip';
+  static const String error = 'error';
+  static const String success = 'success';
+  static const String noProductsFound = 'no_products_found';
+  static const String retry = 'retry';
+  static const String noName = 'no_name';
+  static const String noEmail = 'no_email';
+  static const String or = 'or';
+  static const String welcomeBack = 'welcome_back';
+  static const String loginToContinue = 'login_to_continue';
+  static const String fillDetailsToContinue = 'fill_details_to_continue';
+  static const String nameTooShort = 'name_too_short';
+  static const String passwordTooShort = 'password_too_short';
+  static const String passwordNeedsUppercase = 'password_needs_uppercase';
+  static const String passwordNeedsNumber = 'password_needs_number';
+  static const String selected = 'selected';
+  static const String selectAll = 'select_all';
+
+  static const String all = 'all';
+  static const String unread = 'unread';
+  static const String read = 'read';
+  static const String markRead = 'mark_read';
+  static const String delete = 'delete';
+  static const String oldest = 'oldest';
+  static const String newestFirst = 'newest_first';
+  static const String oldestFirst = 'oldest_first';
+  static const String notificationsDeleted = 'notifications_deleted';
+  static const String deleteNotifications = 'delete_notifications';
+  static const String deleteNotificationsConfirmation =
+      'delete_notifications_confirmation';
+  static const String errorOccurred = 'error_occurred';
+  static const String unableToLoadNotifications =
+      'unable_to_load_notifications';
+  static const String pullToRefresh = 'pull_to_refresh';
+  static const String noUnreadNotifications = 'no_unread_notifications';
+  static const String noReadNotifications = 'no_read_notifications';
+  static const String bigDiscount = 'big_discount';
+  static const String bigSavingsAvailable = 'big_savings_available';
+  static const String bigDiscountAlert = 'big_discount_alert';
+  static const String specialOffer = 'special_offer';
+  static const String discountAvailable = 'discount_available';
+  static const String donTMissOutOnThisAmazingOffer =
+      'don_t_miss_out_on_this_amazing_offer';
+  static const String resultsFound = 'results_found';
+  static const String openFilterOptions = 'open_filter_options';
+
+  static const String clear = 'clear';
+  static const String clearCart = 'clear_cart';
+  static const String clearCartConfirmation = 'clear_cart_confirmation';
+  static const String removeItem = 'remove_item';
+  static const String removeItemConfirmation = 'remove_item_confirmation';
+  static const String clearCartSuccess = 'clear_cart_success';
+  static const String cartCleared = 'cart_cleared';
+  static const String cartNotCleared = 'cart_not_cleared';
+  static const String remove = 'remove';
+  static const String selectImageSource = 'select_image_source';
+  static const String camera = 'camera';
+  static const String gallery = 'gallery';
+  static const String permissionRequired = 'permission_required';
+  static const String permissionRequiredPhotoAccess =
+      'permission_required_photo_access';
+  static const String profilePictureUpdated = 'profile_picture_updated';
+  static const String profilePictureUpdateFailed =
+      'profile_picture_update_failed';
+  static const String openSettings = 'open_settings';
+  static const String editYourProfileInformation =
+      'edit_your_profile_information';
+  static const String viewYourFavoritesItems = 'view_your_favorites_items';
+  static const String getNotifiedAboutUpdates = 'get_notified_about_updates';
+  static const String chooseYourPreferredLanguage =
+      'choose_your_preferred_language';
+  static const String learnMoreAboutUs = 'learn_more_about_us';
+  static const String contactSupport = 'contact_support';
+  static const String getYourHelpAboutYourAccount =
+      'get_your_help_about_your_account';
+  static const String readOurPrivacyPolicy = 'read_our_privacy_policy';
+  static const String privacyPolicy = 'privacy_policy';
+
+  static const String close = 'close';
+  static const String youCanReachUsAt = 'you_can_reach_us_at';
+  static const String privacyPolicyContent = 'privacy_policy_content';
+  static const String arabic = 'arabic';
+  static const String english = 'english';
+  static const String dark = 'dark';
+  static const String light = 'light';
+  static const String letsConnect = 'lets_connect';
+  static const String myName = 'my_name';
+  static const String myRole = 'my_role';
+  static const String aboutMe = 'about_me';
+  static const String myDevelopmentPhilosophy = 'my_development_philosophy';
+  static const String myDevelopmentPhilosophyPoint1 =
+      'my_development_philosophy_point_1';
+  static const String myDevelopmentPhilosophyPoint1Description =
+      'my_development_philosophy_point_1_description';
+  static const String myDevelopmentPhilosophyPoint2 =
+      'my_development_philosophy_point_2';
+  static const String myDevelopmentPhilosophyPoint2Description =
+      'my_development_philosophy_point_2_description';
+  static const String myDevelopmentPhilosophyPoint3 =
+      'my_development_philosophy_point_3';
+  static const String myDevelopmentPhilosophyPoint3Description =
+      'my_development_philosophy_point_3_description';
+  static const String myDevelopmentPhilosophyPoint4 =
+      'my_development_philosophy_point_4';
+  static const String myDevelopmentPhilosophyPoint4Description =
+      'my_development_philosophy_point_4_description';
+  static const String thanksForConnecting = 'thanks_for_connecting';
+  static const String letsConnectDescription = 'lets_connect_description';
+  static const String getInTouch = 'get_in_touch';
+  static const String linkedin = 'linkedin';
+  static const String github = 'github';
+  static const String resume = 'resume';
+  static const String call = 'call';
+  static const String aboutMeDescription1 = 'about_me_description_1';
+  static const String aboutMeDescription2 = 'about_me_description_2';
+  static const String aboutMeDescription3 = 'about_me_description_3';
+  static const String skillsAndExpertise = 'skills_and_expertise';
+  static const String experienceAndAchievements = 'experience_and_achievements';
+  static const String experienceAndAchievementsPoint1 =
+      'experience_and_achievements_point_1';
+  static const String experienceAndAchievementsPoint1Description =
+      'experience_and_achievements_point_1_description';
+  static const String experienceAndAchievementsPoint2 =
+      'experience_and_achievements_point_2';
+  static const String experienceAndAchievementsPoint2Description =
+      'experience_and_achievements_point_2_description';
+  static const String experienceAndAchievementsPoint3 =
+      'experience_and_achievements_point_3';
+  static const String experienceAndAchievementsPoint3Description =
+      'experience_and_achievements_point_3_description';
+  static const String experienceAndAchievementsPoint4 =
+      'experience_and_achievements_point_4';
+  static const String experienceAndAchievementsPoint4Description =
+      'experience_and_achievements_point_4_description';
+
+  static const String flutterAndDart = 'flutter_and_dart';
+  static const String uiDesign = 'ui_design';
+  static const String stateManagement = 'state_management';
+  static const String firebaseIntegration = 'firebase_integration';
+  static const String apiIntegration = 'api_integration';
+  static const String performanceOptimization = 'performance_optimization';
+
+  static const String noReviewsYet = 'no_reviews_yet';
+  static const String beTheFirstToReview = 'be_the_first_to_review';
+  static const String ratingBreakdown = 'rating_breakdown';
+  static const String recommended = 'recommended';
+  static const String writeYourReview = 'write_your_review';
+  static const String pleaseWriteYourReview = 'please_write_your_review';
+  static const String reviewMustBeAtLeast10Characters =
+      'review_must_be_at_least_10_characters';
+  static const String reviewSubmittedSuccessfully =
+      'review_submitted_successfully';
+  static const String failedToSubmitReviewPleaseTryAgain =
+      'failed_to_submit_review_please_try_again';
+  static const String shareYourExperience = 'share_your_experience';
+  static const String addAReview = 'add_a_review';
+  static const String helpOthersBySharingYourThoughts =
+      'help_others_by_sharing_your_thoughts';
+  static const String tapToAddYourReview = 'tap_to_add_your_review';
+  static const String rateYourExperience = 'rate_your_experience';
+  static const String excellent = 'excellent';
+  static const String good = 'good';
+  static const String average = 'average';
+  static const String poor = 'poor';
+  static const String terrible = 'terrible';
+  static const String newReview = 'new_review';
+  static const String noWrittenReview = 'no_written_review';
+  static const String readLess = 'read_less';
+  static const String readMore = 'read_more';
+  static const String today = 'today';
+  static const String yesterday = 'yesterday';
+  static const String oneWeekAgo = 'one_week_ago';
+  static const String weeksAgo = 'weeks_ago';
+  static const String oneMonthAgo = 'one_month_ago';
+  static const String monthsAgo = 'months_ago';
+  static const String anonymousUser = 'anonymous_user';
+  static const String reviewAddedSuccessfully = 'review_added_successfully';
+  static const String reviewUpdatedSuccessfully = 'review_updated_successfully';
+  static const String somethingWentWrong = 'something_went_wrong';
+  static const String failedToLoadReviews = 'failed_to_load_reviews';
+  static const String tryAgain = 'try_again';
+  static const String yourReviews = 'your_reviews';
+  static const String otherReviews = 'other_reviews';
+  static const String addReview = 'add_review';
+  static const String completeBillingForm = 'complete_billing_form';
+  static const String completePaymentForm = 'complete_payment_form';
+  static const String emptyCart = 'empty_cart';
+  // Add these to your AppStrings class
+  static const fullNameRequired = 'fullNameRequired';
+  static const emailRequired = 'emailRequired';
+  static const validEmailRequired = 'validEmailRequired';
+  static const addressRequired = 'addressRequired';
+  static const cityRequired = 'cityRequired';
+  static const phoneRequired = 'phoneRequired';
+  static const validPhoneRequired = 'validPhoneRequired';
+  static const houseNumberRequired = 'houseNumberRequired';
+  static const shippingDetails = 'shippingDetails';
+  static const selectPaymentMethod = 'selectPaymentMethod';
+  static const choosePaymentOption = 'choosePaymentOption';
+  static const shippingAddress = 'shippingAddress';
+  static const continueToShipping = 'continueToShipping';
+  static const continueToPayment = 'continueToPayment';
+  static const placeOrder = 'placeOrder';
+  static const orderPlacedSuccessfully = 'orderPlacedSuccessfully';
+  static const lowestRated = 'lowestRated';
+  static const highestRated = 'highestRated';
+  static const lowest = 'lowest';
+  static const highest = 'highest';
+  static const gettingReviews = 'gettingReviews';
+  static const showAllReviews = 'showAllReviews';
+  static const String description = 'description';
+  static const summary = 'summary';
 }

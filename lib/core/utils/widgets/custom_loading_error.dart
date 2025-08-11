@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 
 class CustomLoadingError extends StatelessWidget {
   const CustomLoadingError({
@@ -40,7 +42,7 @@ class CustomLoadingError extends StatelessWidget {
               ),
               side: BorderSide(color: Theme.of(context).colorScheme.error),
             ),
-            child: const Text('Retry'),
+            child:  Text(AppStrings.retry.tr()),
           ),
         ],
       ),

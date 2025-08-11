@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -39,7 +40,7 @@ class SeeMoreButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'see_more'.tr(),
+                AppStrings.seeMore.tr(),
                 style: AppTextStyle.textStyle13w600.copyWith(
                   color: theme.colorScheme.secondary,
                 ),

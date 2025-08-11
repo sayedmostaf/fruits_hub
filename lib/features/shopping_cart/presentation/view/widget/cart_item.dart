@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/shopping_cart/domain/entities/cart_item_entity.dart';
 import 'package:fruits_hub/features/shopping_cart/presentation/manager/cart/cart_cubit.dart';
@@ -190,14 +192,12 @@ class CartItem extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            title: const Text('Remove Item'),
-            content: const Text(
-              'Are you sure you want to remove this item from your cart?',
-            ),
+            title: Text(AppStrings.removeItem.tr()),
+            content: Text(AppStrings.removeItemConfirmation.tr()),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel'),
+                child: Text(AppStrings.cancel.tr()),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -210,7 +210,7 @@ class CartItem extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.error,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('Remove'),
+                child:  Text(AppStrings.remove.tr()),
               ),
             ],
           ),

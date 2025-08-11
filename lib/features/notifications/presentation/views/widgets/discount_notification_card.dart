@@ -293,15 +293,15 @@ class _DiscountNotificationCardState extends State<DiscountNotificationCard>
 
   String _getNotificationTitle() {
     final percentage = widget.discount.percentage.toInt();
-    if (percentage >= 70) return 'Huge Discount Alert! 🔥'.tr();
-    if (percentage >= 50) return 'Big Savings Available! 💸'.tr();
-    if (percentage >= 30) return 'Great Deal Alert! ⭐'.tr();
-    if (percentage >= 20) return 'Special Offer! 🎯'.tr();
-    return 'Discount Available! 🛍️'.tr();
+    if (percentage >= 70) return AppStrings.bigDiscount.tr();
+    if (percentage >= 50) return AppStrings.bigSavingsAvailable.tr();
+    if (percentage >= 30) return AppStrings.bigDiscountAlert.tr();
+    if (percentage >= 20) return AppStrings.specialOffer.tr();
+    return AppStrings.discountAvailable.tr();
   }
 
   String _getDefaultMessage() {
-    return 'Don\'t miss out on this amazing offer! Limited time only.'.tr();
+    return AppStrings.donTMissOutOnThisAmazingOffer.tr();
   }
 
   IconData _getDiscountIcon() {

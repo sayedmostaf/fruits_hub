@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/review_entity.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:intl/intl.dart';
 
 class CustomReviewItem extends StatelessWidget {
   const CustomReviewItem({
@@ -73,7 +74,7 @@ class CustomReviewItem extends StatelessWidget {
                     child: Text(
                       reviewEntity.userName.isNotEmpty
                           ? reviewEntity.userName
-                          : 'Anonymous User',
+                          : AppStrings.anonymousUser.tr(),
                       style: AppTextStyle.textStyle16w600.copyWith(
                         color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
@@ -91,7 +92,7 @@ class CustomReviewItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        'New',
+                        AppStrings.newReview.tr(),
                         style: AppTextStyle.textStyle11w600.copyWith(
                           color: Colors.white,
                         ),
@@ -272,7 +273,7 @@ class CustomReviewItem extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              'No written review',
+              AppStrings.noWrittenReview.tr(),
               style: AppTextStyle.textStyle13w400.copyWith(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontStyle: FontStyle.italic,
@@ -314,7 +315,7 @@ class CustomReviewItem extends StatelessWidget {
             child: GestureDetector(
               onTap: onTap,
               child: Text(
-                isExpanded ? 'Read less' : 'Read more',
+                isExpanded ? AppStrings.readLess.tr() : AppStrings.readMore.tr(),
                 style: AppTextStyle.textStyle12w500.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -338,11 +339,11 @@ class CustomReviewItem extends StatelessWidget {
   }
 
   String _getRatingLabel() {
-    if (reviewEntity.rating >= 4.5) return 'Excellent';
-    if (reviewEntity.rating >= 3.5) return 'Good';
-    if (reviewEntity.rating >= 2.5) return 'Average';
-    if (reviewEntity.rating >= 1.5) return 'Poor';
-    return 'Terrible';
+    if (reviewEntity.rating >= 4.5) return AppStrings.excellent.tr();
+    if (reviewEntity.rating >= 3.5) return AppStrings.good.tr();
+    if (reviewEntity.rating >= 2.5) return AppStrings.average.tr();
+    if (reviewEntity.rating >= 1.5) return AppStrings.poor.tr();
+    return AppStrings.terrible.tr();
   }
 
   String _formatDate(DateTime date) {
@@ -350,17 +351,17 @@ class CustomReviewItem extends StatelessWidget {
     final difference = now.difference(date);
 
     if (difference.inDays == 0) {
-      return 'Today';
+      return AppStrings.today.tr();
     } else if (difference.inDays == 1) {
-      return 'Yesterday';
+      return AppStrings.yesterday.tr();
     } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
+      return '${difference.inDays} ${AppStrings.daysAgo.tr()}';
     } else if (difference.inDays < 30) {
       final weeks = (difference.inDays / 7).floor();
-      return weeks == 1 ? '1 week ago' : '$weeks weeks ago';
+      return weeks == 1 ? AppStrings.oneWeekAgo.tr() : '$weeks ${AppStrings.weeksAgo.tr()}';
     } else if (difference.inDays < 365) {
       final months = (difference.inDays / 30).floor();
-      return months == 1 ? '1 month ago' : '$months months ago';
+      return months == 1 ? AppStrings.oneMonthAgo.tr() : '$months ${AppStrings.monthsAgo.tr()}';
     } else {
       return DateFormat('MMM dd, yyyy').format(date);
     }

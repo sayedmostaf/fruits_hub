@@ -48,7 +48,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'AppStrings.welcomeBack.tr()',
+                    AppStrings.welcomeBack.tr(),
                     style: AppTextStyle.textStyle24w700.copyWith(
                       color: theme.colorScheme.onBackground,
                     ),
@@ -56,7 +56,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'AppStrings.loginToContinue.tr()',
+                    AppStrings.loginToContinue.tr(),
                     style: AppTextStyle.textStyle16w400.copyWith(
                       color: theme.hintColor,
                     ),

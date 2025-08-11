@@ -95,7 +95,7 @@ class CartPaymentButtonBlocBuilder extends StatelessWidget {
                         child: Text(
                           cartEntity.cartItems.isNotEmpty
                               ? '${AppStrings.payTotal.tr()} ${totalPrice.toStringAsFixed(2)}'
-                              : 'Cart is Empty',
+                              : AppStrings.cartEmpty.tr(),
                           key: ValueKey(cartEntity.cartItems.isNotEmpty),
                           style: TextStyle(
                             color:

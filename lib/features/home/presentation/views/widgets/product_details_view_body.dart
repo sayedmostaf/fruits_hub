@@ -311,7 +311,7 @@ class ProductDetailsViewBody extends StatelessWidget {
                                         color: theme.colorScheme.primary,
                                       ),
                                       label: Text(
-                                        AppStrings.review.tr(),
+                                        AppStrings.showAllReviews.tr(),
                                         style: AppTextStyle.textStyle14w600
                                             .copyWith(
                                               color: theme.colorScheme.primary,
@@ -337,7 +337,7 @@ class ProductDetailsViewBody extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
-                                        'description'.tr(),
+                                        AppStrings.description.tr(),
                                         style: AppTextStyle.textStyle16w700
                                             .copyWith(
                                               color: theme.colorScheme.primary,
@@ -376,7 +376,7 @@ class ProductDetailsViewBody extends StatelessWidget {
 
                       // Product Info Grid using CustomProductDetailsBox
                       SliverPadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         sliver: SliverGrid(
                           delegate: SliverChildListDelegate([
                             CustomProductDetailsBox(
@@ -407,7 +407,7 @@ class ProductDetailsViewBody extends StatelessWidget {
                                   color: theme.colorScheme.primary,
                                 ),
                               ),
-                              subTitle: '100 ${AppStrings.grams.tr()}',
+                              subTitle: AppStrings.grams.tr(),
                             ),
                             CustomProductDetailsBox(
                               image: Assets.imagesReviewStar,

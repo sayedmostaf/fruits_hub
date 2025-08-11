@@ -7,7 +7,6 @@ import 'package:fruits_hub/core/functions/get_saved_user_data.dart';
 import 'package:fruits_hub/core/models/review_model.dart';
 import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/core/utils/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/features/reviews/presentation/managers/reviews_cubit.dart';
 import 'package:provider/provider.dart';
 
@@ -126,7 +125,9 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _isExpanded ? 'Share your experience' : 'Write a review',
+                    _isExpanded
+                        ? AppStrings.shareYourExperience.tr()
+                        : AppStrings.addAReview.tr(),
                     style: AppTextStyle.textStyle16w600.copyWith(
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
@@ -134,8 +135,8 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
                   const SizedBox(height: 4),
                   Text(
                     _isExpanded
-                        ? 'Help others by sharing your thoughts'
-                        : 'Tap to add your review',
+                        ? AppStrings.helpOthersBySharingYourThoughts.tr()
+                        : AppStrings.tapToAddYourReview.tr(),
                     style: AppTextStyle.textStyle14w400.copyWith(
                       color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
@@ -242,7 +243,7 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
             ),
             const SizedBox(width: 8),
             Text(
-              'Rate your experience',
+              AppStrings.rateYourExperience.tr(),
               style: AppTextStyle.textStyle14w600.copyWith(
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
@@ -337,7 +338,7 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
             ),
             const SizedBox(width: 8),
             Text(
-              'Write your review',
+              AppStrings.writeYourReview.tr(),
               style: AppTextStyle.textStyle14w600.copyWith(
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
@@ -383,10 +384,10 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
           ),
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'Please write your review';
+              return AppStrings.pleaseWriteYourReview.tr();
             }
             if (value.trim().length < 10) {
-              return 'Review must be at least 10 characters';
+              return AppStrings.reviewMustBeAtLeast10Characters.tr();
             }
             return null;
           },
@@ -483,7 +484,7 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Review submitted successfully!'),
+            content: Text(AppStrings.reviewSubmittedSuccessfully.tr()),
             backgroundColor: Theme.of(context).colorScheme.primary,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -496,7 +497,7 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
       if (context.mounted) {
         buildErrorSnackBar(
           context,
-          message: 'Failed to submit review. Please try again.',
+          message: AppStrings.failedToSubmitReviewPleaseTryAgain.tr(),
         );
       }
     } finally {
@@ -519,10 +520,10 @@ class _AddingReviewSectionState extends State<AddingReviewSection>
   }
 
   String _getRatingLabel(double rating) {
-    if (rating >= 4.5) return 'Excellent';
-    if (rating >= 3.5) return 'Good';
-    if (rating >= 2.5) return 'Average';
-    if (rating >= 1.5) return 'Poor';
-    return 'Terrible';
+    if (rating >= 4.5) return AppStrings.excellent.tr();
+    if (rating >= 3.5) return AppStrings.good.tr();
+    if (rating >= 2.5) return AppStrings.average.tr();
+    if (rating >= 1.5) return AppStrings.poor.tr();
+    return AppStrings.terrible.tr();
   }
 }

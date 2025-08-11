@@ -111,14 +111,14 @@ void _showClearCartDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Clear Cart'),
+        title: Text(AppStrings.clearCart.tr()),
         content: Text(
-          'Are you sure you want to remove all items from your cart?',
+          AppStrings.clearCartConfirmation.tr(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
+            child: Text(AppStrings.cancel.tr()),
           ),
           ElevatedButton(
             onPressed: () {
@@ -129,7 +129,7 @@ void _showClearCartDialog(BuildContext context) {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Colors.white,
             ),
-            child: Text('Clear'),
+            child: Text(AppStrings.clear.tr()),
           ),
         ],
       );

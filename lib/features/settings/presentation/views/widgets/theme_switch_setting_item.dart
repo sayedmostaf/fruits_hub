@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/managers/theme/theme_cubit.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/features/settings/presentation/views/widgets/custom_switch_button.dart';
 
 class ThemeSwitchSettingItem extends StatelessWidget {
@@ -16,7 +18,7 @@ class ThemeSwitchSettingItem extends StatelessWidget {
     return CustomSwitchButton(
       title: title,
       svgIcon: Assets.imagesMagicpen,
-      subtitle: isDark ? "Dark theme is active" : "Light theme is active",
+      subtitle: isDark ? AppStrings.darkModeEnabled.tr() : AppStrings.lightModeEnabled.tr(),
       value: isDark,
       onChanged: (_) => themeCubit.toggleTheme(),
       // Enhanced styling for theme switch
@@ -34,8 +36,8 @@ class ThemeSwitchSettingItem extends StatelessWidget {
               : Colors.grey.shade400,
       // Optional: Add theme-specific labels
       showLabels: false, // Set to true if you want ON/OFF labels
-      activeText: "DARK",
-      inactiveText: "LIGHT",
+      activeText: AppStrings.dark.tr(),
+      inactiveText: AppStrings.light.tr(),
     );
   }
 }

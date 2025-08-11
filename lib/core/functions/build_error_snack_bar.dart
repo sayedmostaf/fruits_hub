@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_strings.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 void buildErrorSnackBar(BuildContext context, {required String message}) {
@@ -29,7 +30,7 @@ void buildErrorSnackBar(BuildContext context, {required String message}) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'error'.tr(),
+          AppStrings.error.tr(),
           style: AppTextStyle.textStyle14w700.copyWith(
             color: Colors.white,
             height: 1.3,

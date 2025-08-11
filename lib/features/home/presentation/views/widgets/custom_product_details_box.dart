@@ -18,7 +18,7 @@ class CustomProductDetailsBox extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(20), // Increased padding for better spacing
+      padding: const EdgeInsets.all(15), // Increased padding for better spacing
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           20,
