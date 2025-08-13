@@ -47,6 +47,14 @@ Below are some screenshots of the **Fruits E-Commerce App** in action:
 
 The **Fruits E-Commerce App** is your go-to platform for a delightful fruit shopping experience. With features like secure payments, an intuitive admin dashboard, and a customizable UI, it helps users and administrators stay productive and engaged. 🍓✨
 
+## Download App
+
+<a href="https://drive.google.com/file/d/1QT4SPap7-BRf_niuYMaceWJ7lgmWxGjn/view?usp=drive_link" target="_blank">
+  <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    Download Demo
+  </button>
+</a>
+
 ## Contact Me 📬
 
 Feel free to reach out for inquiries or collaborations! You can connect with me through the following:
