@@ -522,16 +522,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Sayed Mostafa**  
 *Flutter Developer & Mobile App Architect*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Sayed_Mostafa-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sayed-mostafa)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Sayed_Mostafa-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sayed-mostafa2004)
 [![Email](https://img.shields.io/badge/Email-sayed.mostafa.attia1@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sayed.mostafa.attia1@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sayedmostaf)
 
 ### 🆘 Support
 
-- 📖 **Documentation**: Check our [Wiki](https://github.com/yourusername/fruits_ecommerce_app/wiki) for detailed guides
-- 🐛 **Bug Reports**: [Create an Issue](https://github.com/yourusername/fruits_ecommerce_app/issues/new?template=bug_report.md)
-- 💡 **Feature Requests**: [Request a Feature](https://github.com/yourusername/fruits_ecommerce_app/issues/new?template=feature_request.md)
-- 💬 **Discussions**: [Join the Community](https://github.com/yourusername/fruits_ecommerce_app/discussions)
+- 📖 **Documentation**: Check our [Wiki](https://github.com/sayedmostaf/fruits_ecommerce_app/wiki) for detailed guides
+- 🐛 **Bug Reports**: [Create an Issue](https://github.com/sayedmostaf/fruits_ecommerce_app/issues/new?template=bug_report.md)
+- 💡 **Feature Requests**: [Request a Feature](https://github.com/sayedmostaf/fruits_ecommerce_app/issues/new?template=feature_request.md)
+- 💬 **Discussions**: [Join the Community](https://github.com/sayedmostaf/fruits_ecommerce_app/discussions)
 
 </div>
 
