@@ -178,7 +178,8 @@ dependencies:
 
 ## 📱 Screenshots
 
-### ☀️ Light Mode
+<details>
+<summary><strong>☀️ Light Mode Screenshots</strong> (Click to expand)</summary>
 
 #### 🔐 Authentication & Onboarding
 <table>
@@ -276,7 +277,10 @@ dependencies:
   </tr>
 </table>
 
-### 🌙 Dark Mode
+</details>
+
+<details>
+<summary><strong>🌙 Dark Mode Screenshots</strong> (Click to expand)</summary>
 
 #### 🔐 Authentication & Onboarding
 <table>
@@ -368,7 +372,7 @@ dependencies:
   </tr>
 </table>
 
----
+</details>
 
 ## 🔧 Installation
 
@@ -436,9 +440,16 @@ dependencies:
 ```
 lib/
 ├── 📁 core/
-│   ├── constants/          # App constants and configurations
-│   ├── utils/             # Utility functions and helpers
-│   └── themes/            # App themes and styling
+│   ├── entities/          # Business entities and domain models
+│   ├── errors/            # Error handling and custom exceptions
+│   ├── functions/         # Utility functions and business logic
+│   ├── locale/            # Localization files and translations
+│   ├── managers/          # State managers and controllers
+│   ├── models/            # Data models and DTOs
+│   ├── repos/             # Repository pattern implementations
+│   ├── services/          # External services and API integrations
+│   ├── themes/            # App themes and styling configurations
+│   └── utils/             # Helper functions and constants
 ├── 📁 features/
 │   ├── auth/              # Authentication logic and screens
 │   ├── best_selling/      # Best selling products feature
@@ -452,10 +463,6 @@ lib/
 │   ├── settings/          # App settings and preferences
 │   ├── shopping_cart/     # Shopping cart functionality
 │   └── splash/            # Splash screen
-├── 📁 shared/
-│   ├── widgets/           # Reusable UI components
-│   ├── services/          # API and database services
-│   └── models/            # Data models
 └── main.dart              # App entry point
 ```
 
