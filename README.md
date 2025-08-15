@@ -7,19 +7,98 @@ A feature-rich e-commerce app built with **Flutter**. The Fruits E-Commerce App 
 ![Cover](https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/cover.png)  
 *Cover image of the app.*
 
-## Screenshots 📸
+## Screenshots (Light Mode)
 
-Below are some screenshots of the **Fruits E-Commerce App** in action:
-
+### 1. Authentication & Onboarding
 <table>
   <tr>
-    <td><img src="https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/1.jpeg" alt="Home Screen" width="200" height="400"/></td>
-    <td><img src="https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/2.jpeg" alt="Product Screen" width="200" height="400"/></td>
-    <td><img src="https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/3.jpeg" alt="Cart Screen" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-splash.jpg" alt="Splash Screen" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-onboarding1.jpg" alt="Onboarding 1" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-onboarding2.jpg" alt="Onboarding 2" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-login.jpg" alt="Login Screen" width="200" height="400"/></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/4.jpeg" alt="Admin Dashboard" width="200" height="400"/></td>
-    <td><img src="https://github.com/yourusername/fruits_ecommerce_app/blob/main/screenshots/5.jpeg" alt="Checkout Screen" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-signup.jpg" alt="Signup Screen" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-forget.jpg" alt="Forgot Password" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 2. Home & Navigation & Search
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-home.jpg" alt="Home Screen" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-fav.jpg" alt="Favorites" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-filter.jpg" alt="Filter Products" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-search.jpg" alt="Search" width="200" height="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-search2.jpg" alt="Search Results" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-empty-search.jpg" alt="Empty Search" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 3. Product Display & Reviews
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-details1.jpg" alt="Product Details 1" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-details2.jpg" alt="Product Details 2" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-reviews.jpg" alt="Product Reviews" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-add-review.jpg" alt="Add Review" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 4. Cart & Checkout
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-cart.jpg" alt="Cart" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-empty-cart.jpg" alt="Empty Cart" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-dialog-clear-cart.jpg" alt="Clear Cart Dialog" width="200" height="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-payment-method1.jpg" alt="Payment Methods" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-paypal.jpg" alt="PayPal Payment" width="200" height="400"/></td>
+	<td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-address.jpg" alt="Address Management" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-summ1.jpg" alt="Summary" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 5. User Profile
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-profile1.jpg" alt="User Profile" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-change-lang.jpg" alt="Language Settings" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-choose-image.jpg" alt="Image Picker" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-change-password.jpg" alt="Change Password" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 6. Notifications
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-all-noti.jpg" alt="All Notifications" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-selected-noti.jpg" alt="Notification Details" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-unread-noti.jpg" alt="Unread Notifications" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-empty-noti.jpg" alt="Empty Notifications" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 7. App Utilities
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-exit-app.jpg" alt="Exit Dialog" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-dialog-logout.jpg" alt="Logout Dialog" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-privacy.jpg" alt="Privacy Policy" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-contact.jpg" alt="Contact" width="200" height="400"/></td>
+  </tr>
+</table>
+
+### 8. Additional Features
+<table>
+  <tr>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-about-us.jpg" alt="About Us" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-lets-contact.jpg" alt="Contact Form" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-experience.jpg" alt="Experience" width="200" height="400"/></td>
+    <td><img src="https://github.com/sayedmostaf/fruits_hub/blob/main/assets/screenshots/light-mode/l-skills.jpg" alt="Skills" width="200" height="400"/></td>
   </tr>
 </table>
 
