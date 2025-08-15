@@ -52,7 +52,7 @@
         <br><em>PayPal integration</em>
       </td>
       <td align="center">
-        <img src="https://img.icons8.com/color/48/000000/bloc.png" width="40"/>
+        <img src="https://bloclibrary.dev/_astro/bloc.DJLDGT9c_A0IIg.svg" width="70"/>
         <br><strong>BLoC Architecture</strong>
         <br><em>Clean & maintainable</em>
       </td>
