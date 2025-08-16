@@ -1,7 +1,7 @@
 # 🍎 Fruits E-Commerce App
 
 <div align="center">
-  <img src=""assets/screenshots/cover.png" alt="Fruits E-Commerce App Cover" width="800"/>
+  <img src="assets/screenshots/cover.png" alt="Fruits E-Commerce App Cover" width="800"/>
   
   <h3>🌟 A Modern Flutter E-Commerce Experience for Fresh Fruit Shopping 🌟</h3>
   
