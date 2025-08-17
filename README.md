@@ -389,7 +389,7 @@ dependencies:
 1. **Clone the Repository**
    ```bash
    https://github.com/sayedmostaf/fruits_hub
-   cd fruits_ecommerce_app
+   cd fruits_hub
    ```
 
 2. **Install Dependencies**
