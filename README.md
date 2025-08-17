@@ -388,7 +388,7 @@ dependencies:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/fruits_ecommerce_app.git
+   https://github.com/sayedmostaf/fruits_hub
    cd fruits_ecommerce_app
    ```
 
